@@ -53,7 +53,6 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Copy Docker Compose file to server
-#        path to home directory
         run: scp -o StrictHostKeyChecking=no docker-compose.yml root@31.128.38.77:~/catalog-bot
 
       - name: Deploy Docker image to server
