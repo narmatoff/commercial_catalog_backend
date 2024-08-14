@@ -1,10 +1,13 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Inject, Post } from '@nestjs/common';
 import { User as UserModel } from '.prisma/client';
 import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
-  private readonly userService: UserService;
+  constructor(
+    @Inject(UserService)
+    private readonly userService: UserService,
+  ) {}
 
   @Post()
   async createUser(
