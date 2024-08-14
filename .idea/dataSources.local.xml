@@ -10,8 +10,8 @@
       <user-name>catalogbot_user</user-name>
       <schema-mapping>
         <introspection-scope>
-          <node kind="database" negative="1">
-            <node kind="schema" negative="1" />
+          <node kind="database" qname="mydb">
+            <node kind="schema" qname="public" />
           </node>
         </introspection-scope>
       </schema-mapping>
