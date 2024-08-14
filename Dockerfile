@@ -2,10 +2,8 @@
 FROM node:20-alpine
 LABEL authors="narmatoff"
 
-ENTRYPOINT ["top", "-b"]
-
 # Устанавливаем рабочую директорию внутри контейнера
-WORKDIR ~/catalog-bot
+WORKDIR /catalog-bot
 
 # Копируем файл package.json и package-lock.json (если есть)
 COPY package*.json ./
