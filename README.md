@@ -43,6 +43,9 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
+
+# migrate schemas
+$ npx prisma migrate dev --name init
 ```
 
 ## Test
