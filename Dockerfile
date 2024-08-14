@@ -1,5 +1,5 @@
 # Указываем базовый образ Node.js
-FROM node:18-alpine
+FROM node:20-alpine
 LABEL authors="narmatoff"
 
 ENTRYPOINT ["top", "-b"]
