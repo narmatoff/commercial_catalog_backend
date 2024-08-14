@@ -39,18 +39,18 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t catalog_bot .
+          docker build -t catalog_bot_api .
           docker images
 
       - name: Save Docker image
         run: |
-          docker save catalog_bot | bzip2 > catalog_bot.tar.bz2
+          docker save catalog_bot_api | bzip2 > catalog_bot_api.tar.bz2
 
       - name: Upload Docker image artifact
         uses: actions/upload-artifact@v3
         with:
           name: docker-image
-          path: catalog_bot.tar.bz2
+          path: catalog_bot_api.tar.bz2
 
   deploy:
     runs-on: ubuntu-latest
@@ -70,14 +70,14 @@ jobs:
 
       - name: Copy Docker image to server
         run: |
-          scp -o StrictHostKeyChecking=no catalog_bot.tar.bz2 narmatoff@31.128.38.77:~/catalog-bot/
+          scp -o StrictHostKeyChecking=no catalog_bot_api.tar.bz2 narmatoff@31.128.38.77:~/catalog-bot/
 
       - name: Deploy Docker image to server
         run: |
           ssh -o StrictHostKeyChecking=no narmatoff@31.128.38.77 << 'EOF'
           cd ~/catalog-bot
-          bunzip2 < catalog_bot.tar.bz2 | docker load
-          docker stop catalog_bot || true
-          docker rm catalog_bot || true
-          docker run -d --name catalog_bot -p 3000:3000 catalog_bot
+          bunzip2 < catalog_bot_api.tar.bz2 | docker load
+          docker stop catalog_bot_api || true
+          docker rm catalog_bot_api || true
+          docker run -d --name catalog_bot_api -p 3000:3000 catalog_bot_api
           EOF
