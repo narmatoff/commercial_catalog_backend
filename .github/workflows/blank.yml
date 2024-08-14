@@ -38,17 +38,31 @@ jobs:
         run: npm run lint
 
       - name: Build Docker image
-        run: docker build -t catalog_bot .
-
-      - name: Check Dockerfile
         run: |
-          if [ -f Dockerfile ]; then echo "Dockerfile exists"; else echo "Dockerfile does not exist"; exit 1; fi
+          docker build -t catalog_bot .
+          docker images
+
+      - name: Save Docker image
+        run: |
+          docker save catalog_bot | bzip2 > catalog_bot.tar.bz2
+
+      - name: Upload Docker image artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: docker-image
+          path: catalog_bot.tar.bz2
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
 
     steps:
+      - name: Download Docker image artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: docker-image
+          path: .
+
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.7.0
         with:
@@ -56,12 +70,13 @@ jobs:
 
       - name: Copy Docker image to server
         run: |
-          docker save catalog_bot | bzip2 | ssh -o StrictHostKeyChecking=no narmatoff@31.128.38.77 'bunzip2 | docker load'
+          scp -o StrictHostKeyChecking=no catalog_bot.tar.bz2 narmatoff@31.128.38.77:~/catalog-bot/
 
       - name: Deploy Docker image to server
         run: |
           ssh -o StrictHostKeyChecking=no narmatoff@31.128.38.77 << 'EOF'
           cd ~/catalog-bot
+          bunzip2 < catalog_bot.tar.bz2 | docker load
           docker stop catalog_bot || true
           docker rm catalog_bot || true
           docker run -d --name catalog_bot -p 3000:3000 catalog_bot
