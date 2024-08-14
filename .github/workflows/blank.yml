@@ -45,20 +45,23 @@ jobs:
     needs: build
 
     steps:
-      - uses: actions/checkout@v4
-
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Copy Docker Compose file to server
-        run: scp -o StrictHostKeyChecking=no docker-compose.yml narmatoff@31.128.38.77:~/catalog-bot
+      - name: Copy Dockerfile to server
+        run: scp -o StrictHostKeyChecking=no Dockerfile narmatoff@31.128.38.77:~/catalog-bot/
+
+      - name: Copy built Docker image to server
+        run: |
+          docker save catalog_bot | bzip2 | ssh -o StrictHostKeyChecking=no narmatoff@31.128.38.77 'bunzip2 | docker load'
 
       - name: Deploy Docker image to server
         run: |
           ssh -o StrictHostKeyChecking=no narmatoff@31.128.38.77 << 'EOF'
           cd ~/catalog-bot
-          docker-compose down
-          docker-compose up -d --build
+          docker stop catalog_bot || true
+          docker rm catalog_bot || true
+          docker run -d --name catalog_bot -p 3000:3000 catalog_bot
           EOF
