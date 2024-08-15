@@ -88,5 +88,5 @@ jobs:
           bunzip2 < catalog_bot_api.tar.bz2 | docker load
           docker stop catalog_bot_api || true
           docker rm catalog_bot_api || true
-          docker run -d --name catalog_bot_api -p 3000:3000 catalog_bot_api
+          docker run -d --name catalog_bot_api -p 3000:3000 -e DATABASE_URL=${{ secrets.DATABASE_URL }} catalog_bot_api
           EOF
