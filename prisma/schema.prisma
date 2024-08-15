@@ -13,8 +13,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// GOOD
-model Good {
+// PRODUCT
+model Product {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -28,10 +28,10 @@ model Good {
 
 // USER
 model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
+  id      Int       @id @default(autoincrement())
+  email   String    @unique
   name    String?
-  posts   Good[]
+  posts   Product[]
   profile Profile?
 }
 
