@@ -3,9 +3,17 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.53">
     <root id="1">
       <DateStyle>mdy</DateStyle>
-      <IntrospectionStateNumber>961</IntrospectionStateNumber>
+      <Grants>1||-9223372036854775808|c|G
+1||10|c|G
+1||10|C|G
+1||10|T|G
+4||-9223372036854775808|c|G
+4||10|c|G
+4||10|C|G
+4||10|T|G</Grants>
+      <IntrospectionStateNumber>963</IntrospectionStateNumber>
       <ServerVersion>16.4</ServerVersion>
-      <StartupTime>1723662199</StartupTime>
+      <StartupTime>1723756835</StartupTime>
       <TimeZones>true ACDT
 true ACSST
 false ACST
@@ -1395,7 +1403,6 @@ true posixrules
 13212||10|C|G
 13212||-9223372036854775808|U|G
 13212||10|U|G</Grants>
-      <IntrospectionStateNumber>929</IntrospectionStateNumber>
       <ObjectId>16389</ObjectId>
       <OwnerName>catalogbot_user</OwnerName>
     </database>
@@ -1410,7 +1417,7 @@ true posixrules
 13212||10|C|G
 13212||-9223372036854775808|U|G
 13212||10|U|G</Grants>
-      <IntrospectionStateNumber>961</IntrospectionStateNumber>
+      <IntrospectionStateNumber>963</IntrospectionStateNumber>
       <ObjectId>17407</ObjectId>
       <OwnerName>catalogbot_user</OwnerName>
     </database>
@@ -5312,7 +5319,6 @@ true posixrules
 13560||10|t|G
 13560||10|D|G
 13560||10|w|G</Grants>
-      <IntrospectionStateNumber>928</IntrospectionStateNumber>
       <LastIntrospectionLocalTimestamp>2024-08-15.20:22:58</LastIntrospectionLocalTimestamp>
       <ObjectId>13212</ObjectId>
       <StateNumber>530</StateNumber>
@@ -6502,7 +6508,6 @@ true posixrules
 12340||10|t|G
 12340||10|D|G
 12340||10|w|G</Grants>
-      <IntrospectionStateNumber>928</IntrospectionStateNumber>
       <LastIntrospectionLocalTimestamp>2024-08-15.20:22:58</LastIntrospectionLocalTimestamp>
       <ObjectId>11</ObjectId>
       <StateNumber>524</StateNumber>
@@ -6511,8 +6516,8 @@ true posixrules
     <schema id="264" parent="3" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>961</IntrospectionStateNumber>
-      <LastIntrospectionLocalTimestamp>2024-08-15.20:37:52</LastIntrospectionLocalTimestamp>
+      <IntrospectionStateNumber>963</IntrospectionStateNumber>
+      <LastIntrospectionLocalTimestamp>2024-08-15.21:22:56</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>524</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>

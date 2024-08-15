@@ -77,13 +77,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no narmatoff@31.128.38.77 << 'EOF'
           cd ~/catalog-bot
           bunzip2 < catalog_bot_api.tar.bz2 | docker load
-          
-          # Остановка и удаление существующего контейнера, если он запущен
-          if [ $(docker ps -q -f name=catalog_bot_api) ]; then
-            docker stop catalog_bot_api
-            docker rm catalog_bot_api
-          fi
-
-          # Запуск нового контейнера
+          docker stop catalog_bot_api || true
+          docker rm catalog_bot_api || true
           docker run -d --restart=always --name catalog_bot_api -p 3000:3000 catalog_bot_api
           EOF
