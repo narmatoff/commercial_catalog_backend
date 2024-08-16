@@ -1,6 +1,16 @@
-import { Body, Controller, Inject, Post } from '@nestjs/common';
+import {
+  Body,
+  ConflictException,
+  Controller,
+  Get,
+  Inject,
+  NotFoundException,
+  Post,
+} from '@nestjs/common';
 import { User as UserModel } from '@prisma/client';
 import { UserService } from './user.service';
+import { CreateUserDto } from './dto/create-user.dto';
+import { GetUserDto } from './dto/get-user.dto';
 
 @Controller('user')
 export class UserController {
@@ -10,9 +20,28 @@ export class UserController {
   ) {}
 
   @Post()
-  async createUser(
-    @Body() userData: { name?: string; email: string },
-  ): Promise<UserModel> {
-    return this.userService.createUser(userData);
+  async createUser(@Body() data: CreateUserDto): Promise<UserModel> {
+    const user = await this.userService.user({
+      email: data.email,
+    });
+    if (user) {
+      throw new ConflictException('User already exists');
+    }
+
+    return this.userService.createUser(data);
+  }
+
+  @Get()
+  async getUser(@Body() data: GetUserDto): Promise<UserModel> {
+    const user = await this.userService.user({
+      email: data.email,
+    });
+    if (!user) {
+      throw new NotFoundException('Not found');
+    }
+
+    return this.userService.user({
+      email: data.email,
+    });
   }
 }
