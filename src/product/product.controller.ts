@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   Post,
   Put,
@@ -10,6 +11,7 @@ import {
 import { Product as ProductModel } from '@prisma/client';
 import { ProductService } from './product.service';
 import { ProductModule } from './product.module';
+import { CreateProductDto } from './dto/create-product.dto';
 
 @Controller('product')
 export class ProductController {
@@ -31,7 +33,7 @@ export class ProductController {
   async getFilteredPProducts(
     @Param('searchString') searchString: string,
   ): Promise<ProductModel[]> {
-    return this.productService.products({
+    const products = await this.productService.products({
       where: {
         OR: [
           {
@@ -43,21 +45,24 @@ export class ProductController {
         ],
       },
     });
+
+    if (!products.length) {
+      throw new NotFoundException('Not found');
+    }
+
+    return products;
   }
 
   @Post()
   async createDraft(
     @Body()
-    productData: {
-      title: string;
-      content?: string;
-      authorEmail: string;
-    },
+    productData: CreateProductDto,
   ): Promise<ProductModel> {
-    const { title, content, authorEmail } = productData;
+    const { title, content, authorEmail, imageUrl } = productData;
     return this.productService.createProduct({
       title,
       content,
+      imageUrl,
       author: {
         connect: { email: authorEmail },
       },

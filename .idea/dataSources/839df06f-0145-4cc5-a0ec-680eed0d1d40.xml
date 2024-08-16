@@ -3,17 +3,9 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.53">
     <root id="1">
       <DateStyle>mdy</DateStyle>
-      <Grants>1||-9223372036854775808|c|G
-1||10|c|G
-1||10|C|G
-1||10|T|G
-4||-9223372036854775808|c|G
-4||10|c|G
-4||10|C|G
-4||10|T|G</Grants>
-      <IntrospectionStateNumber>963</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1062</IntrospectionStateNumber>
       <ServerVersion>16.4</ServerVersion>
-      <StartupTime>1723756835</StartupTime>
+      <StartupTime>1723801842</StartupTime>
       <TimeZones>true ACDT
 true ACSST
 false ACST
@@ -1417,7 +1409,7 @@ true posixrules
 13212||10|C|G
 13212||-9223372036854775808|U|G
 13212||10|U|G</Grants>
-      <IntrospectionStateNumber>963</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1062</IntrospectionStateNumber>
       <ObjectId>17407</ObjectId>
       <OwnerName>catalogbot_user</OwnerName>
     </database>
@@ -6516,57 +6508,57 @@ true posixrules
     <schema id="264" parent="3" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>963</IntrospectionStateNumber>
-      <LastIntrospectionLocalTimestamp>2024-08-15.21:22:56</LastIntrospectionLocalTimestamp>
+      <IntrospectionStateNumber>1062</IntrospectionStateNumber>
+      <LastIntrospectionLocalTimestamp>2024-08-16.12:48:17</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>524</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
     </schema>
     <sequence id="265" parent="264" name="Product_id_seq">
-      <ObjectId>17599</ObjectId>
+      <ObjectId>17876</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>958</StateNumber>
+      <StateNumber>1059</StateNumber>
       <StoredType>integer|0s</StoredType>
       <OwnerName>catalogbot_user</OwnerName>
     </sequence>
     <sequence id="266" parent="264" name="Profile_id_seq">
-      <ObjectId>17619</ObjectId>
+      <ObjectId>17898</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>958</StateNumber>
+      <StateNumber>1059</StateNumber>
       <StoredType>integer|0s</StoredType>
       <OwnerName>catalogbot_user</OwnerName>
     </sequence>
     <sequence id="267" parent="264" name="User_id_seq">
-      <ObjectId>17610</ObjectId>
+      <ObjectId>17887</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>958</StateNumber>
+      <StateNumber>1059</StateNumber>
       <StoredType>integer|0s</StoredType>
       <OwnerName>catalogbot_user</OwnerName>
     </sequence>
     <table id="268" parent="264" name="Product">
-      <ObjectId>17600</ObjectId>
-      <StateNumber>958</StateNumber>
+      <ObjectId>17877</ObjectId>
+      <StateNumber>1059</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>catalogbot_user</OwnerName>
     </table>
     <table id="269" parent="264" name="Profile">
-      <ObjectId>17620</ObjectId>
-      <StateNumber>958</StateNumber>
+      <ObjectId>17899</ObjectId>
+      <StateNumber>1059</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>catalogbot_user</OwnerName>
     </table>
     <table id="270" parent="264" name="User">
-      <ObjectId>17611</ObjectId>
-      <StateNumber>958</StateNumber>
+      <ObjectId>17888</ObjectId>
+      <StateNumber>1059</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>catalogbot_user</OwnerName>
     </table>
     <table id="271" parent="264" name="_prisma_migrations">
-      <ObjectId>17588</ObjectId>
-      <StateNumber>952</StateNumber>
+      <ObjectId>17865</ObjectId>
+      <StateNumber>1053</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>catalogbot_user</OwnerName>
     </table>
@@ -6574,36 +6566,36 @@ true posixrules
       <DefaultExpression>nextval(&apos;&quot;Product_id_seq&quot;&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>958</StateNumber>
+      <StateNumber>1059</StateNumber>
       <StoredType>integer|0s</StoredType>
-      <SequenceId>17599</SequenceId>
+      <SequenceId>17876</SequenceId>
       <TypeId>23</TypeId>
     </column>
     <column id="273" parent="268" name="createdAt">
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>958</StateNumber>
+      <StateNumber>1059</StateNumber>
       <StoredType>timestamp(3)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
     <column id="274" parent="268" name="updatedAt">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>958</StateNumber>
+      <StateNumber>1059</StateNumber>
       <StoredType>timestamp(3)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
     <column id="275" parent="268" name="title">
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StateNumber>958</StateNumber>
+      <StateNumber>1059</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="276" parent="268" name="content">
       <Position>5</Position>
-      <StateNumber>958</StateNumber>
+      <StateNumber>1059</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
@@ -6611,227 +6603,250 @@ true posixrules
       <DefaultExpression>false</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>6</Position>
-      <StateNumber>958</StateNumber>
+      <StateNumber>1059</StateNumber>
       <StoredType>boolean|0s</StoredType>
       <TypeId>16</TypeId>
     </column>
     <column id="278" parent="268" name="authorId">
       <NotNull>1</NotNull>
       <Position>7</Position>
-      <StateNumber>958</StateNumber>
+      <StateNumber>1059</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
     <column id="279" parent="268" name="imageUrl">
       <Position>8</Position>
-      <StateNumber>958</StateNumber>
+      <StateNumber>1059</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <foreign-key id="280" parent="268" name="Product_authorId_fkey">
       <ColNames>authorId</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>17630</ObjectId>
+      <ObjectId>17909</ObjectId>
       <OnDelete>restrict</OnDelete>
       <OnUpdate>cascade</OnUpdate>
-      <StateNumber>958</StateNumber>
+      <StateNumber>1059</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>17611</RefTableId>
+      <RefTableId>17888</RefTableId>
     </foreign-key>
     <index id="281" parent="268" name="Product_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>17608</ObjectId>
+      <ObjectId>17885</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>958</StateNumber>
+      <StateNumber>1059</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
     <key id="282" parent="268" name="Product_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>17609</ObjectId>
+      <ObjectId>17886</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>958</StateNumber>
-      <UnderlyingIndexId>17608</UnderlyingIndexId>
+      <StateNumber>1059</StateNumber>
+      <UnderlyingIndexId>17885</UnderlyingIndexId>
     </key>
     <column id="283" parent="269" name="id">
       <DefaultExpression>nextval(&apos;&quot;Profile_id_seq&quot;&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>958</StateNumber>
+      <StateNumber>1059</StateNumber>
       <StoredType>integer|0s</StoredType>
-      <SequenceId>17619</SequenceId>
+      <SequenceId>17898</SequenceId>
       <TypeId>23</TypeId>
     </column>
     <column id="284" parent="269" name="bio">
       <Position>2</Position>
-      <StateNumber>958</StateNumber>
+      <StateNumber>1059</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="285" parent="269" name="userId">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>958</StateNumber>
+      <StateNumber>1059</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
     <foreign-key id="286" parent="269" name="Profile_userId_fkey">
       <ColNames>userId</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>17635</ObjectId>
+      <ObjectId>17914</ObjectId>
       <OnDelete>restrict</OnDelete>
       <OnUpdate>cascade</OnUpdate>
-      <StateNumber>958</StateNumber>
+      <StateNumber>1059</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>17611</RefTableId>
+      <RefTableId>17888</RefTableId>
     </foreign-key>
     <index id="287" parent="269" name="Profile_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>17626</ObjectId>
+      <ObjectId>17905</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>958</StateNumber>
+      <StateNumber>1059</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
     <index id="288" parent="269" name="Profile_userId_key">
       <ColNames>userId</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>17629</ObjectId>
-      <StateNumber>958</StateNumber>
+      <ObjectId>17908</ObjectId>
+      <StateNumber>1059</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
     <key id="289" parent="269" name="Profile_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>17627</ObjectId>
+      <ObjectId>17906</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>958</StateNumber>
-      <UnderlyingIndexId>17626</UnderlyingIndexId>
+      <StateNumber>1059</StateNumber>
+      <UnderlyingIndexId>17905</UnderlyingIndexId>
     </key>
     <column id="290" parent="270" name="id">
       <DefaultExpression>nextval(&apos;&quot;User_id_seq&quot;&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>958</StateNumber>
+      <StateNumber>1059</StateNumber>
       <StoredType>integer|0s</StoredType>
-      <SequenceId>17610</SequenceId>
+      <SequenceId>17887</SequenceId>
       <TypeId>23</TypeId>
     </column>
     <column id="291" parent="270" name="email">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>958</StateNumber>
+      <StateNumber>1059</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="292" parent="270" name="name">
       <Position>3</Position>
-      <StateNumber>958</StateNumber>
+      <StateNumber>1059</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <index id="293" parent="270" name="User_pkey">
+    <column id="293" parent="270" name="createdAt">
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+      <StateNumber>1059</StateNumber>
+      <StoredType>timestamp(3)|0s</StoredType>
+      <TypeId>1114</TypeId>
+    </column>
+    <column id="294" parent="270" name="updatedAt">
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+      <StateNumber>1059</StateNumber>
+      <StoredType>timestamp(3)|0s</StoredType>
+      <TypeId>1114</TypeId>
+    </column>
+    <column id="295" parent="270" name="isActive">
+      <DefaultExpression>false</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+      <StateNumber>1059</StateNumber>
+      <StoredType>boolean|0s</StoredType>
+      <TypeId>16</TypeId>
+    </column>
+    <index id="296" parent="270" name="User_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>17617</ObjectId>
+      <ObjectId>17896</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>958</StateNumber>
+      <StateNumber>1059</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="294" parent="270" name="User_email_key">
+    <index id="297" parent="270" name="User_email_key">
       <ColNames>email</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>17628</ObjectId>
-      <StateNumber>958</StateNumber>
+      <ObjectId>17907</ObjectId>
+      <StateNumber>1059</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="295" parent="270" name="User_pkey">
+    <key id="298" parent="270" name="User_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>17618</ObjectId>
+      <ObjectId>17897</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>958</StateNumber>
-      <UnderlyingIndexId>17617</UnderlyingIndexId>
+      <StateNumber>1059</StateNumber>
+      <UnderlyingIndexId>17896</UnderlyingIndexId>
     </key>
-    <column id="296" parent="271" name="id">
+    <column id="299" parent="271" name="id">
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>952</StateNumber>
+      <StateNumber>1053</StateNumber>
       <StoredType>varchar(36)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="297" parent="271" name="checksum">
+    <column id="300" parent="271" name="checksum">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>952</StateNumber>
+      <StateNumber>1053</StateNumber>
       <StoredType>varchar(64)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="298" parent="271" name="finished_at">
+    <column id="301" parent="271" name="finished_at">
       <Position>3</Position>
-      <StateNumber>952</StateNumber>
+      <StateNumber>1053</StateNumber>
       <StoredType>timestamp with time zone|0s</StoredType>
       <TypeId>1184</TypeId>
     </column>
-    <column id="299" parent="271" name="migration_name">
+    <column id="302" parent="271" name="migration_name">
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StateNumber>952</StateNumber>
+      <StateNumber>1053</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="300" parent="271" name="logs">
+    <column id="303" parent="271" name="logs">
       <Position>5</Position>
-      <StateNumber>952</StateNumber>
+      <StateNumber>1053</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="301" parent="271" name="rolled_back_at">
+    <column id="304" parent="271" name="rolled_back_at">
       <Position>6</Position>
-      <StateNumber>952</StateNumber>
+      <StateNumber>1053</StateNumber>
       <StoredType>timestamp with time zone|0s</StoredType>
       <TypeId>1184</TypeId>
     </column>
-    <column id="302" parent="271" name="started_at">
+    <column id="305" parent="271" name="started_at">
       <DefaultExpression>now()</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>7</Position>
-      <StateNumber>952</StateNumber>
+      <StateNumber>1053</StateNumber>
       <StoredType>timestamp with time zone|0s</StoredType>
       <TypeId>1184</TypeId>
     </column>
-    <column id="303" parent="271" name="applied_steps_count">
+    <column id="306" parent="271" name="applied_steps_count">
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>8</Position>
-      <StateNumber>952</StateNumber>
+      <StateNumber>1053</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <index id="304" parent="271" name="_prisma_migrations_pkey">
+    <index id="307" parent="271" name="_prisma_migrations_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>17595</ObjectId>
+      <ObjectId>17872</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>952</StateNumber>
+      <StateNumber>1053</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="305" parent="271" name="_prisma_migrations_pkey">
+    <key id="308" parent="271" name="_prisma_migrations_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>17596</ObjectId>
+      <ObjectId>17873</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>952</StateNumber>
-      <UnderlyingIndexId>17595</UnderlyingIndexId>
+      <StateNumber>1053</StateNumber>
+      <UnderlyingIndexId>17872</UnderlyingIndexId>
     </key>
   </database-model>
 </dataSource>
