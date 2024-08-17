@@ -3,7 +3,7 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.53">
     <root id="1">
       <DateStyle>mdy</DateStyle>
-      <IntrospectionStateNumber>1062</IntrospectionStateNumber>
+      <IntrospectionStateNumber>2666</IntrospectionStateNumber>
       <ServerVersion>16.4</ServerVersion>
       <StartupTime>1723801842</StartupTime>
       <TimeZones>true ACDT
@@ -1403,13 +1403,10 @@ true posixrules
       <Grants>11||10|C|G
 11||-9223372036854775808|U|G
 11||10|U|G
-2200||6171|C|G
-2200||-9223372036854775808|U|G
-2200||6171|U|G
 13212||10|C|G
 13212||-9223372036854775808|U|G
 13212||10|U|G</Grants>
-      <IntrospectionStateNumber>1062</IntrospectionStateNumber>
+      <IntrospectionStateNumber>2666</IntrospectionStateNumber>
       <ObjectId>17407</ObjectId>
       <OwnerName>catalogbot_user</OwnerName>
     </database>
@@ -6506,347 +6503,658 @@ true posixrules
       <OwnerName>catalogbot_user</OwnerName>
     </schema>
     <schema id="264" parent="3" name="public">
-      <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>1062</IntrospectionStateNumber>
-      <LastIntrospectionLocalTimestamp>2024-08-16.12:48:17</LastIntrospectionLocalTimestamp>
-      <ObjectId>2200</ObjectId>
-      <StateNumber>524</StateNumber>
-      <OwnerName>pg_database_owner</OwnerName>
+      <IntrospectionStateNumber>2666</IntrospectionStateNumber>
+      <LastIntrospectionLocalTimestamp>2024-08-17.22:07:29</LastIntrospectionLocalTimestamp>
+      <ObjectId>20249</ObjectId>
+      <StateNumber>1459</StateNumber>
+      <OwnerName>catalogbot_user</OwnerName>
     </schema>
-    <sequence id="265" parent="264" name="Product_id_seq">
-      <ObjectId>17876</ObjectId>
+    <sequence id="265" parent="264" name="BasketItem_id_seq">
+      <ObjectId>20293</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>1059</StateNumber>
+      <StateNumber>1466</StateNumber>
       <StoredType>integer|0s</StoredType>
       <OwnerName>catalogbot_user</OwnerName>
     </sequence>
-    <sequence id="266" parent="264" name="Profile_id_seq">
-      <ObjectId>17898</ObjectId>
+    <sequence id="266" parent="264" name="Basket_id_seq">
+      <ObjectId>20285</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>1059</StateNumber>
+      <StateNumber>1466</StateNumber>
       <StoredType>integer|0s</StoredType>
       <OwnerName>catalogbot_user</OwnerName>
     </sequence>
     <sequence id="267" parent="264" name="User_id_seq">
-      <ObjectId>17887</ObjectId>
+      <ObjectId>20261</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>1059</StateNumber>
+      <StateNumber>1466</StateNumber>
       <StoredType>integer|0s</StoredType>
       <OwnerName>catalogbot_user</OwnerName>
     </sequence>
-    <table id="268" parent="264" name="Product">
-      <ObjectId>17877</ObjectId>
-      <StateNumber>1059</StateNumber>
+    <table id="268" parent="264" name="Basket">
+      <ObjectId>20286</ObjectId>
+      <StateNumber>1466</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>catalogbot_user</OwnerName>
     </table>
-    <table id="269" parent="264" name="Profile">
-      <ObjectId>17899</ObjectId>
-      <StateNumber>1059</StateNumber>
+    <table id="269" parent="264" name="BasketItem">
+      <ObjectId>20294</ObjectId>
+      <StateNumber>1466</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>catalogbot_user</OwnerName>
     </table>
-    <table id="270" parent="264" name="User">
-      <ObjectId>17888</ObjectId>
-      <StateNumber>1059</StateNumber>
+    <table id="270" parent="264" name="Category">
+      <ObjectId>20278</ObjectId>
+      <StateNumber>1466</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>catalogbot_user</OwnerName>
     </table>
-    <table id="271" parent="264" name="_prisma_migrations">
-      <ObjectId>17865</ObjectId>
-      <StateNumber>1053</StateNumber>
+    <table id="271" parent="264" name="Product">
+      <ObjectId>20271</ObjectId>
+      <StateNumber>1466</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>catalogbot_user</OwnerName>
     </table>
-    <column id="272" parent="268" name="id">
-      <DefaultExpression>nextval(&apos;&quot;Product_id_seq&quot;&apos;::regclass)</DefaultExpression>
+    <table id="272" parent="264" name="User">
+      <ObjectId>20262</ObjectId>
+      <StateNumber>1466</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>catalogbot_user</OwnerName>
+    </table>
+    <table id="273" parent="264" name="_prisma_migrations">
+      <ObjectId>20250</ObjectId>
+      <StateNumber>1460</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>catalogbot_user</OwnerName>
+    </table>
+    <column id="274" parent="268" name="id">
+      <DefaultExpression>nextval(&apos;&quot;Basket_id_seq&quot;&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>1059</StateNumber>
+      <StateNumber>1466</StateNumber>
       <StoredType>integer|0s</StoredType>
-      <SequenceId>17876</SequenceId>
+      <SequenceId>20285</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="273" parent="268" name="createdAt">
+    <column id="275" parent="268" name="userId">
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>integer|0s</StoredType>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="276" parent="268" name="createdAt">
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <NotNull>1</NotNull>
-      <Position>2</Position>
-      <StateNumber>1059</StateNumber>
-      <StoredType>timestamp(3)|0s</StoredType>
-      <TypeId>1114</TypeId>
-    </column>
-    <column id="274" parent="268" name="updatedAt">
-      <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>1059</StateNumber>
+      <StateNumber>1466</StateNumber>
       <StoredType>timestamp(3)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="275" parent="268" name="title">
+    <column id="277" parent="268" name="updatedAt">
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StateNumber>1059</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
-      <TypeId>1043</TypeId>
+      <StateNumber>1466</StateNumber>
+      <StoredType>timestamp(3)|0s</StoredType>
+      <TypeId>1114</TypeId>
     </column>
-    <column id="276" parent="268" name="content">
-      <Position>5</Position>
-      <StateNumber>1059</StateNumber>
-      <StoredType>text|0s</StoredType>
-      <TypeId>25</TypeId>
-    </column>
-    <column id="277" parent="268" name="published">
-      <DefaultExpression>false</DefaultExpression>
-      <NotNull>1</NotNull>
-      <Position>6</Position>
-      <StateNumber>1059</StateNumber>
-      <StoredType>boolean|0s</StoredType>
-      <TypeId>16</TypeId>
-    </column>
-    <column id="278" parent="268" name="authorId">
-      <NotNull>1</NotNull>
-      <Position>7</Position>
-      <StateNumber>1059</StateNumber>
-      <StoredType>integer|0s</StoredType>
-      <TypeId>23</TypeId>
-    </column>
-    <column id="279" parent="268" name="imageUrl">
-      <Position>8</Position>
-      <StateNumber>1059</StateNumber>
-      <StoredType>text|0s</StoredType>
-      <TypeId>25</TypeId>
-    </column>
-    <foreign-key id="280" parent="268" name="Product_authorId_fkey">
-      <ColNames>authorId</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>17909</ObjectId>
-      <OnDelete>restrict</OnDelete>
-      <OnUpdate>cascade</OnUpdate>
-      <StateNumber>1059</StateNumber>
-      <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>17888</RefTableId>
-    </foreign-key>
-    <index id="281" parent="268" name="Product_pkey">
-      <ColNames>id</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>17885</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>1059</StateNumber>
-      <Unique>1</Unique>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <key id="282" parent="268" name="Product_pkey">
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>17886</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>1059</StateNumber>
-      <UnderlyingIndexId>17885</UnderlyingIndexId>
-    </key>
-    <column id="283" parent="269" name="id">
-      <DefaultExpression>nextval(&apos;&quot;Profile_id_seq&quot;&apos;::regclass)</DefaultExpression>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-      <StateNumber>1059</StateNumber>
-      <StoredType>integer|0s</StoredType>
-      <SequenceId>17898</SequenceId>
-      <TypeId>23</TypeId>
-    </column>
-    <column id="284" parent="269" name="bio">
-      <Position>2</Position>
-      <StateNumber>1059</StateNumber>
-      <StoredType>text|0s</StoredType>
-      <TypeId>25</TypeId>
-    </column>
-    <column id="285" parent="269" name="userId">
-      <NotNull>1</NotNull>
-      <Position>3</Position>
-      <StateNumber>1059</StateNumber>
-      <StoredType>integer|0s</StoredType>
-      <TypeId>23</TypeId>
-    </column>
-    <foreign-key id="286" parent="269" name="Profile_userId_fkey">
+    <foreign-key id="278" parent="268" name="Basket_userId_fkey">
       <ColNames>userId</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>17914</ObjectId>
+      <ObjectId>20315</ObjectId>
       <OnDelete>restrict</OnDelete>
       <OnUpdate>cascade</OnUpdate>
-      <StateNumber>1059</StateNumber>
+      <StateNumber>1466</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>17888</RefTableId>
+      <RefTableId>20262</RefTableId>
     </foreign-key>
-    <index id="287" parent="269" name="Profile_pkey">
+    <index id="279" parent="268" name="Basket_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>17905</ObjectId>
+      <ObjectId>20291</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>1059</StateNumber>
+      <StateNumber>1466</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="288" parent="269" name="Profile_userId_key">
+    <index id="280" parent="268" name="Basket_userId_key">
       <ColNames>userId</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>17908</ObjectId>
-      <StateNumber>1059</StateNumber>
+      <ObjectId>20304</ObjectId>
+      <StateNumber>1466</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="289" parent="269" name="Profile_pkey">
+    <key id="281" parent="268" name="Basket_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>17906</ObjectId>
+      <ObjectId>20292</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>1059</StateNumber>
-      <UnderlyingIndexId>17905</UnderlyingIndexId>
+      <StateNumber>1466</StateNumber>
+      <UnderlyingIndexId>20291</UnderlyingIndexId>
     </key>
-    <column id="290" parent="270" name="id">
-      <DefaultExpression>nextval(&apos;&quot;User_id_seq&quot;&apos;::regclass)</DefaultExpression>
+    <column id="282" parent="269" name="id">
+      <DefaultExpression>nextval(&apos;&quot;BasketItem_id_seq&quot;&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>1059</StateNumber>
+      <StateNumber>1466</StateNumber>
       <StoredType>integer|0s</StoredType>
-      <SequenceId>17887</SequenceId>
+      <SequenceId>20293</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="291" parent="270" name="email">
+    <column id="283" parent="269" name="basketId">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>1059</StateNumber>
-      <StoredType>text|0s</StoredType>
-      <TypeId>25</TypeId>
+      <StateNumber>1466</StateNumber>
+      <StoredType>integer|0s</StoredType>
+      <TypeId>23</TypeId>
     </column>
-    <column id="292" parent="270" name="name">
+    <column id="284" parent="269" name="productId">
+      <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>1059</StateNumber>
-      <StoredType>text|0s</StoredType>
-      <TypeId>25</TypeId>
+      <StateNumber>1466</StateNumber>
+      <StoredType>integer|0s</StoredType>
+      <TypeId>23</TypeId>
     </column>
-    <column id="293" parent="270" name="createdAt">
+    <column id="285" parent="269" name="quantity">
+      <DefaultExpression>1</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>integer|0s</StoredType>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="286" parent="269" name="createdAt">
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <NotNull>1</NotNull>
-      <Position>4</Position>
-      <StateNumber>1059</StateNumber>
-      <StoredType>timestamp(3)|0s</StoredType>
-      <TypeId>1114</TypeId>
-    </column>
-    <column id="294" parent="270" name="updatedAt">
-      <NotNull>1</NotNull>
       <Position>5</Position>
-      <StateNumber>1059</StateNumber>
+      <StateNumber>1466</StateNumber>
       <StoredType>timestamp(3)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="295" parent="270" name="isActive">
-      <DefaultExpression>false</DefaultExpression>
+    <column id="287" parent="269" name="updatedAt">
       <NotNull>1</NotNull>
       <Position>6</Position>
-      <StateNumber>1059</StateNumber>
-      <StoredType>boolean|0s</StoredType>
-      <TypeId>16</TypeId>
+      <StateNumber>1466</StateNumber>
+      <StoredType>timestamp(3)|0s</StoredType>
+      <TypeId>1114</TypeId>
     </column>
-    <index id="296" parent="270" name="User_pkey">
+    <foreign-key id="288" parent="269" name="BasketItem_basketId_fkey">
+      <ColNames>basketId</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>20320</ObjectId>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <StateNumber>1466</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>20286</RefTableId>
+    </foreign-key>
+    <foreign-key id="289" parent="269" name="BasketItem_productId_fkey">
+      <ColNames>productId</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>20325</ObjectId>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <StateNumber>1466</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>20271</RefTableId>
+    </foreign-key>
+    <index id="290" parent="269" name="BasketItem_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>17896</ObjectId>
+      <ObjectId>20300</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>1059</StateNumber>
+      <StateNumber>1466</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="297" parent="270" name="User_email_key">
-      <ColNames>email</ColNames>
+    <key id="291" parent="269" name="BasketItem_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>17907</ObjectId>
-      <StateNumber>1059</StateNumber>
+      <ObjectId>20301</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1466</StateNumber>
+      <UnderlyingIndexId>20300</UnderlyingIndexId>
+    </key>
+    <column id="292" parent="270" name="id">
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>integer|0s</StoredType>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="293" parent="270" name="name">
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="294" parent="270" name="sort">
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>integer|0s</StoredType>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="295" parent="270" name="parentId">
+      <Position>4</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>integer|0s</StoredType>
+      <TypeId>23</TypeId>
+    </column>
+    <foreign-key id="296" parent="270" name="Category_parentId_fkey">
+      <ColNames>parentId</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>20310</ObjectId>
+      <OnDelete>set-null</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <StateNumber>1466</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>20278</RefTableId>
+    </foreign-key>
+    <index id="297" parent="270" name="Category_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>20283</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1466</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
-      <CollationNames>default</CollationNames>
-      <CollationIds>100</CollationIds>
-      <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="298" parent="270" name="User_pkey">
+    <key id="298" parent="270" name="Category_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>17897</ObjectId>
+      <ObjectId>20284</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>1059</StateNumber>
-      <UnderlyingIndexId>17896</UnderlyingIndexId>
+      <StateNumber>1466</StateNumber>
+      <UnderlyingIndexId>20283</UnderlyingIndexId>
     </key>
     <column id="299" parent="271" name="id">
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>1053</StateNumber>
-      <StoredType>varchar(36)|0s</StoredType>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="300" parent="271" name="checksum">
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-      <StateNumber>1053</StateNumber>
-      <StoredType>varchar(64)|0s</StoredType>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="301" parent="271" name="finished_at">
-      <Position>3</Position>
-      <StateNumber>1053</StateNumber>
-      <StoredType>timestamp with time zone|0s</StoredType>
-      <TypeId>1184</TypeId>
-    </column>
-    <column id="302" parent="271" name="migration_name">
-      <NotNull>1</NotNull>
-      <Position>4</Position>
-      <StateNumber>1053</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="303" parent="271" name="logs">
-      <Position>5</Position>
-      <StateNumber>1053</StateNumber>
-      <StoredType>text|0s</StoredType>
-      <TypeId>25</TypeId>
-    </column>
-    <column id="304" parent="271" name="rolled_back_at">
-      <Position>6</Position>
-      <StateNumber>1053</StateNumber>
-      <StoredType>timestamp with time zone|0s</StoredType>
-      <TypeId>1184</TypeId>
-    </column>
-    <column id="305" parent="271" name="started_at">
-      <DefaultExpression>now()</DefaultExpression>
-      <NotNull>1</NotNull>
-      <Position>7</Position>
-      <StateNumber>1053</StateNumber>
-      <StoredType>timestamp with time zone|0s</StoredType>
-      <TypeId>1184</TypeId>
-    </column>
-    <column id="306" parent="271" name="applied_steps_count">
-      <DefaultExpression>0</DefaultExpression>
-      <NotNull>1</NotNull>
-      <Position>8</Position>
-      <StateNumber>1053</StateNumber>
+      <StateNumber>1466</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <index id="307" parent="271" name="_prisma_migrations_pkey">
+    <column id="300" parent="271" name="prodId">
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>integer|0s</StoredType>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="301" parent="271" name="name">
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="302" parent="271" name="vendorCode">
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="303" parent="271" name="vendorId">
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>integer|0s</StoredType>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="304" parent="271" name="infoPrice">
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>double precision|0s</StoredType>
+      <TypeId>701</TypeId>
+    </column>
+    <column id="305" parent="271" name="description">
+      <NotNull>1</NotNull>
+      <Position>7</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="306" parent="271" name="batteries">
+      <Position>8</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="307" parent="271" name="pack">
+      <NotNull>1</NotNull>
+      <Position>9</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="308" parent="271" name="material">
+      <NotNull>1</NotNull>
+      <Position>10</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="309" parent="271" name="length">
+      <Position>11</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>double precision|0s</StoredType>
+      <TypeId>701</TypeId>
+    </column>
+    <column id="310" parent="271" name="diameter">
+      <Position>12</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>double precision|0s</StoredType>
+      <TypeId>701</TypeId>
+    </column>
+    <column id="311" parent="271" name="collection">
+      <Position>13</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="312" parent="271" name="img1">
+      <NotNull>1</NotNull>
+      <Position>14</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="313" parent="271" name="img2">
+      <Position>15</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="314" parent="271" name="img3">
+      <Position>16</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="315" parent="271" name="img4">
+      <Position>17</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="316" parent="271" name="img5">
+      <Position>18</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="317" parent="271" name="img6">
+      <Position>19</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="318" parent="271" name="img7">
+      <Position>20</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="319" parent="271" name="img8">
+      <Position>21</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="320" parent="271" name="img9">
+      <Position>22</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="321" parent="271" name="img10">
+      <Position>23</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="322" parent="271" name="categoryId">
+      <NotNull>1</NotNull>
+      <Position>24</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>integer|0s</StoredType>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="323" parent="271" name="isNew">
+      <NotNull>1</NotNull>
+      <Position>25</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>boolean|0s</StoredType>
+      <TypeId>16</TypeId>
+    </column>
+    <column id="324" parent="271" name="isBestseller">
+      <NotNull>1</NotNull>
+      <Position>26</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>boolean|0s</StoredType>
+      <TypeId>16</TypeId>
+    </column>
+    <column id="325" parent="271" name="function">
+      <Position>27</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="326" parent="271" name="addFunction">
+      <Position>28</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="327" parent="271" name="vibration">
+      <Position>29</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="328" parent="271" name="volume">
+      <Position>30</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="329" parent="271" name="modelYear">
+      <Position>31</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>integer|0s</StoredType>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="330" parent="271" name="imgStatus">
+      <NotNull>1</NotNull>
+      <Position>32</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>boolean|0s</StoredType>
+      <TypeId>16</TypeId>
+    </column>
+    <foreign-key id="331" parent="271" name="Product_categoryId_fkey">
+      <ColNames>categoryId</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>20305</ObjectId>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <StateNumber>1466</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>20278</RefTableId>
+    </foreign-key>
+    <index id="332" parent="271" name="Product_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>17872</ObjectId>
+      <ObjectId>20276</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>1053</StateNumber>
+      <StateNumber>1466</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="333" parent="271" name="Product_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>20277</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1466</StateNumber>
+      <UnderlyingIndexId>20276</UnderlyingIndexId>
+    </key>
+    <column id="334" parent="272" name="id">
+      <DefaultExpression>nextval(&apos;&quot;User_id_seq&quot;&apos;::regclass)</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>integer|0s</StoredType>
+      <SequenceId>20261</SequenceId>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="335" parent="272" name="telegramId">
+      <Position>2</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="336" parent="272" name="email">
+      <Position>3</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="337" parent="272" name="name">
+      <Position>4</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="338" parent="272" name="createdAt">
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>timestamp(3)|0s</StoredType>
+      <TypeId>1114</TypeId>
+    </column>
+    <column id="339" parent="272" name="updatedAt">
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+      <StateNumber>1466</StateNumber>
+      <StoredType>timestamp(3)|0s</StoredType>
+      <TypeId>1114</TypeId>
+    </column>
+    <index id="340" parent="272" name="User_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>20269</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1466</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <index id="341" parent="272" name="User_telegramId_key">
+      <ColNames>telegramId</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>20302</ObjectId>
+      <StateNumber>1466</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="308" parent="271" name="_prisma_migrations_pkey">
+    <index id="342" parent="272" name="User_email_key">
+      <ColNames>email</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>17873</ObjectId>
+      <ObjectId>20303</ObjectId>
+      <StateNumber>1466</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+      <CollationNames>default</CollationNames>
+      <CollationIds>100</CollationIds>
+      <CollationParentNames>pg_catalog</CollationParentNames>
+    </index>
+    <key id="343" parent="272" name="User_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>20270</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>1053</StateNumber>
-      <UnderlyingIndexId>17872</UnderlyingIndexId>
+      <StateNumber>1466</StateNumber>
+      <UnderlyingIndexId>20269</UnderlyingIndexId>
+    </key>
+    <column id="344" parent="273" name="id">
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>1460</StateNumber>
+      <StoredType>varchar(36)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="345" parent="273" name="checksum">
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>1460</StateNumber>
+      <StoredType>varchar(64)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="346" parent="273" name="finished_at">
+      <Position>3</Position>
+      <StateNumber>1460</StateNumber>
+      <StoredType>timestamp with time zone|0s</StoredType>
+      <TypeId>1184</TypeId>
+    </column>
+    <column id="347" parent="273" name="migration_name">
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+      <StateNumber>1460</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="348" parent="273" name="logs">
+      <Position>5</Position>
+      <StateNumber>1460</StateNumber>
+      <StoredType>text|0s</StoredType>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="349" parent="273" name="rolled_back_at">
+      <Position>6</Position>
+      <StateNumber>1460</StateNumber>
+      <StoredType>timestamp with time zone|0s</StoredType>
+      <TypeId>1184</TypeId>
+    </column>
+    <column id="350" parent="273" name="started_at">
+      <DefaultExpression>now()</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>7</Position>
+      <StateNumber>1460</StateNumber>
+      <StoredType>timestamp with time zone|0s</StoredType>
+      <TypeId>1184</TypeId>
+    </column>
+    <column id="351" parent="273" name="applied_steps_count">
+      <DefaultExpression>0</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>8</Position>
+      <StateNumber>1460</StateNumber>
+      <StoredType>integer|0s</StoredType>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="352" parent="273" name="_prisma_migrations_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>20257</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1460</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+      <CollationNames>default</CollationNames>
+      <CollationIds>100</CollationIds>
+      <CollationParentNames>pg_catalog</CollationParentNames>
+    </index>
+    <key id="353" parent="273" name="_prisma_migrations_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>20258</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1460</StateNumber>
+      <UnderlyingIndexId>20257</UnderlyingIndexId>
     </key>
   </database-model>
 </dataSource>
