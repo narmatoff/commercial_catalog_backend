@@ -14,36 +14,85 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// PRODUCT
-model Product {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String   @db.VarChar(255)
-  content   String?
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
-  imageUrl  String?
-}
-
 // USER
 model User {
   //TODO: после тестирования api задействовать id в качестве uuid пользователя телеграм
-  id        Int       @id @default(autoincrement())
-  email     String    @unique
-  name      String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  isActive  Boolean   @default(false)
-  products  Product[]
-  profile   Profile?
+  id         Int      @id @default(autoincrement())
+  telegramId String?  @unique
+  email      String?  @unique
+  name       String?
+  basket     Basket? // Связь с корзиной (1:1)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
-// PROFILE
-model Profile {
-  id     Int     @id @default(autoincrement())
-  bio    String?
-  user   User    @relation(fields: [userId], references: [id])
-  userId Int     @unique
+// PRODUCT
+model Product {
+  id           Int          @id
+  prodId       Int
+  name         String
+  vendorCode   String
+  vendorId     Int
+  infoPrice    Float
+  description  String
+  batteries    String?
+  pack         String
+  material     String
+  length       Float?
+  diameter     Float?
+  collection   String?
+  img1         String
+  img2         String?
+  img3         String?
+  img4         String?
+  img5         String?
+  img6         String?
+  img7         String?
+  img8         String?
+  img9         String?
+  img10        String?
+  categoryId   Int
+  category     Category     @relation(fields: [categoryId], references: [id])
+  isNew        Boolean
+  isBestseller Boolean
+  function     String?
+  addFunction  String?
+  vibration    String?
+  volume       String?
+  modelYear    Int?
+  imgStatus    Boolean
+  BasketItem   BasketItem[]
+}
+
+// CATEGORY
+model Category {
+  id       Int        @id
+  name     String
+  sort     Int
+  parentId Int? // Это поле нужно для создания иерархии категорий
+  parent   Category?  @relation("CategoryParent", fields: [parentId], references: [id])
+  children Category[] @relation("CategoryParent")
+  products Product[]
+}
+
+// BASKET
+model Basket {
+  id        Int          @id @default(autoincrement())
+  userId    Int          @unique
+  user      User         @relation(fields: [userId], references: [id]) // Связь с пользователем (1:1)
+  items     BasketItem[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+}
+
+// BASKET ITEM
+model BasketItem {
+  id        Int      @id @default(autoincrement())
+  basketId  Int
+  basket    Basket   @relation(fields: [basketId], references: [id])
+  productId Int
+  product   Product  @relation(fields: [productId], references: [id])
+  quantity  Int      @default(1) // количество товара
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
