@@ -12,7 +12,10 @@ export class ProductService {
     postWhereUniqueInput: Prisma.ProductWhereUniqueInput,
   ): Promise<ProductModel | null> {
     return this.prisma.product.findUnique({
-      where: postWhereUniqueInput,
+      where: {
+        // TODO: проверить
+        id: parseInt(postWhereUniqueInput.id.toString()),
+      },
     });
   }
 
@@ -33,7 +36,7 @@ export class ProductService {
     });
   }
 
-  async createProduct(data: Prisma.ProductCreateInput): Promise<ProductModel> {
+  async createProduct(data: ProductModel): Promise<ProductModel> {
     return this.prisma.product.create({
       data,
     });
