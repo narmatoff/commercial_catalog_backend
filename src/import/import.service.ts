@@ -12,6 +12,34 @@ export class ImportService {
     private readonly productService: ProductService,
   ) {}
 
+  async updateLefts(url: string) {
+    const filePath = path.resolve(__dirname, '..', 'files', 'lefts.csv');
+
+    try {
+      const response = await axios.get(url, {
+        responseType: 'stream',
+      });
+
+      // Создаем папку files, если она не существует
+      if (!fs.existsSync(path.resolve(__dirname, '..', 'files'))) {
+        fs.mkdirSync(path.resolve(__dirname, '..', 'files'));
+      }
+
+      // Сохраняем файл
+      const writer = fs.createWriteStream(filePath);
+
+      response.data.pipe(writer);
+
+      await new Promise((resolve, reject) => {
+        writer.on('finish', resolve);
+        writer.on('error', reject);
+      });
+    } catch (error) {
+      console.error('Ошибка при загрузке файла:', error.message);
+      throw new Error('Не удалось скачать файл');
+    }
+  }
+
   async downloadCatalog(url: string) {
     const filePath = path.resolve(__dirname, '..', 'files', 'catalog.csv');
 

@@ -3,6 +3,7 @@ import { Product as ProductModel, Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import * as csv from 'csv-parser';
 import * as fs from 'fs';
+import { CreateProductDto } from './dto/create-product.dto';
 
 @Injectable()
 export class ProductService {
@@ -33,7 +34,7 @@ export class ProductService {
     });
   }
 
-  async createProduct(data: ProductModel): Promise<ProductModel> {
+  async createProduct(data: CreateProductDto): Promise<ProductModel> {
     return this.prisma.product.create({
       data,
     });
@@ -123,6 +124,46 @@ export class ProductService {
 
             console.info('create product: ', product.id);
             await this.prisma.product.create({ data: product });
+          }
+          resolve();
+        })
+        .on('error', (error) => reject(error));
+    });
+  }
+
+  async updateLeftsFromCsv(filePath: string) {
+    const lefts = [];
+    // TODO: доделать импорт остатков
+    return new Promise<void>((resolve, reject) => {
+      fs.createReadStream(filePath)
+        .pipe(csv({ separator: ';' }))
+        .on('data', async (row) => {
+          const leftItem = {
+            prodId: parseInt(row.prodid),
+            lefts: parseInt(row.lefts),
+          };
+          lefts.push(leftItem);
+        })
+        .on('end', async () => {
+          // Сохраняем остатки в базу данных
+          console.log(lefts);
+          for (const leftItem of lefts) {
+            console.log(leftItem);
+            // check left in db
+            const checkedProduct = await this.prisma.product.findUnique({
+              where: { id: leftItem.prodId },
+            });
+            if (checkedProduct) {
+              console.info('update left item: ', leftItem.id);
+              await this.prisma.product.update({
+                where: { id: leftItem.prodId },
+                data: leftItem,
+              });
+              continue;
+            }
+
+            console.info('create left item: ', leftItem.prodId);
+            await this.prisma.product.create({ data: leftItem });
           }
           resolve();
         })
