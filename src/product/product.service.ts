@@ -8,7 +8,7 @@ import * as fs from 'fs';
 export class ProductService {
   constructor(private prisma: PrismaService) {}
 
-  async product(
+  async getProduct(
     postWhereUniqueInput: Prisma.ProductWhereUniqueInput,
   ): Promise<ProductModel | null> {
     return this.prisma.product.findUnique({
@@ -16,7 +16,7 @@ export class ProductService {
     });
   }
 
-  async products(params: {
+  async getProducts(params: {
     skip?: number;
     take?: number;
     cursor?: Prisma.ProductWhereUniqueInput;

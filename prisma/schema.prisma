@@ -77,12 +77,12 @@ model Category {
 
 // BASKET
 model Basket {
-  id        Int          @id @default(autoincrement())
-  userId    Int          @unique
-  user      User         @relation(fields: [userId], references: [id]) // Связь с пользователем (1:1)
-  items     BasketItem[]
-  createdAt DateTime     @default(now())
-  updatedAt DateTime     @updatedAt
+  id         Int          @id @default(autoincrement())
+  telegramId Int          @unique
+  user       User         @relation(fields: [telegramId], references: [telegramId]) // Связь с пользователем (1:1)
+  items      BasketItem[]
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
 }
 
 // BASKET ITEM

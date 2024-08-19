@@ -9,6 +9,7 @@ import { PrismaService } from './prisma/prisma.service';
 import { UserService } from './user/user.service';
 import { CategoryModule } from './category/category.module';
 import { ImportModule } from './import/import.module';
+import { BasketModule } from './basket/basket.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ImportModule } from './import/import.module';
     ProductModule,
     CategoryModule,
     ImportModule,
+    BasketModule,
   ],
   controllers: [AppController],
   providers: [AppService, ProductService, PrismaService, UserService],
