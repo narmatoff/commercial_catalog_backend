@@ -3,7 +3,7 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.53">
     <root id="1">
       <DateStyle>mdy</DateStyle>
-      <IntrospectionStateNumber>8794</IntrospectionStateNumber>
+      <IntrospectionStateNumber>38344</IntrospectionStateNumber>
       <ServerVersion>16.4</ServerVersion>
       <StartupTime>1723801842</StartupTime>
       <TimeZones>true ACDT
@@ -1406,7 +1406,7 @@ true posixrules
 13212||10|C|G
 13212||-9223372036854775808|U|G
 13212||10|U|G</Grants>
-      <IntrospectionStateNumber>8794</IntrospectionStateNumber>
+      <IntrospectionStateNumber>38344</IntrospectionStateNumber>
       <ObjectId>17407</ObjectId>
       <OwnerName>catalogbot_user</OwnerName>
     </database>
@@ -6504,69 +6504,69 @@ true posixrules
     </schema>
     <schema id="264" parent="3" name="public">
       <Current>1</Current>
-      <IntrospectionStateNumber>8794</IntrospectionStateNumber>
-      <LastIntrospectionLocalTimestamp>2024-08-18.13:17:27</LastIntrospectionLocalTimestamp>
+      <IntrospectionStateNumber>38344</IntrospectionStateNumber>
+      <LastIntrospectionLocalTimestamp>2024-08-19.20:15:41</LastIntrospectionLocalTimestamp>
       <ObjectId>20249</ObjectId>
       <StateNumber>1459</StateNumber>
       <OwnerName>catalogbot_user</OwnerName>
     </schema>
     <sequence id="265" parent="264" name="BasketItem_id_seq">
-      <ObjectId>21442</ObjectId>
+      <ObjectId>22194</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>integer|0s</StoredType>
       <OwnerName>catalogbot_user</OwnerName>
     </sequence>
     <sequence id="266" parent="264" name="Basket_id_seq">
-      <ObjectId>21434</ObjectId>
+      <ObjectId>22186</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>integer|0s</StoredType>
       <OwnerName>catalogbot_user</OwnerName>
     </sequence>
     <sequence id="267" parent="264" name="User_id_seq">
-      <ObjectId>21410</ObjectId>
+      <ObjectId>22162</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>integer|0s</StoredType>
       <OwnerName>catalogbot_user</OwnerName>
     </sequence>
     <table id="268" parent="264" name="Basket">
-      <ObjectId>21435</ObjectId>
-      <StateNumber>8787</StateNumber>
+      <ObjectId>22187</ObjectId>
+      <StateNumber>29504</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>catalogbot_user</OwnerName>
     </table>
     <table id="269" parent="264" name="BasketItem">
-      <ObjectId>21443</ObjectId>
-      <StateNumber>8787</StateNumber>
+      <ObjectId>22195</ObjectId>
+      <StateNumber>29504</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>catalogbot_user</OwnerName>
     </table>
     <table id="270" parent="264" name="Category">
-      <ObjectId>21427</ObjectId>
-      <StateNumber>8787</StateNumber>
+      <ObjectId>22179</ObjectId>
+      <StateNumber>29504</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>catalogbot_user</OwnerName>
     </table>
     <table id="271" parent="264" name="Product">
-      <ObjectId>21420</ObjectId>
-      <StateNumber>8787</StateNumber>
+      <ObjectId>22172</ObjectId>
+      <StateNumber>29504</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>catalogbot_user</OwnerName>
     </table>
     <table id="272" parent="264" name="User">
-      <ObjectId>21411</ObjectId>
-      <StateNumber>8787</StateNumber>
+      <ObjectId>22163</ObjectId>
+      <StateNumber>29504</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>catalogbot_user</OwnerName>
     </table>
     <table id="273" parent="264" name="_prisma_migrations">
-      <ObjectId>21399</ObjectId>
-      <StateNumber>8781</StateNumber>
+      <ObjectId>22151</ObjectId>
+      <StateNumber>29498</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>catalogbot_user</OwnerName>
     </table>
@@ -6574,15 +6574,15 @@ true posixrules
       <DefaultExpression>nextval(&apos;&quot;Basket_id_seq&quot;&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>integer|0s</StoredType>
-      <SequenceId>21434</SequenceId>
+      <SequenceId>22186</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="275" parent="268" name="userId">
+    <column id="275" parent="268" name="telegramId">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
@@ -6590,71 +6590,71 @@ true posixrules
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>timestamp(3)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
     <column id="277" parent="268" name="updatedAt">
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>timestamp(3)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <foreign-key id="278" parent="268" name="Basket_userId_fkey">
-      <ColNames>userId</ColNames>
+    <foreign-key id="278" parent="268" name="Basket_telegramId_fkey">
+      <ColNames>telegramId</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>21464</ObjectId>
+      <ObjectId>22216</ObjectId>
       <OnDelete>restrict</OnDelete>
       <OnUpdate>cascade</OnUpdate>
-      <StateNumber>8787</StateNumber>
-      <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>21411</RefTableId>
+      <StateNumber>29504</StateNumber>
+      <RefKeyColPositions>2</RefKeyColPositions>
+      <RefTableId>22163</RefTableId>
     </foreign-key>
     <index id="279" parent="268" name="Basket_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>21440</ObjectId>
+      <ObjectId>22192</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="280" parent="268" name="Basket_userId_key">
-      <ColNames>userId</ColNames>
+    <index id="280" parent="268" name="Basket_telegramId_key">
+      <ColNames>telegramId</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>21453</ObjectId>
-      <StateNumber>8787</StateNumber>
+      <ObjectId>22205</ObjectId>
+      <StateNumber>29504</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
     <key id="281" parent="268" name="Basket_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>21441</ObjectId>
+      <ObjectId>22193</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>8787</StateNumber>
-      <UnderlyingIndexId>21440</UnderlyingIndexId>
+      <StateNumber>29504</StateNumber>
+      <UnderlyingIndexId>22192</UnderlyingIndexId>
     </key>
     <column id="282" parent="269" name="id">
       <DefaultExpression>nextval(&apos;&quot;BasketItem_id_seq&quot;&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>integer|0s</StoredType>
-      <SequenceId>21442</SequenceId>
+      <SequenceId>22194</SequenceId>
       <TypeId>23</TypeId>
     </column>
     <column id="283" parent="269" name="basketId">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
     <column id="284" parent="269" name="productId">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
@@ -6662,7 +6662,7 @@ true posixrules
       <DefaultExpression>1</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
@@ -6670,363 +6670,363 @@ true posixrules
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>5</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>timestamp(3)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
     <column id="287" parent="269" name="updatedAt">
       <NotNull>1</NotNull>
       <Position>6</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>timestamp(3)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
     <foreign-key id="288" parent="269" name="BasketItem_basketId_fkey">
       <ColNames>basketId</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>21469</ObjectId>
+      <ObjectId>22221</ObjectId>
       <OnDelete>restrict</OnDelete>
       <OnUpdate>cascade</OnUpdate>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>21435</RefTableId>
+      <RefTableId>22187</RefTableId>
     </foreign-key>
     <foreign-key id="289" parent="269" name="BasketItem_productId_fkey">
       <ColNames>productId</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>21474</ObjectId>
+      <ObjectId>22226</ObjectId>
       <OnDelete>restrict</OnDelete>
       <OnUpdate>cascade</OnUpdate>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>21420</RefTableId>
+      <RefTableId>22172</RefTableId>
     </foreign-key>
     <index id="290" parent="269" name="BasketItem_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>21449</ObjectId>
+      <ObjectId>22201</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
     <key id="291" parent="269" name="BasketItem_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>21450</ObjectId>
+      <ObjectId>22202</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>8787</StateNumber>
-      <UnderlyingIndexId>21449</UnderlyingIndexId>
+      <StateNumber>29504</StateNumber>
+      <UnderlyingIndexId>22201</UnderlyingIndexId>
     </key>
     <column id="292" parent="270" name="id">
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
     <column id="293" parent="270" name="name">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="294" parent="270" name="sort">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
     <column id="295" parent="270" name="parentId">
       <Position>4</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
     <foreign-key id="296" parent="270" name="Category_parentId_fkey">
       <ColNames>parentId</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>21459</ObjectId>
+      <ObjectId>22211</ObjectId>
       <OnDelete>set-null</OnDelete>
       <OnUpdate>cascade</OnUpdate>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>21427</RefTableId>
+      <RefTableId>22179</RefTableId>
     </foreign-key>
     <index id="297" parent="270" name="Category_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>21432</ObjectId>
+      <ObjectId>22184</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
     <key id="298" parent="270" name="Category_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>21433</ObjectId>
+      <ObjectId>22185</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>8787</StateNumber>
-      <UnderlyingIndexId>21432</UnderlyingIndexId>
+      <StateNumber>29504</StateNumber>
+      <UnderlyingIndexId>22184</UnderlyingIndexId>
     </key>
     <column id="299" parent="271" name="id">
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
     <column id="300" parent="271" name="prodId">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
     <column id="301" parent="271" name="name">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="302" parent="271" name="vendorCode">
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="303" parent="271" name="vendorId">
       <NotNull>1</NotNull>
       <Position>5</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
     <column id="304" parent="271" name="infoPrice">
       <NotNull>1</NotNull>
       <Position>6</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>double precision|0s</StoredType>
       <TypeId>701</TypeId>
     </column>
     <column id="305" parent="271" name="description">
       <NotNull>1</NotNull>
       <Position>7</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="306" parent="271" name="batteries">
       <Position>8</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="307" parent="271" name="pack">
       <NotNull>1</NotNull>
       <Position>9</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="308" parent="271" name="material">
       <NotNull>1</NotNull>
       <Position>10</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="309" parent="271" name="length">
       <Position>11</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>double precision|0s</StoredType>
       <TypeId>701</TypeId>
     </column>
     <column id="310" parent="271" name="diameter">
       <Position>12</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>double precision|0s</StoredType>
       <TypeId>701</TypeId>
     </column>
     <column id="311" parent="271" name="collection">
       <Position>13</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="312" parent="271" name="img1">
       <NotNull>1</NotNull>
       <Position>14</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="313" parent="271" name="img2">
       <Position>15</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="314" parent="271" name="img3">
       <Position>16</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="315" parent="271" name="img4">
       <Position>17</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="316" parent="271" name="img5">
       <Position>18</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="317" parent="271" name="img6">
       <Position>19</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="318" parent="271" name="img7">
       <Position>20</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="319" parent="271" name="img8">
       <Position>21</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="320" parent="271" name="img9">
       <Position>22</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="321" parent="271" name="img10">
       <Position>23</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="322" parent="271" name="categoryId">
       <NotNull>1</NotNull>
       <Position>24</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
     <column id="323" parent="271" name="isNew">
       <NotNull>1</NotNull>
       <Position>25</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>boolean|0s</StoredType>
       <TypeId>16</TypeId>
     </column>
     <column id="324" parent="271" name="isBestseller">
       <NotNull>1</NotNull>
       <Position>26</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>boolean|0s</StoredType>
       <TypeId>16</TypeId>
     </column>
     <column id="325" parent="271" name="function">
       <Position>27</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="326" parent="271" name="addFunction">
       <Position>28</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="327" parent="271" name="vibration">
       <Position>29</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="328" parent="271" name="volume">
       <Position>30</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="329" parent="271" name="modelYear">
       <Position>31</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
     <column id="330" parent="271" name="imgStatus">
       <NotNull>1</NotNull>
       <Position>32</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>boolean|0s</StoredType>
       <TypeId>16</TypeId>
     </column>
     <foreign-key id="331" parent="271" name="Product_categoryId_fkey">
       <ColNames>categoryId</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>21454</ObjectId>
+      <ObjectId>22206</ObjectId>
       <OnDelete>restrict</OnDelete>
       <OnUpdate>cascade</OnUpdate>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>21427</RefTableId>
+      <RefTableId>22179</RefTableId>
     </foreign-key>
     <index id="332" parent="271" name="Product_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>21425</ObjectId>
+      <ObjectId>22177</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
     <key id="333" parent="271" name="Product_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>21426</ObjectId>
+      <ObjectId>22178</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>8787</StateNumber>
-      <UnderlyingIndexId>21425</UnderlyingIndexId>
+      <StateNumber>29504</StateNumber>
+      <UnderlyingIndexId>22177</UnderlyingIndexId>
     </key>
     <column id="334" parent="272" name="id">
       <DefaultExpression>nextval(&apos;&quot;User_id_seq&quot;&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>integer|0s</StoredType>
-      <SequenceId>21410</SequenceId>
+      <SequenceId>22162</SequenceId>
       <TypeId>23</TypeId>
     </column>
     <column id="335" parent="272" name="telegramId">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
     <column id="336" parent="272" name="email">
       <Position>3</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="337" parent="272" name="name">
       <Position>4</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
@@ -7034,39 +7034,39 @@ true posixrules
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>5</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>timestamp(3)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
     <column id="339" parent="272" name="updatedAt">
       <NotNull>1</NotNull>
       <Position>6</Position>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <StoredType>timestamp(3)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
     <index id="340" parent="272" name="User_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>21418</ObjectId>
+      <ObjectId>22170</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>8787</StateNumber>
+      <StateNumber>29504</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
     <index id="341" parent="272" name="User_telegramId_key">
       <ColNames>telegramId</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>21451</ObjectId>
-      <StateNumber>8787</StateNumber>
+      <ObjectId>22203</ObjectId>
+      <StateNumber>29504</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
     <index id="342" parent="272" name="User_email_key">
       <ColNames>email</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>21452</ObjectId>
-      <StateNumber>8787</StateNumber>
+      <ObjectId>22204</ObjectId>
+      <StateNumber>29504</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
@@ -7075,47 +7075,47 @@ true posixrules
     </index>
     <key id="343" parent="272" name="User_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>21419</ObjectId>
+      <ObjectId>22171</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>8787</StateNumber>
-      <UnderlyingIndexId>21418</UnderlyingIndexId>
+      <StateNumber>29504</StateNumber>
+      <UnderlyingIndexId>22170</UnderlyingIndexId>
     </key>
     <column id="344" parent="273" name="id">
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>8781</StateNumber>
+      <StateNumber>29498</StateNumber>
       <StoredType>varchar(36)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="345" parent="273" name="checksum">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>8781</StateNumber>
+      <StateNumber>29498</StateNumber>
       <StoredType>varchar(64)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="346" parent="273" name="finished_at">
       <Position>3</Position>
-      <StateNumber>8781</StateNumber>
+      <StateNumber>29498</StateNumber>
       <StoredType>timestamp with time zone|0s</StoredType>
       <TypeId>1184</TypeId>
     </column>
     <column id="347" parent="273" name="migration_name">
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StateNumber>8781</StateNumber>
+      <StateNumber>29498</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="348" parent="273" name="logs">
       <Position>5</Position>
-      <StateNumber>8781</StateNumber>
+      <StateNumber>29498</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="349" parent="273" name="rolled_back_at">
       <Position>6</Position>
-      <StateNumber>8781</StateNumber>
+      <StateNumber>29498</StateNumber>
       <StoredType>timestamp with time zone|0s</StoredType>
       <TypeId>1184</TypeId>
     </column>
@@ -7123,7 +7123,7 @@ true posixrules
       <DefaultExpression>now()</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>7</Position>
-      <StateNumber>8781</StateNumber>
+      <StateNumber>29498</StateNumber>
       <StoredType>timestamp with time zone|0s</StoredType>
       <TypeId>1184</TypeId>
     </column>
@@ -7131,16 +7131,16 @@ true posixrules
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>8</Position>
-      <StateNumber>8781</StateNumber>
+      <StateNumber>29498</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
     <index id="352" parent="273" name="_prisma_migrations_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>21406</ObjectId>
+      <ObjectId>22158</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>8781</StateNumber>
+      <StateNumber>29498</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
@@ -7149,10 +7149,10 @@ true posixrules
     </index>
     <key id="353" parent="273" name="_prisma_migrations_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>21407</ObjectId>
+      <ObjectId>22159</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>8781</StateNumber>
-      <UnderlyingIndexId>21406</UnderlyingIndexId>
+      <StateNumber>29498</StateNumber>
+      <UnderlyingIndexId>22158</UnderlyingIndexId>
     </key>
   </database-model>
 </dataSource>

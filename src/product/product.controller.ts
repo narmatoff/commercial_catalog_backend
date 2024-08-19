@@ -23,7 +23,7 @@ export class ProductController {
 
   @Get('id/:id')
   async getProductById(@Param('id') id: string): Promise<ProductModule> {
-    const product = await this.productService.product({ id: Number(id) });
+    const product = await this.productService.getProduct({ id: Number(id) });
     if (!product) {
       throw new NotFoundException('Product not Found');
     }
@@ -33,7 +33,7 @@ export class ProductController {
 
   @Get('new')
   async getisNewProducts(): Promise<ProductModel[]> {
-    return this.productService.products({
+    return this.productService.getProducts({
       where: { isNew: true },
     });
   }
@@ -42,7 +42,7 @@ export class ProductController {
   async getFilteredPProducts(
     @Param('searchString') searchString: string,
   ): Promise<ProductModel[]> {
-    const products = await this.productService.products({
+    const products = await this.productService.getProducts({
       where: {
         OR: [
           {
@@ -64,7 +64,7 @@ export class ProductController {
 
   @Delete('/:id')
   async deleteProduct(@Param('id') id: string): Promise<ProductModel> {
-    const product = await this.productService.product({ id: Number(id) });
+    const product = await this.productService.getProduct({ id: Number(id) });
     if (!product) {
       throw new NotFoundException('Product not Found');
     }
