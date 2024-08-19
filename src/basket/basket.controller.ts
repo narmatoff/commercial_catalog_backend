@@ -7,7 +7,6 @@ import {
   Delete,
   Patch,
   Inject,
-  NotFoundException,
 } from '@nestjs/common';
 import { BasketService } from './basket.service';
 import { AddItemToBasketDto } from './dto/add-item-to-basket.dto';
