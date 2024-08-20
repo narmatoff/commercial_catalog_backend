@@ -132,7 +132,7 @@ export class ProductService {
   }
 
   async updateLeftsFromCsv(filePath: string) {
-    const lefts = [];
+    const lefts: { prodId: number; lefts: number }[] = [];
 
     return new Promise<void>((resolve, reject) => {
       fs.createReadStream(filePath)
@@ -153,7 +153,6 @@ export class ProductService {
         )
         .on('end', async () => {
           // Сохраняем остатки в базу данных
-          console.log(lefts);
           for (const leftItem of lefts) {
             console.log(leftItem);
             // check left in db
@@ -161,7 +160,7 @@ export class ProductService {
               where: { id: leftItem.prodId },
             });
             if (checkedProduct) {
-              console.info('update left item: ', leftItem.id);
+              console.info('update lefts: ', leftItem.prodId);
               await this.prisma.product.update({
                 where: { id: leftItem.prodId },
                 data: leftItem,
