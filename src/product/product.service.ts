@@ -133,7 +133,7 @@ export class ProductService {
 
   async updateLeftsFromCsv(filePath: string) {
     const lefts = [];
-    // TODO: доделать импорт остатков
+
     return new Promise<void>((resolve, reject) => {
       fs.createReadStream(filePath)
         .pipe(csv({ separator: ';' }))
@@ -161,9 +161,6 @@ export class ProductService {
               });
               continue;
             }
-
-            console.info('create left item: ', leftItem.prodId);
-            await this.prisma.product.create({ data: leftItem });
           }
           resolve();
         })
