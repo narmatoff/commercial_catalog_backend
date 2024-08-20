@@ -11,6 +11,8 @@ import {
 import { BasketService } from './basket.service';
 import { AddItemToBasketDto } from './dto/add-item-to-basket.dto';
 import { UserService } from '../user/user.service';
+import { UpdateItemQuantityDto } from './dto/update-Item-quantity.dto';
+import { DeleteItemDto } from './dto/delete-Item.dto';
 
 @Controller('basket')
 export class BasketController {
@@ -20,13 +22,11 @@ export class BasketController {
     private readonly userService: UserService,
   ) {}
 
-  // Получение содержимого корзины
   @Get(':telegramId')
   getUserBasket(@Param('telegramId') telegramId: number) {
     return this.basketService.getUserBasket(telegramId);
   }
 
-  // Добавление товара в корзину
   @Post()
   async addItemToBasket(@Body() body: AddItemToBasketDto) {
     return this.basketService.addItemToBasket(
@@ -36,32 +36,26 @@ export class BasketController {
     );
   }
 
-  // Обновление количества товара
-  @Patch(':telegramId/update')
-  updateItemQuantity(
-    @Param('telegramId') telegramId: number,
-    @Body('productId') productId: number,
-    @Body('quantity') quantity: number,
-  ) {
+  @Patch()
+  updateItemQuantity(@Body() body: UpdateItemQuantityDto) {
     return this.basketService.updateItemQuantity(
-      telegramId,
-      productId,
-      quantity,
+      body.telegramId,
+      body.productId,
+      body.quantity,
     );
   }
 
-  // Удаление товара из корзины
-  @Delete(':telegramId/remove')
-  removeItemFromBasket(
-    @Param('telegramId') telegramId: number,
-    @Body('productId') productId: number,
-  ) {
-    return this.basketService.removeItemFromBasket(telegramId, productId);
+  @Delete()
+  removeItemFromBasket(@Body() body: DeleteItemDto) {
+    return this.basketService.removeItemFromBasket(
+      body.telegramId,
+      body.productId,
+    );
   }
 
-  // Очистка корзины
-  @Delete(':telegramId/clear')
+  @Delete('clear/:telegramId')
   clearBasket(@Param('telegramId') telegramId: number) {
+    console.log(telegramId);
     return this.basketService.clearBasket(telegramId);
   }
 }

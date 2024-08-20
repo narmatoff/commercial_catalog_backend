@@ -34,6 +34,9 @@ jobs:
       #      - name: Run tests
       #        run: npm run test --passWithNoTests
 
+      - name: Start migration process
+        run: npx prisma migrate
+
       - name: Generate Prisma Client
         run: npx prisma generate
 
