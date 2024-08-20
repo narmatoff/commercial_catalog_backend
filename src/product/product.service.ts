@@ -137,13 +137,20 @@ export class ProductService {
     return new Promise<void>((resolve, reject) => {
       fs.createReadStream(filePath)
         .pipe(csv({ separator: ';' }))
-        .on('data', async (row) => {
-          const leftItem = {
-            prodId: parseInt(row.prodid),
-            lefts: parseInt(row.lefts),
-          };
-          lefts.push(leftItem);
-        })
+        .on(
+          'data',
+          async (row: {
+            prodID: number;
+            readyToGo: number;
+            p5sStock: number;
+          }) => {
+            const leftItem = {
+              prodId: Number(row.prodID),
+              lefts: Number(row.p5sStock),
+            };
+            lefts.push(leftItem);
+          },
+        )
         .on('end', async () => {
           // Сохраняем остатки в базу данных
           console.log(lefts);
@@ -159,7 +166,6 @@ export class ProductService {
                 where: { id: leftItem.prodId },
                 data: leftItem,
               });
-              continue;
             }
           }
           resolve();
