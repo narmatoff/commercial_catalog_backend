@@ -67,7 +67,7 @@ model Product {
 
 // CATEGORY
 model Category {
-  id       Int        @id
+  id       Int        @id @default(autoincrement())
   name     String
   sort     Int
   parentId Int? // Это поле нужно для создания иерархии категорий

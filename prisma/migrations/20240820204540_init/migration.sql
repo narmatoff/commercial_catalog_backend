@@ -44,6 +44,7 @@ CREATE TABLE "Product" (
     "volume" TEXT,
     "modelYear" INTEGER,
     "imgStatus" BOOLEAN NOT NULL,
+    "lefts" INTEGER NOT NULL DEFAULT 0,
 
     CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
 );
