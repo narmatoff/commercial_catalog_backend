@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Product" ADD COLUMN     "lefts" INTEGER NOT NULL DEFAULT 0;

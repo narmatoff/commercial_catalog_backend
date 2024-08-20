@@ -62,7 +62,6 @@ export class BasketService {
         data: { quantity: existingItem.quantity + quantity },
       });
     } else {
-      console.log('basketItem.create');
       // Если товара еще нет в корзине, добавим его
       const product = await this.prisma.product.findUnique({
         where: { id: productId },
