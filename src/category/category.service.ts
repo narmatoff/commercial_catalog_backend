@@ -25,6 +25,11 @@ export class CategoryService {
           // Сохраняем категории в базу данных
 
           for (const category of categories) {
+            if (!category.id) {
+              console.warn('Continue without category: ', category.id);
+
+              continue;
+            }
             await this.prisma.category.upsert({
               // TODO category.id может быть null добавить в модель уникальный id @autoincrement;
               where: { id: category.id },

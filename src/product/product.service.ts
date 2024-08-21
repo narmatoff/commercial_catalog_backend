@@ -132,25 +132,18 @@ export class ProductService {
   }
 
   async updateLeftsFromCsv(filePath: string) {
-    const lefts: { prodId: number; lefts: number }[] = [];
+    const lefts: { prodId: number; p5sStock: number }[] = [];
 
     return new Promise<void>((resolve, reject) => {
       fs.createReadStream(filePath)
         .pipe(csv({ separator: ';' }))
-        .on(
-          'data',
-          async (row: {
-            prodID: number;
-            readyToGo: number;
-            p5sStock: number;
-          }) => {
-            const leftItem = {
-              prodId: Number(row.prodID),
-              lefts: Number(row.p5sStock),
-            };
-            lefts.push(leftItem);
-          },
-        )
+        .on('data', async (row: { prodid: number; p5s_stock: number }) => {
+          const leftItem = {
+            prodId: Number(row.prodid),
+            p5sStock: Number(row.p5s_stock),
+          };
+          lefts.push(leftItem);
+        })
         .on('end', async () => {
           // Сохраняем остатки в базу данных
           for (const leftItem of lefts) {
@@ -163,7 +156,9 @@ export class ProductService {
               console.info('update lefts: ', leftItem.prodId);
               await this.prisma.product.update({
                 where: { id: leftItem.prodId },
-                data: leftItem,
+                data: {
+                  lefts: leftItem.p5sStock,
+                },
               });
             }
           }
