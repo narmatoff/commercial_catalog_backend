@@ -55,7 +55,6 @@ export class BasketController {
 
   @Delete('clear/:telegramId')
   clearBasket(@Param('telegramId') telegramId: number) {
-    console.log(telegramId);
     return this.basketService.clearBasket(telegramId);
   }
 }

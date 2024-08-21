@@ -26,7 +26,7 @@ export class CategoryService {
 
           for (const category of categories) {
             if (!category.id) {
-              console.warn('Continue without category: ', category.id);
+              console.warn('Continue without category: ', category);
 
               continue;
             }
