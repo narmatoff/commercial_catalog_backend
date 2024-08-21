@@ -3,6 +3,12 @@ import { CategoryService } from '../category/category.service';
 import { ProductService } from '../product/product.service';
 import { ImportService } from './import.service';
 import * as path from 'node:path';
+import {
+  catalogFileName,
+  fileDirectory,
+  productsFileName,
+  leftsFileName,
+} from './model/const';
 
 @Controller('import')
 export class ImportController {
@@ -12,16 +18,17 @@ export class ImportController {
     private readonly importService: ImportService,
   ) {}
 
-  // catalog https://feed.p5s.ru/smartFeedBuild/66c0f46bbd77a5.27496715?spec=catalogs
-  // products https://feed.p5s.ru/smartFeedBuild/66c0f46bbd77a5.27496715?spec=full
-  // lefts https://feed.p5s.ru/smartFeedBuild/66c3aca55a9080.61346161
-
   @Get('catalog')
   async downloadCatalog(
     @Query('url') url: string,
   ): Promise<{ message: string }> {
     await this.importService.downloadCatalog(url);
-    const filePath = path.resolve(__dirname, '..', 'files', 'catalog.csv');
+    const filePath = path.resolve(
+      fileDirectory,
+      '..',
+      'files',
+      catalogFileName,
+    );
 
     await this.categoryService.importCategoriesFromCsv(filePath);
     return { message: 'Categories imported successfully' };
@@ -33,7 +40,12 @@ export class ImportController {
   ): Promise<{ message: string }> {
     await this.importService.downloadProducts(url);
 
-    const filePath = path.resolve(__dirname, '..', 'files', 'product.csv');
+    const filePath = path.resolve(
+      fileDirectory,
+      '..',
+      'files',
+      productsFileName,
+    );
 
     await this.productService.importProductsFromCsv(filePath);
     return { message: 'Products imported successfully' };
@@ -45,7 +57,7 @@ export class ImportController {
   ): Promise<{ message: string }> {
     await this.importService.updateLefts(url);
 
-    const filePath = path.resolve(__dirname, '..', 'files', 'lefts.csv');
+    const filePath = path.resolve(fileDirectory, '..', 'files', leftsFileName);
 
     await this.productService.updateLeftsFromCsv(filePath);
     return { message: 'Lefts updated successfully' };

@@ -32,7 +32,7 @@ export class ProductController {
   }
 
   @Get('new')
-  async getisNewProducts(): Promise<ProductModel[]> {
+  async getIsNewProducts(): Promise<ProductModel[]> {
     return this.productService.getProducts({
       where: { isNew: true },
     });

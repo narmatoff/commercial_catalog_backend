@@ -40,17 +40,6 @@ export class ProductService {
     });
   }
 
-  async updateProduct(params: {
-    where: Prisma.ProductWhereUniqueInput;
-    data: Prisma.ProductUpdateInput;
-  }): Promise<ProductModel> {
-    const { data, where } = params;
-    return this.prisma.product.update({
-      data,
-      where,
-    });
-  }
-
   async deleteProduct(
     where: Prisma.ProductWhereUniqueInput,
   ): Promise<ProductModel> {
@@ -147,7 +136,6 @@ export class ProductService {
         .on('end', async () => {
           // Сохраняем остатки в базу данных
           for (const leftItem of lefts) {
-            console.log(leftItem);
             // check left in db
             const checkedProduct = await this.prisma.product.findUnique({
               where: { id: leftItem.prodId },
