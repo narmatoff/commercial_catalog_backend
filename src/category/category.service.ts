@@ -15,7 +15,7 @@ export class CategoryService {
         .pipe(csv({ separator: ';' }))
         .on('data', async (row) => {
           categories.push({
-            id: parseInt(row.id),
+            id: parseInt(row.id ?? 0),
             parentId: row.parentId ? parseInt(row.parentId) : null,
             name: row.name.replace(/"/g, ''), // Убираем кавычки
             sort: parseInt(row.sort),
@@ -23,11 +23,28 @@ export class CategoryService {
         })
         .on('end', async () => {
           // Сохраняем категории в базу данных
+
           for (const category of categories) {
+            if (!category.id) {
+              console.warn('Continue without category: ', category.id);
+
+              continue;
+            }
             await this.prisma.category.upsert({
+              // TODO category.id может быть null добавить в модель уникальный id @autoincrement;
               where: { id: category.id },
-              update: category,
-              create: category,
+              update: {
+                id: category.id,
+                parentId: category.parentId,
+                name: category.name,
+                sort: category.sort,
+              },
+              create: {
+                id: category.id,
+                parentId: category.parentId,
+                name: category.name,
+                sort: category.sort,
+              },
             });
           }
           resolve();
