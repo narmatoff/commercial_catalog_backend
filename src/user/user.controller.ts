@@ -34,14 +34,14 @@ export class UserController {
   @Get()
   async getUser(@Body() data: GetUserDto): Promise<UserModel> {
     const user = await this.userService.user({
-      email: data.email,
+      telegramId: data.telegramId,
     });
     if (!user) {
       throw new NotFoundException('Not found');
     }
 
     return this.userService.user({
-      email: data.email,
+      telegramId: data.telegramId,
     });
   }
 }

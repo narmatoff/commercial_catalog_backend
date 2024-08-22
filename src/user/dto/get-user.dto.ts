@@ -1,7 +1,7 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class GetUserDto {
-  @IsEmail()
+  @IsNumber()
   @IsNotEmpty()
-  email: string;
+  telegramId: number;
 }
