@@ -28,8 +28,8 @@ model User {
 
 // PRODUCT
 model Product {
-  id           Int          @id
-  prodId       Int
+  id           Int          @id @default(autoincrement())
+  prodId       Int          @unique
   name         String
   vendorCode   String
   vendorId     Int
@@ -41,7 +41,7 @@ model Product {
   length       Float?
   diameter     Float?
   collection   String?
-  img1         String
+  img1         String?
   img2         String?
   img3         String?
   img4         String?
@@ -52,7 +52,6 @@ model Product {
   img9         String?
   img10        String?
   categoryId   Int
-  category     Category     @relation(fields: [categoryId], references: [id])
   isNew        Boolean
   isBestseller Boolean
   function     String?
@@ -67,13 +66,11 @@ model Product {
 
 // CATEGORY
 model Category {
-  id       Int        @id @default(autoincrement())
-  name     String
-  sort     Int
-  parentId Int? // Это поле нужно для создания иерархии категорий
-  parent   Category?  @relation("CategoryParent", fields: [parentId], references: [id])
-  children Category[] @relation("CategoryParent")
-  products Product[]
+  id         Int    @id @default(autoincrement())
+  categoryId Int?
+  parentId   Int?
+  name       String
+  sort       Int
 }
 
 // BASKET
