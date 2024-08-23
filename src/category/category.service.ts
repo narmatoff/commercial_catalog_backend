@@ -11,15 +11,15 @@ export class CategoryService {
 
   async importCategoriesFromCsv(filePath: string): Promise<void> {
     const categories: Category[] = [];
+    let i: number = 0;
 
     return new Promise<void>((resolve, reject): void => {
-      let i: number = 0;
-
       fs.createReadStream(filePath)
         .pipe(csv({ separator: ';' }))
         .on('data', async (row) => {
+          i++;
           categories.push({
-            id: i++,
+            id: i,
             categoryId: parseInt(row.id ?? 0),
             parentId: row.parentId ? parseInt(row.parentId) : null,
             name: row.name.replace(/"/g, ''), // Убираем кавычки
@@ -28,13 +28,7 @@ export class CategoryService {
         })
         .on('end', async () => {
           // Сохраняем категории в базу данных
-
           for (const category of categories) {
-            // if (!category.categoryId) {
-            //   console.warn('Continue without category: ', category);
-            //
-            //   continue;
-            // }
             await this.prisma.category.upsert({
               where: { id: category.id },
               update: {

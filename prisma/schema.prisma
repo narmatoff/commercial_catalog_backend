@@ -28,8 +28,8 @@ model User {
 
 // PRODUCT
 model Product {
-  id           Int          @id
-  prodId       Int
+  id           Int          @id @default(autoincrement())
+  prodId       Int          @unique
   name         String
   vendorCode   String
   vendorId     Int
@@ -41,7 +41,7 @@ model Product {
   length       Float?
   diameter     Float?
   collection   String?
-  img1         String
+  img1         String?
   img2         String?
   img3         String?
   img4         String?

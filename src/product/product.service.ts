@@ -56,7 +56,6 @@ export class ProductService {
         .pipe(csv({ separator: ';' }))
         .on('data', async (row) => {
           const product = {
-            id: parseInt(row.prodid),
             prodId: parseInt(row.prodid),
             name: row.name.replace(/"/g, ''),
             vendorCode: row.vendor_code,
@@ -69,7 +68,7 @@ export class ProductService {
             length: row.length ? parseFloat(row.length) : null,
             diameter: row.diameter ? parseFloat(row.diameter) : null,
             collection: row.collection || null,
-            img1: row.img1,
+            img1: row.img1 || null,
             img2: row.img2 || null,
             img3: row.img3 || null,
             img4: row.img4 || null,
@@ -88,6 +87,7 @@ export class ProductService {
             volume: row.volume || null,
             modelYear: row.modelyear ? parseInt(row.modelyear) : null,
             imgStatus: Boolean(parseInt(row.img_status)),
+            lefts: 0,
           };
 
           products.push(product);
@@ -95,21 +95,17 @@ export class ProductService {
         .on('end', async () => {
           // Сохраняем продукты в базу данных
           for (const product of products) {
-            // check product in db
-            const checkedProduct = await this.prisma.product.findUnique({
-              where: { id: product.id },
+            await this.prisma.product.upsert({
+              where: { prodId: product.prodId },
+              update: {
+                ...product,
+              },
+              create: {
+                ...product,
+              },
             });
-            if (checkedProduct) {
-              console.info('update product: ', product.id);
-              await this.prisma.product.update({
-                where: { id: product.id },
-                data: product,
-              });
-              continue;
-            }
 
-            console.info('create product: ', product.id);
-            await this.prisma.product.create({ data: product });
+            console.info('imported product: ', product.prodId);
           }
           resolve();
         })
@@ -133,19 +129,14 @@ export class ProductService {
         .on('end', async () => {
           // Сохраняем остатки в базу данных
           for (const leftItem of lefts) {
-            // check left in db
-            const checkedProduct = await this.prisma.product.findUnique({
-              where: { id: leftItem.prodId },
+            await this.prisma.product.update({
+              where: { prodId: leftItem.prodId },
+              data: {
+                lefts: leftItem.p5sStock,
+              },
             });
-            if (checkedProduct) {
-              console.info('update lefts: ', leftItem.prodId);
-              await this.prisma.product.update({
-                where: { id: leftItem.prodId },
-                data: {
-                  lefts: leftItem.p5sStock,
-                },
-              });
-            }
+
+            console.info('updated lefts: ', leftItem.prodId);
           }
           resolve();
         })

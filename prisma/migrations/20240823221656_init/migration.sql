@@ -12,7 +12,7 @@ CREATE TABLE "User" (
 
 -- CreateTable
 CREATE TABLE "Product" (
-    "id" INTEGER NOT NULL,
+    "id" SERIAL NOT NULL,
     "prodId" INTEGER NOT NULL,
     "name" TEXT NOT NULL,
     "vendorCode" TEXT NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE "Product" (
     "length" DOUBLE PRECISION,
     "diameter" DOUBLE PRECISION,
     "collection" TEXT,
-    "img1" TEXT NOT NULL,
+    "img1" TEXT,
     "img2" TEXT,
     "img3" TEXT,
     "img4" TEXT,
