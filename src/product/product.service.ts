@@ -79,10 +79,7 @@ export class ProductService {
             img8: row.img8 || null,
             img9: row.img9 || null,
             img10: row.img10 || null,
-            // categoryId: parseInt(row.categoryId),
-            category: {
-              connect: { id: parseInt(row.categoryId) }, // Здесь устанавливается связь
-            },
+            categoryId: parseInt(row.categoryId),
             isNew: Boolean(parseInt(row.new)),
             isBestseller: Boolean(parseInt(row.bestseller)),
             function: row.function || null,

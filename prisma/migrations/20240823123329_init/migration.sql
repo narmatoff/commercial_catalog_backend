@@ -51,10 +51,11 @@ CREATE TABLE "Product" (
 
 -- CreateTable
 CREATE TABLE "Category" (
-    "id" INTEGER NOT NULL,
+    "id" SERIAL NOT NULL,
+    "categoryId" INTEGER,
+    "parentId" INTEGER,
     "name" TEXT NOT NULL,
     "sort" INTEGER NOT NULL,
-    "parentId" INTEGER,
 
     CONSTRAINT "Category_pkey" PRIMARY KEY ("id")
 );
@@ -89,12 +90,6 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Basket_telegramId_key" ON "Basket"("telegramId");
-
--- AddForeignKey
-ALTER TABLE "Product" ADD CONSTRAINT "Product_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Category" ADD CONSTRAINT "Category_parentId_fkey" FOREIGN KEY ("parentId") REFERENCES "Category"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Basket" ADD CONSTRAINT "Basket_telegramId_fkey" FOREIGN KEY ("telegramId") REFERENCES "User"("telegramId") ON DELETE RESTRICT ON UPDATE CASCADE;
