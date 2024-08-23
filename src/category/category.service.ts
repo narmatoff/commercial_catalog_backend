@@ -2,15 +2,16 @@ import { Injectable } from '@nestjs/common';
 import * as csv from 'csv-parser';
 import * as fs from 'fs';
 import { PrismaService } from '../prisma/prisma.service';
+import { CategoryModule } from './category.module';
 
 @Injectable()
 export class CategoryService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async importCategoriesFromCsv(filePath: string) {
+  async importCategoriesFromCsv(filePath: string): Promise<void> {
     const categories = [];
 
-    return new Promise<void>((resolve, reject) => {
+    return new Promise<void>((resolve, reject): void => {
       fs.createReadStream(filePath)
         .pipe(csv({ separator: ';' }))
         .on('data', async (row) => {
@@ -51,5 +52,9 @@ export class CategoryService {
         })
         .on('error', (error) => reject(error));
     });
+  }
+
+  async getCategories(): Promise<CategoryModule> {
+    return this.prisma.category.findMany();
   }
 }
