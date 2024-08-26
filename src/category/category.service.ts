@@ -52,6 +52,8 @@ export class CategoryService {
   }
 
   async getCategories(): Promise<CategoryModule> {
-    return this.prisma.category.findMany();
+    return this.prisma.category.findMany({
+      orderBy: { sort: 'asc' },
+    });
   }
 }

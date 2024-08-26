@@ -89,6 +89,9 @@ CREATE UNIQUE INDEX "User_telegramId_key" ON "User"("telegramId");
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Product_prodId_key" ON "Product"("prodId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Basket_telegramId_key" ON "Basket"("telegramId");
 
 -- AddForeignKey
