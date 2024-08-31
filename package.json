@@ -13,6 +13,7 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs}/**/*.ts\" --fix",
+    "prisma dev db push": "npx prisma db push --force-reset",
     "prisma migrate": "npx prisma migrate dev --name init"
   },
   "dependencies": {
