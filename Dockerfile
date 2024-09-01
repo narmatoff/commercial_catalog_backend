@@ -21,4 +21,4 @@ RUN npm run build
 CMD ["npm", "run", "start:prod"]
 
 # Открываем порт, на котором будет работать приложение
-EXPOSE 3000
+EXPOSE 3001
