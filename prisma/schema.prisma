@@ -65,7 +65,7 @@ model Product {
 }
 
 // CATEGORY
-model Category {
+model Catalog {
   id         Int    @id @default(autoincrement())
   categoryId Int?
   parentId   Int?
