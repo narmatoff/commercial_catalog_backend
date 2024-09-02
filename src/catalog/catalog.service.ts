@@ -2,15 +2,15 @@ import { Injectable } from '@nestjs/common';
 import * as csv from 'csv-parser';
 import * as fs from 'fs';
 import { PrismaService } from '../prisma/prisma.service';
-import { CategoryModule } from './category.module';
-import { Category } from '@prisma/client';
+import { CatalogModule } from './catalog.module';
+import { Catalog } from '@prisma/client';
 
 @Injectable()
-export class CategoryService {
+export class CatalogService {
   constructor(private readonly prisma: PrismaService) {}
 
   async importCategoriesFromCsv(filePath: string): Promise<void> {
-    const categories: Category[] = [];
+    const categories: Catalog[] = [];
     let i: number = 0;
 
     return new Promise<void>((resolve, reject): void => {
@@ -29,7 +29,7 @@ export class CategoryService {
         .on('end', async () => {
           // Сохраняем категории в базу данных
           for (const category of categories) {
-            await this.prisma.category.upsert({
+            await this.prisma.catalog.upsert({
               where: { id: category.id },
               update: {
                 categoryId: category.categoryId,
@@ -51,8 +51,8 @@ export class CategoryService {
     });
   }
 
-  async getCategories(): Promise<CategoryModule> {
-    return this.prisma.category.findMany({
+  async getCategories(): Promise<CatalogModule> {
+    return this.prisma.catalog.findMany({
       orderBy: { sort: 'asc' },
     });
   }

@@ -14,7 +14,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// USER
 model User {
   //TODO: после тестирования api задействовать id в качестве uuid пользователя телеграм
   id         Int      @id @default(autoincrement())
@@ -26,7 +25,6 @@ model User {
   updatedAt  DateTime @updatedAt
 }
 
-// PRODUCT
 model Product {
   id           Int          @id @default(autoincrement())
   prodId       Int          @unique
@@ -64,8 +62,7 @@ model Product {
   BasketItem   BasketItem[]
 }
 
-// CATEGORY
-model Category {
+model Catalog {
   id         Int    @id @default(autoincrement())
   categoryId Int?
   parentId   Int?
@@ -73,7 +70,6 @@ model Category {
   sort       Int
 }
 
-// BASKET
 model Basket {
   id         Int          @id @default(autoincrement())
   telegramId Int          @unique
@@ -83,7 +79,6 @@ model Basket {
   updatedAt  DateTime     @updatedAt
 }
 
-// BASKET ITEM
 model BasketItem {
   id        Int      @id @default(autoincrement())
   basketId  Int

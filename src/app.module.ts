@@ -7,7 +7,7 @@ import { ProductModule } from './product/product.module';
 import { ProductService } from './product/product.service';
 import { PrismaService } from './prisma/prisma.service';
 import { UserService } from './user/user.service';
-import { CategoryModule } from './category/category.module';
+import { CatalogModule } from './catalog/catalog.module';
 import { ImportModule } from './import/import.module';
 import { BasketModule } from './basket/basket.module';
 
@@ -16,7 +16,7 @@ import { BasketModule } from './basket/basket.module';
     PrismaModule,
     UserModule,
     ProductModule,
-    CategoryModule,
+    CatalogModule,
     ImportModule,
     BasketModule,
   ],

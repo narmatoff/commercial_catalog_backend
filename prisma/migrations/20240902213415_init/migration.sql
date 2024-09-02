@@ -50,14 +50,14 @@ CREATE TABLE "Product" (
 );
 
 -- CreateTable
-CREATE TABLE "Category" (
+CREATE TABLE "Catalog" (
     "id" SERIAL NOT NULL,
     "categoryId" INTEGER,
     "parentId" INTEGER,
     "name" TEXT NOT NULL,
     "sort" INTEGER NOT NULL,
 
-    CONSTRAINT "Category_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Catalog_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
