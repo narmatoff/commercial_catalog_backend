@@ -1,5 +1,5 @@
 import { Controller, Get, Query } from '@nestjs/common';
-import { CategoryService } from '../category/category.service';
+import { CatalogService } from '../catalog/catalog.service';
 import { ProductService } from '../product/product.service';
 import { ImportService } from './import.service';
 import * as path from 'node:path';
@@ -13,7 +13,7 @@ import {
 @Controller('import')
 export class ImportController {
   constructor(
-    private readonly categoryService: CategoryService,
+    private readonly catalogService: CatalogService,
     private readonly productService: ProductService,
     private readonly importService: ImportService,
   ) {}
@@ -30,7 +30,7 @@ export class ImportController {
       catalogFileName,
     );
 
-    await this.categoryService.importCategoriesFromCsv(filePath);
+    await this.catalogService.importCategoriesFromCsv(filePath);
     return { message: 'Categories imported successfully' };
   }
 

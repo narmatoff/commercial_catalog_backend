@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CategoryService } from '../category/category.service';
+import { CatalogService } from '../catalog/catalog.service';
 import { ProductService } from '../product/product.service';
 import { getFile } from './utils/get-file';
 import {
@@ -11,7 +11,7 @@ import {
 @Injectable()
 export class ImportService {
   constructor(
-    private readonly categoryService: CategoryService,
+    private readonly catalogService: CatalogService,
     private readonly productService: ProductService,
   ) {}
 
@@ -28,7 +28,7 @@ export class ImportService {
   }
 
   private async importCategoriesData(filePath: string) {
-    await this.categoryService.importCategoriesFromCsv(filePath);
+    await this.catalogService.importCategoriesFromCsv(filePath);
 
     // Здесь реализуйте логику импорта данных из CSV в базу данных
     // Например, с использованием библиотеки `csv-parser` или любой другой
