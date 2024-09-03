@@ -62,6 +62,23 @@ export class ProductController {
     return products;
   }
 
+  @Get('category-products/:categoryNumber')
+  async getCategoryProducts(
+    @Param('categoryNumber') categoryNumber: number,
+  ): Promise<ProductModel[]> {
+    const products = await this.productService.getProducts({
+      where: {
+        categoryId: Number(categoryNumber),
+      },
+    });
+
+    if (!products.length) {
+      throw new NotFoundException('Not found');
+    }
+
+    return products;
+  }
+
   @Delete('/:id')
   async deleteProduct(@Param('id') id: string): Promise<ProductModel> {
     const product = await this.productService.getProduct({ id: Number(id) });
