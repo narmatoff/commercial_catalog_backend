@@ -6,6 +6,7 @@ import {
   catalogFileName,
   productsFileName,
   leftsFileName,
+  offersFileName,
 } from './model/const';
 
 @Injectable()
@@ -27,6 +28,10 @@ export class ImportService {
     return this.importProductsData(await getFile(url, productsFileName));
   }
 
+  async downloadOffers(url: string) {
+    return this.importOffersData(await getFile(url, offersFileName));
+  }
+
   private async importCategoriesData(filePath: string) {
     await this.catalogService.importCategoriesFromCsv(filePath);
 
@@ -36,6 +41,12 @@ export class ImportService {
 
   private async importProductsData(filePath: string) {
     await this.productService.importProductsFromCsv(filePath);
+
+    // Здесь реализуйте логику импорта данных из CSV в базу данных
+    // Например, с использованием библиотеки `csv-parser` или любой другой
+  }
+  private async importOffersData(filePath: string) {
+    await this.productService.importOffersFromCsv(filePath);
 
     // Здесь реализуйте логику импорта данных из CSV в базу данных
     // Например, с использованием библиотеки `csv-parser` или любой другой

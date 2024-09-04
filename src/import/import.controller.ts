@@ -8,6 +8,7 @@ import {
   fileDirectory,
   productsFileName,
   leftsFileName,
+  offersFileName,
 } from './model/const';
 
 @Controller('import')
@@ -49,6 +50,18 @@ export class ImportController {
 
     await this.productService.importProductsFromCsv(filePath);
     return { message: 'Products imported successfully' };
+  }
+
+  @Get('offers')
+  async downloadOffers(
+    @Query('url') url: string,
+  ): Promise<{ message: string }> {
+    await this.importService.downloadOffers(url);
+
+    const filePath = path.resolve(fileDirectory, '..', 'files', offersFileName);
+
+    await this.productService.importOffersFromCsv(filePath);
+    return { message: 'Offers imported successfully' };
   }
 
   @Get('lefts')

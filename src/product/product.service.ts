@@ -113,6 +113,60 @@ export class ProductService {
     });
   }
 
+  async importOffersFromCsv(filePath: string) {
+    const offers = [];
+
+    return new Promise<void>((resolve, reject) => {
+      fs.createReadStream(filePath)
+        .pipe(csv({ separator: ';' }))
+        .on('data', async (row) => {
+          const offer = {
+            prodId: parseInt(row.prodid),
+            sku: row.sku,
+            barcode: row.barcode,
+            name: row.name.replace(/"/g, ''),
+            price: parseFloat(row.price),
+            WholePrice: parseFloat(row.WholePrice),
+            baseWholePrice: parseFloat(row.basewholeprice),
+            qty: parseInt(row.qty),
+            shippingDate: row.shippingdate,
+            weight: row.weight,
+            colorName: row.colorName,
+            color: row.color,
+            size: row.size,
+            SuperSale: Boolean(parseInt(row.SuperSale)),
+            p5s_stock: Boolean(parseInt(row.p5s_stock)),
+            StopPromo: Boolean(parseInt(row.StopPromo)),
+            bruttoLength: parseFloat(row.bruttoLength),
+            bruttoWidth: parseFloat(row.bruttoWidth),
+            bruttoHeight: parseFloat(row.bruttoHeight),
+            currency: row.currency,
+          };
+
+          offers.push(offer);
+        })
+        .on('end', async () => {
+          // Сохраняем продукты в базу данных
+          for (const offer of offers) {
+            await this.prisma.productOffers.upsert({
+              // TODO доделать
+              where: { prodId: offer.prodId },
+              update: {
+                ...offer,
+              },
+              create: {
+                ...offer,
+              },
+            });
+
+            console.info('imported offer: ', offer.prodId);
+          }
+          resolve();
+        })
+        .on('error', (error) => reject(error));
+    });
+  }
+
   async updateLeftsFromCsv(filePath: string) {
     const lefts: { prodId: number; p5sStock: number }[] = [];
 
