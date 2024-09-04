@@ -20,6 +20,8 @@ export class CatalogService {
           i++;
           categories.push({
             id: i,
+            createdAt: row.createdAt,
+            updatedAt: row.updatedAt,
             categoryId: parseInt(row.id ?? 0),
             parentId: row.parentId ? parseInt(row.parentId) : null,
             name: row.name.replace(/"/g, ''), // Убираем кавычки
