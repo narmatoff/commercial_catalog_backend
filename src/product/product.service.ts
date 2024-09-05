@@ -87,57 +87,30 @@ export class ProductService {
             volume: row.volume || null,
             modelYear: row.modelyear ? parseInt(row.modelyear) : null,
             imgStatus: Boolean(parseInt(row.img_status)),
-            lefts: 0,
           };
 
           products.push(product);
         })
         .on('end', async () => {
-          // Сохраняем продукты в базу данных
+          console.info('start import products');
+
           for (const product of products) {
-            await this.prisma.product.upsert({
-              where: { prodId: product.prodId },
-              update: {
-                ...product,
-              },
-              create: {
-                ...product,
-              },
-            });
-
-            console.info('imported product: ', product.prodId);
+            try {
+              await this.prisma.product.upsert({
+                where: { prodId: product.prodId },
+                update: {
+                  ...product,
+                },
+                create: {
+                  ...product,
+                },
+              });
+            } catch (e) {
+              console.error('Failed to import product:', product.prodId, e);
+            }
           }
-          resolve();
-        })
-        .on('error', (error) => reject(error));
-    });
-  }
 
-  async updateLeftsFromCsv(filePath: string) {
-    const lefts: { prodId: number; p5sStock: number }[] = [];
-
-    return new Promise<void>((resolve, reject) => {
-      fs.createReadStream(filePath)
-        .pipe(csv({ separator: ';' }))
-        .on('data', async (row: { prodid: number; p5s_stock: number }) => {
-          const leftItem = {
-            prodId: Number(row.prodid),
-            p5sStock: Number(row.p5s_stock),
-          };
-          lefts.push(leftItem);
-        })
-        .on('end', async () => {
-          // Сохраняем остатки в базу данных
-          for (const leftItem of lefts) {
-            await this.prisma.product.update({
-              where: { prodId: leftItem.prodId },
-              data: {
-                lefts: leftItem.p5sStock,
-              },
-            });
-
-            console.info('updated lefts: ', leftItem.prodId);
-          }
+          console.info('finish import products');
           resolve();
         })
         .on('error', (error) => reject(error));

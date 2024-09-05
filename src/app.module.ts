@@ -10,6 +10,8 @@ import { UserService } from './user/user.service';
 import { CatalogModule } from './catalog/catalog.module';
 import { ImportModule } from './import/import.module';
 import { BasketModule } from './basket/basket.module';
+import { OfferModule } from './offer/offer.module';
+import { ColorModule } from './color/color.module';
 
 @Module({
   imports: [
@@ -19,6 +21,8 @@ import { BasketModule } from './basket/basket.module';
     CatalogModule,
     ImportModule,
     BasketModule,
+    OfferModule,
+    ColorModule,
   ],
   controllers: [AppController],
   providers: [AppService, ProductService, PrismaService, UserService],

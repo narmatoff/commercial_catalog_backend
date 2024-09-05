@@ -20,6 +20,8 @@ export class CatalogService {
           i++;
           categories.push({
             id: i,
+            createdAt: row.createdAt,
+            updatedAt: row.updatedAt,
             categoryId: parseInt(row.id ?? 0),
             parentId: row.parentId ? parseInt(row.parentId) : null,
             name: row.name.replace(/"/g, ''), // Убираем кавычки
@@ -27,7 +29,8 @@ export class CatalogService {
           });
         })
         .on('end', async () => {
-          // Сохраняем категории в базу данных
+          console.info('start import catalog');
+
           for (const category of categories) {
             await this.prisma.catalog.upsert({
               where: { id: category.id },
@@ -45,6 +48,8 @@ export class CatalogService {
               },
             });
           }
+
+          console.info('finish import catalog');
           resolve();
         })
         .on('error', (error) => reject(error));
