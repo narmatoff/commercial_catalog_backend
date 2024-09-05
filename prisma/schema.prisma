@@ -62,6 +62,7 @@ model Product {
   imgStatus    Boolean       @default(false)
   BasketItem   BasketItem[]
   offers       ProductOffer?
+  category     Catalog?      @relation(fields: [categoryId], references: [categoryId]) // Связь через categoryId
 }
 
 model ProductOffer {
@@ -89,7 +90,7 @@ model ProductOffer {
   bruttoHeight   Float?
   currency       EnumCurrency @default(RUB)
   product        Product      @relation(fields: [prodId], references: [prodId])
-  prodColor      ProductColor @relation(fields: [color], references: [colorUrl])
+  prodColor      ProductColor @relation(fields: [color], references: [color])
 }
 
 enum EnumCurrency {
@@ -103,19 +104,20 @@ model ProductColor {
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
   colorName    String
-  color        String
-  colorUrl     String         @unique
+  color        String         @unique
+  colorUrl     String
   ProductOffer ProductOffer[]
 }
 
 model Catalog {
-  id         Int      @id @default(autoincrement())
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  categoryId Int?
+  id         Int       @id @default(autoincrement())
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  categoryId Int?      @unique
   parentId   Int?
   name       String
   sort       Int
+  products   Product[] // Связь с Product через categoryId
 }
 
 model Basket {

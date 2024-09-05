@@ -29,7 +29,8 @@ export class CatalogService {
           });
         })
         .on('end', async () => {
-          // Сохраняем категории в базу данных
+          console.info('start import catalog');
+
           for (const category of categories) {
             await this.prisma.catalog.upsert({
               where: { id: category.id },
@@ -47,6 +48,8 @@ export class CatalogService {
               },
             });
           }
+
+          console.info('finish import catalog');
           resolve();
         })
         .on('error', (error) => reject(error));

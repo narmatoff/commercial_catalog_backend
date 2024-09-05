@@ -87,122 +87,33 @@ export class ProductService {
             volume: row.volume || null,
             modelYear: row.modelyear ? parseInt(row.modelyear) : null,
             imgStatus: Boolean(parseInt(row.img_status)),
-            lefts: 0,
           };
 
           products.push(product);
         })
         .on('end', async () => {
-          // Сохраняем продукты в базу данных
+          console.info('start import products');
+
           for (const product of products) {
-            await this.prisma.product.upsert({
-              where: { prodId: product.prodId },
-              update: {
-                ...product,
-              },
-              create: {
-                ...product,
-              },
-            });
-
-            console.info('imported product: ', product.prodId);
+            try {
+              await this.prisma.product.upsert({
+                where: { prodId: product.prodId },
+                update: {
+                  ...product,
+                },
+                create: {
+                  ...product,
+                },
+              });
+            } catch (e) {
+              console.error('Failed to import product:', product.prodId, e);
+            }
           }
+
+          console.info('finish import products');
           resolve();
         })
         .on('error', (error) => reject(error));
     });
   }
-
-  async importOffersFromCsv(filePath: string) {
-    const offers = [];
-
-    return new Promise<void>((resolve, reject) => {
-      fs.createReadStream(filePath)
-        .pipe(csv({ separator: ';' }))
-        .on('data', async (row) => {
-          const offer = {
-            prodId: parseInt(row.prodid),
-            sku: parseInt(row.sku),
-            barcode: row.barcode,
-            name: row.name.replace(/"/g, ''),
-            price: parseFloat(row.price),
-            WholePrice: parseFloat(row.WholePrice),
-            basewholeprice: parseFloat(row.basewholeprice),
-            qty: parseInt(row.qty),
-            shippingdate: row.shippingdate || null,
-            weight: parseFloat(row.weight) || null,
-            colorName: row.colorName,
-            color: row.color,
-            size: row.size || null,
-            SuperSale: Boolean(parseInt(row.SuperSale)) || null,
-            p5s_stock: Boolean(parseInt(row.p5s_stock)),
-            StopPromo: Boolean(parseInt(row.StopPromo)),
-            bruttoLength: parseFloat(row.bruttoLength) || null,
-            bruttoWidth: parseFloat(row.bruttoWidth) || null,
-            bruttoHeight: parseFloat(row.bruttoHeight) || null,
-            currency: row.currency,
-          };
-
-          offers.push(offer);
-        })
-        .on('end', async () => {
-          // Сохраняем продукты в базу данных
-          for (const offer of offers) {
-            // const product = await this.prisma.product.findUnique({
-            //   where: { prodId: offer.prodId },
-            // });
-
-            // if (!product) {
-            //   continue;
-            // }
-            await this.prisma.productOffer.upsert({
-              // TODO доделать
-              where: { prodId: offer.prodId },
-              update: {
-                ...offer,
-              },
-              create: {
-                ...offer,
-              },
-            });
-
-            console.info('imported offer: ', offer.prodId);
-          }
-          resolve();
-        })
-        .on('error', (error) => reject(error));
-    });
-  }
-
-  // TODO: remove and use ProductOffer
-  // async updateLeftsFromCsv(filePath: string) {
-  //   const lefts: { prodId: number; p5sStock: number }[] = [];
-  //
-  //   return new Promise<void>((resolve, reject) => {
-  //     fs.createReadStream(filePath)
-  //       .pipe(csv({ separator: ';' }))
-  //       .on('data', async (row: { prodid: number; p5s_stock: number }) => {
-  //         const leftItem = {
-  //           prodId: Number(row.prodid),
-  //           p5sStock: Number(row.p5s_stock),
-  //         };
-  //         lefts.push(leftItem);
-  //       })
-  //       .on('end', async () => {
-  //         // Сохраняем остатки в базу данных
-  //         for (const leftItem of lefts) {
-  //           await this.prisma.product.update({
-  //             where: { prodId: leftItem.prodId },
-  //             data: {
-  //               lefts: leftItem.p5sStock,
-  //             },
-  //           });
-  //
-  //           console.info('updated lefts: ', leftItem.prodId);
-  //         }
-  //         resolve();
-  //       })
-  //       .on('error', (error) => reject(error));
-  //   });
-  // }
 }
