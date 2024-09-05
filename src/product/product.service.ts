@@ -155,7 +155,7 @@ export class ProductService {
             // if (!product) {
             //   continue;
             // }
-            await this.prisma.productOffers.upsert({
+            await this.prisma.productOffer.upsert({
               // TODO доделать
               where: { prodId: offer.prodId },
               update: {
@@ -174,34 +174,35 @@ export class ProductService {
     });
   }
 
-  async updateLeftsFromCsv(filePath: string) {
-    const lefts: { prodId: number; p5sStock: number }[] = [];
-
-    return new Promise<void>((resolve, reject) => {
-      fs.createReadStream(filePath)
-        .pipe(csv({ separator: ';' }))
-        .on('data', async (row: { prodid: number; p5s_stock: number }) => {
-          const leftItem = {
-            prodId: Number(row.prodid),
-            p5sStock: Number(row.p5s_stock),
-          };
-          lefts.push(leftItem);
-        })
-        .on('end', async () => {
-          // Сохраняем остатки в базу данных
-          for (const leftItem of lefts) {
-            await this.prisma.product.update({
-              where: { prodId: leftItem.prodId },
-              data: {
-                lefts: leftItem.p5sStock,
-              },
-            });
-
-            console.info('updated lefts: ', leftItem.prodId);
-          }
-          resolve();
-        })
-        .on('error', (error) => reject(error));
-    });
-  }
+  // TODO: remove and use ProductOffer
+  // async updateLeftsFromCsv(filePath: string) {
+  //   const lefts: { prodId: number; p5sStock: number }[] = [];
+  //
+  //   return new Promise<void>((resolve, reject) => {
+  //     fs.createReadStream(filePath)
+  //       .pipe(csv({ separator: ';' }))
+  //       .on('data', async (row: { prodid: number; p5s_stock: number }) => {
+  //         const leftItem = {
+  //           prodId: Number(row.prodid),
+  //           p5sStock: Number(row.p5s_stock),
+  //         };
+  //         lefts.push(leftItem);
+  //       })
+  //       .on('end', async () => {
+  //         // Сохраняем остатки в базу данных
+  //         for (const leftItem of lefts) {
+  //           await this.prisma.product.update({
+  //             where: { prodId: leftItem.prodId },
+  //             data: {
+  //               lefts: leftItem.p5sStock,
+  //             },
+  //           });
+  //
+  //           console.info('updated lefts: ', leftItem.prodId);
+  //         }
+  //         resolve();
+  //       })
+  //       .on('error', (error) => reject(error));
+  //   });
+  // }
 }

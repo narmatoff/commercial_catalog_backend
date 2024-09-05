@@ -1,8 +1,4 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service'; // Сервис для работы с Prisma
 
 @Injectable()
@@ -64,9 +60,9 @@ export class BasketService {
     });
 
     if (existingItem) {
-      if (product.lefts < quantity || product.lefts === 0) {
-        throw new BadRequestException('Not enough lefts');
-      }
+      // if (product.lefts < quantity || product.lefts === 0) {
+      //   throw new BadRequestException('Not enough lefts');
+      // }
       // Если товар уже есть в корзине, увеличим количество
       return this.prisma.basketItem.update({
         where: { id: existingItem.id },
@@ -79,9 +75,9 @@ export class BasketService {
         throw new NotFoundException('Product not found');
       }
 
-      if (product.lefts < quantity || product.lefts === 0) {
-        throw new BadRequestException('Not enough lefts');
-      }
+      // if (product.lefts < quantity || product.lefts === 0) {
+      //   throw new BadRequestException('Not enough lefts');
+      // }
 
       return this.prisma.basketItem.create({
         data: {

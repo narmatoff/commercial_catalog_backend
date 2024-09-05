@@ -7,7 +7,7 @@ import {
   catalogFileName,
   fileDirectory,
   productsFileName,
-  leftsFileName,
+  // leftsFileName,
   offersFileName,
 } from './model/const';
 
@@ -70,9 +70,9 @@ export class ImportController {
   ): Promise<{ message: string }> {
     await this.importService.updateLefts(url);
 
-    const filePath = path.resolve(fileDirectory, '..', 'files', leftsFileName);
+    // const filePath = path.resolve(fileDirectory, '..', 'files', leftsFileName);
 
-    await this.productService.updateLeftsFromCsv(filePath);
+    // await this.productService.updateLeftsFromCsv(filePath);
     return { message: 'Lefts updated successfully' };
   }
 }
