@@ -9,7 +9,7 @@ export class ImportController {
   async downloadCatalog(
     @Query('url') url: string,
   ): Promise<{ message: string }> {
-    await this.importService.downloadCatalog(url);
+    await this.importService.importCategoriesData(url);
 
     return { message: 'Categories imported successfully' };
   }
@@ -18,7 +18,7 @@ export class ImportController {
   async downloadProducts(
     @Query('url') url: string,
   ): Promise<{ message: string }> {
-    await this.importService.downloadProducts(url);
+    await this.importService.importProductsData(url);
 
     return { message: 'Products imported successfully' };
   }
@@ -27,7 +27,7 @@ export class ImportController {
   async downloadOffers(
     @Query('url') url: string,
   ): Promise<{ message: string }> {
-    await this.importService.downloadOffers(url);
+    await this.importService.importOffersData(url);
 
     return { message: 'Offers imported successfully' };
   }
@@ -36,7 +36,7 @@ export class ImportController {
   async downloadColors(
     @Query('url') url: string,
   ): Promise<{ message: string }> {
-    await this.importService.downloadColors(url);
+    await this.importService.importColorsData(url);
 
     return { message: 'Offers imported successfully' };
   }

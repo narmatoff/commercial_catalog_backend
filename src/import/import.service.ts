@@ -20,51 +20,27 @@ export class ImportService {
     private readonly colorService: ColorService,
   ) {}
 
-  async downloadCatalog(url: string) {
-    return this.importCategoriesData(await getFile(url, catalogFileName));
-  }
+  async importCategoriesData(url: string): Promise<void> {
+    const filePath = await getFile(url, catalogFileName);
 
-  async downloadProducts(url: string) {
-    return this.importProductsData(await getFile(url, productsFileName));
-  }
-
-  async downloadOffers(url: string) {
-    return this.importOffersData(await getFile(url, offersFileName));
-  }
-
-  async downloadColors(url: string) {
-    return this.importColorsData(await getFile(url, colorsFileName));
-  }
-
-  // ==============================================================================
-  // ==============================================================================
-  // ==============================================================================
-  // ==============================================================================
-  // ==============================================================================
-
-  private async importCategoriesData(filePath: string) {
     await this.catalogService.importCategoriesFromCsv(filePath);
-
-    // Здесь реализуйте логику импорта данных из CSV в базу данных
-    // Например, с использованием библиотеки `csv-parser` или любой другой
   }
 
-  private async importProductsData(filePath: string) {
+  async importProductsData(url: string): Promise<void> {
+    const filePath = await getFile(url, productsFileName);
+
     await this.productService.importProductsFromCsv(filePath);
-
-    // Здесь реализуйте логику импорта данных из CSV в базу данных
-    // Например, с использованием библиотеки `csv-parser` или любой другой
   }
-  private async importOffersData(filePath: string) {
+
+  async importOffersData(url: string): Promise<void> {
+    const filePath = await getFile(url, offersFileName);
+
     await this.offerService.importOffersFromCsv(filePath);
-
-    // Здесь реализуйте логику импорта данных из CSV в базу данных
-    // Например, с использованием библиотеки `csv-parser` или любой другой
   }
-  private async importColorsData(filePath: string) {
-    await this.colorService.importColorsFromCsv(filePath);
 
-    // Здесь реализуйте логику импорта данных из CSV в базу данных
-    // Например, с использованием библиотеки `csv-parser` или любой другой
+  async importColorsData(url: string): Promise<void> {
+    const filePath = await getFile(url, colorsFileName);
+
+    await this.colorService.importColorsFromCsv(filePath);
   }
 }
