@@ -51,6 +51,12 @@ export class ProductController {
           {
             description: { contains: searchString },
           },
+          {
+            function: { contains: searchString },
+          },
+          {
+            addFunction: { contains: searchString },
+          },
         ],
       },
     });
