@@ -23,7 +23,9 @@ export class ProductController {
 
   @Get('id/:id')
   async getProductById(@Param('id') id: string): Promise<ProductModule> {
-    const product = await this.productService.getProduct({ id: Number(id) });
+    const product = await this.productService.getProduct({
+      prodId: Number(id),
+    });
     if (!product) {
       throw new NotFoundException('Product not Found');
     }

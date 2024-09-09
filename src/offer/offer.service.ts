@@ -45,7 +45,7 @@ export class OfferService {
           for (const offer of offers) {
             try {
               await this.prisma.productOffer.upsert({
-                where: { prodId: offer.prodId },
+                where: { sku: offer.sku },
                 update: {
                   ...offer,
                 },
