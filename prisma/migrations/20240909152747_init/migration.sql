@@ -139,9 +139,6 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 CREATE UNIQUE INDEX "Product_prodId_key" ON "Product"("prodId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "ProductOffer_prodId_key" ON "ProductOffer"("prodId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "ProductColor_color_key" ON "ProductColor"("color");
 
 -- CreateIndex

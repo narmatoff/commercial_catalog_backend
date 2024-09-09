@@ -26,10 +26,10 @@ model User {
 }
 
 model Product {
-  id           Int           @id @default(autoincrement())
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  prodId       Int           @unique
+  id           Int            @id @default(autoincrement())
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  prodId       Int            @unique
   name         String
   vendorCode   String
   vendorId     Int
@@ -52,25 +52,25 @@ model Product {
   img9         String?
   img10        String?
   categoryId   Int
-  isNew        Boolean       @default(false)
-  isBestseller Boolean       @default(false)
+  isNew        Boolean        @default(false)
+  isBestseller Boolean        @default(false)
   function     String?
   addFunction  String?
   vibration    String?
   volume       String?
   modelYear    Int?
-  imgStatus    Boolean       @default(false)
+  imgStatus    Boolean        @default(false)
   BasketItem   BasketItem[]
-  offers       ProductOffer?
-  category     Catalog?      @relation(fields: [categoryId], references: [categoryId]) // Связь через categoryId
+  offers       ProductOffer[]
+  category     Catalog?       @relation(fields: [categoryId], references: [categoryId]) // Связь через categoryId
 }
 
 model ProductOffer {
   id             Int          @id @default(autoincrement())
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
-  prodId         Int          @unique
-  sku            Int
+  prodId         Int
+  sku            Int          @unique
   barcode        String
   name           String
   price          Float

@@ -14,6 +14,9 @@ export class ProductService {
   ): Promise<ProductModel | null> {
     return this.prisma.product.findUnique({
       where: postWhereUniqueInput,
+      include: {
+        offers: true,
+      },
     });
   }
 
@@ -31,6 +34,9 @@ export class ProductService {
       cursor,
       where,
       orderBy,
+      include: {
+        offers: true,
+      },
     });
   }
 

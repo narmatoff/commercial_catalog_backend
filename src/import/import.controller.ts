@@ -38,6 +38,6 @@ export class ImportController {
   ): Promise<{ message: string }> {
     await this.importService.importColorsData(url);
 
-    return { message: 'Offers imported successfully' };
+    return { message: 'Colors imported successfully' };
   }
 }
