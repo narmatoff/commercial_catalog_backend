@@ -71,9 +71,6 @@ jobs:
           docker build -t catalog_bot_api .
           docker images
 
-      - name: Verify Docker images
-        run: docker images
-
       - name: Save Docker image
         run: docker save catalog_bot_api > catalog_bot_api.tar
 
@@ -93,6 +90,12 @@ jobs:
         with:
           name: docker-image
           path: .
+
+      - name: Verify Docker images on server
+        run: |
+          ssh -o StrictHostKeyChecking=no narmatoff@31.128.38.77 << 'EOF'
+          docker images
+          EOF
 
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.7.0
