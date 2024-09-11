@@ -108,9 +108,9 @@ jobs:
 
       - name: Deploy Docker image to server
         run: |
-          ssh -o StrictHostKeyChecking=no narmatoff@31.128.38.77 << 'EOF'
+          ssh -t -o StrictHostKeyChecking=no narmatoff@31.128.38.77 << 'EOF'
           cd ~/catalog-bot
-          docker load < catalog_bot_api.tar
+          bunzip2 < catalog_bot_api.tar.bz2 | docker load
 
           # Проверка наличия образа
           docker images
