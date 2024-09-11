@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      DATABASE_URL: ${{ secrets.DEPLOY_LH_DB_URL }}
 
     steps:
       - uses: actions/checkout@v4
@@ -52,12 +52,12 @@ jobs:
 
       - name: Generate Prisma Client
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_URL: ${{ secrets.DEPLOY_LH_DB_URL }}
         run: npx prisma generate
 
       - name: Start migration process
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_URL: ${{ secrets.DEPLOY_LH_DB_URL }}
         run: npx prisma migrate deploy
 
       - name: Build the project
@@ -84,7 +84,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      DATABASE_URL: ${{ secrets.DEPLOY_LH_DB_URL }}
 
     steps:
       - name: Download Docker image artifact
