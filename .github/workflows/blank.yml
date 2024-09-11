@@ -72,13 +72,13 @@ jobs:
           docker images
 
       - name: Save Docker image
-        run: docker save catalog_bot_api > catalog_bot_api.tar
+        run: docker save catalog_bot_api > catalog_bot_api.tar.bz2
 
       - name: Upload Docker image artifact
         uses: actions/upload-artifact@v3
         with:
           name: docker-image
-          path: catalog_bot_api.tar
+          path: catalog_bot_api.tar.bz2
 
   deploy:
     runs-on: ubuntu-latest
@@ -125,7 +125,7 @@ jobs:
         run: |
           ssh -t -o StrictHostKeyChecking=no narmatoff@31.128.38.77 << 'EOF'
           cd ~/catalog-bot
-          bunzip2 < catalog_bot_api.tar | docker load
+          bunzip2 < catalog_bot_api.tar.bz2 | docker load
 
           # Проверка наличия образа
           docker images
