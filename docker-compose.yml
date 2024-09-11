@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16.4
+    environment:
+      POSTGRES_USER: catalogbot_user
+      POSTGRES_PASSWORD: catalogbot_password
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+#    environment:
+#      DATABASE_URL: "postgresql://catalogbot_user:catalogbot_password@db:5432/postgres"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:

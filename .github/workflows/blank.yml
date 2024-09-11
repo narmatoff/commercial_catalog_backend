@@ -31,22 +31,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Create Docker network
-        run: docker network create catalog_bot_network
-
-      - name: Start database container
+      - name: Set up Docker Compose
         run: |
-          docker run -d --name catalog_bot_db \
-            --network catalog_bot_network \
-            -e POSTGRES_USER=catalogbot_user \
-            -e POSTGRES_PASSWORD=catalogbot_password \
-            -e PGDATA=/var/lib/postgresql/data/pgdata \
-            -p 5432:5432 \
-            postgres:16.4
+          docker-compose up -d db
 
       - name: Wait for the database to be ready
         run: |
-          until docker exec catalog_bot_db pg_isready -U catalogbot_user; do
+          until docker exec $(docker ps -qf "name=db") pg_isready -U catalogbot_user; do
             echo "Waiting for the database to be ready..."
             sleep 3
           done
@@ -65,8 +56,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t catalog_bot_api .
-          docker images
+          docker-compose build app
 
       - name: Save Docker image
         run: |
