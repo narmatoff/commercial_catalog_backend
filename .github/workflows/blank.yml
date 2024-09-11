@@ -161,5 +161,5 @@ jobs:
             catalog_bot_api
 
           # Проверка состояния приложения
-          curl -sSf http://catalog_bot_db:3001 || exit 1
+          curl -sSf http://31.128.38.77:3001 || exit 1
           EOF
