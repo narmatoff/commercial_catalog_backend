@@ -68,10 +68,8 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker-compose build app
-
-      - name: Save Docker image
-        run: docker save catalog_bot_api > catalog_bot_api.tar
+          docker build -t catalog_bot_api .
+          docker images
 
       - name: Upload Docker image artifact
         uses: actions/upload-artifact@v3
@@ -99,10 +97,13 @@ jobs:
         run: |
           scp -o StrictHostKeyChecking=no catalog_bot_api.tar.bz2 narmatoff@31.128.38.77:~/catalog-bot/
 
-      - name: Verify Docker image
+      - name: Verify Docker images
         run: |
           docker images
           docker ps -a
+
+      - name: Save Docker image
+        run: docker save catalog_bot_api > catalog_bot_api.tar
 
       - name: List files
         run: ls -lh ~/catalog-bot/
