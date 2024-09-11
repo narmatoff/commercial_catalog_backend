@@ -93,7 +93,7 @@ jobs:
 
       - name: Debug SSH connection
         run: |
-          ssh -o StrictHostKeyChecking=no user@your_server_ip 'docker images'
+          ssh -o StrictHostKeyChecking=no narmatoff@31.128.38.77 'docker images'
 
       - name: Start SSH agent
         run: |
