@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   db:
+    container_name: catalog_bot_db
     image: postgres:16.4
     environment:
       POSTGRES_USER: catalogbot_user
@@ -9,10 +10,14 @@ services:
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - catalog_bot_network
     ports:
       - "5432:5432"
 
   app:
+    container_name: catalog_bot_api
+    image: catalog_bot_api
     build:
       context: .
       dockerfile: Dockerfile
@@ -20,6 +25,12 @@ services:
 #      DATABASE_URL: "postgresql://catalogbot_user:catalogbot_password@db:5432/postgres"
     depends_on:
       - db
+    networks:
+      - catalog_bot_network
+
+networks:
+  catalog_bot_network:
+    driver: bridge
 
 volumes:
   postgres_data:
