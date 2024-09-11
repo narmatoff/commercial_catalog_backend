@@ -89,7 +89,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: docker-image
-        path: .
+          path: .
 
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.7.0
