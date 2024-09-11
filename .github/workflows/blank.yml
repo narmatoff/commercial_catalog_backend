@@ -93,9 +93,7 @@ jobs:
 
       - name: Debug SSH connection
         run: |
-          ssh -vvv -o StrictHostKeyChecking=no narmatoff@31.128.38.77 << 'EOF'
-          docker images
-          EOF
+          ssh -o StrictHostKeyChecking=no user@your_server_ip 'docker images'
 
       - name: Start SSH agent
         run: |
