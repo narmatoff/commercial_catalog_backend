@@ -45,15 +45,19 @@ jobs:
 
       - name: Wait for the database to be ready
         run: |
-          until docker exec $(docker ps -qf "name=db") pg_isready -U catalogbot_user; do
+          until docker-compose exec db pg_isready -U catalogbot_user; do
             echo "Waiting for the database to be ready..."
             sleep 3
           done
 
       - name: Generate Prisma Client
+        env:
+          DATABASE_URL: "postgresql://catalogbot_user:catalogbot_password@localhost:5432/postgres"
         run: npx prisma generate
 
       - name: Start migration process
+        env:
+          DATABASE_URL: "postgresql://catalogbot_user:catalogbot_password@localhost:5432/postgres"
         run: npx prisma migrate deploy
 
       - name: Build the project
@@ -131,4 +135,7 @@ jobs:
             -p 3001:3001 \
             -e DATABASE_URL=postgresql://catalogbot_user:catalogbot_password@catalog_bot_db:5432/postgres \
             catalog_bot_api
+
+          # Проверка состояния приложения
+          curl -sSf http://localhost:3001 || exit 1
           EOF
