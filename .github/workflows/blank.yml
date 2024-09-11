@@ -91,6 +91,11 @@ jobs:
           name: docker-image
           path: .
 
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
       - name: Debug SSH connection
         run: |
           ssh -o StrictHostKeyChecking=no narmatoff@31.128.38.77 'docker images'
@@ -106,10 +111,6 @@ jobs:
           docker images
           EOF
 
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.7.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: SSH into server and run commands
         run: |
