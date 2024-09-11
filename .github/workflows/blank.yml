@@ -52,12 +52,12 @@ jobs:
 
       - name: Generate Prisma Client
         env:
-          DATABASE_URL: "postgresql://catalogbot_user:catalogbot_password@localhost:5432/postgres"
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: npx prisma generate
 
       - name: Start migration process
         env:
-          DATABASE_URL: "postgresql://catalogbot_user:catalogbot_password@localhost:5432/postgres"
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: npx prisma migrate deploy
 
       - name: Build the project
@@ -83,6 +83,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
     steps:
       - name: Download Docker image artifact
@@ -106,12 +108,11 @@ jobs:
           eval $(ssh-agent -s)
           ssh-add <(echo "${{ secrets.SSH_PRIVATE_KEY }}")
 
-      - name: Verify Docker images on server
-        run: |
-          ssh -o StrictHostKeyChecking=no narmatoff@31.128.38.77 << 'EOF'
-          docker images
-          EOF
-
+#      - name: Verify Docker images on server
+#        run: |
+#          ssh -o StrictHostKeyChecking=no narmatoff@31.128.38.77 << 'EOF'
+#          docker images
+#          EOF
 
       - name: SSH into server and run commands
         run: |
@@ -120,6 +121,10 @@ jobs:
           EOF
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Copy Docker image to server
+        run: |
+          scp -o StrictHostKeyChecking=no catalog_bot_api.tar.bz2 narmatoff@31.128.38.77:~/catalog-bot/
 
       - name: Deploy Docker image to server
         run: |
@@ -159,7 +164,7 @@ jobs:
             --name catalog_bot_api \
             --network catalog_bot_network \
             -p 3001:3001 \
-            -e DATABASE_URL=postgresql://catalogbot_user:catalogbot_password@catalog_bot_db:5432/postgres \
+            -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
             catalog_bot_api
 
           # Проверка состояния приложения
