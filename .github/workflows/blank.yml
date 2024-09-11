@@ -72,7 +72,7 @@ jobs:
           docker images
 
       - name: Save Docker image
-        run: docker save catalog_bot_api > catalog_bot_api.tar.bz2
+        run: docker save catalog_bot_api | bzip2 > catalog_bot_api.tar.bz2
 
       - name: Upload Docker image artifact
         uses: actions/upload-artifact@v3
@@ -129,6 +129,8 @@ jobs:
 
           # Проверка наличия образа
           docker images
+          
+          docker ps -a
 
           # Создание сети, если она не существует
           docker network ls | grep catalog_bot_network || docker network create catalog_bot_network
