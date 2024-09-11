@@ -135,4 +135,7 @@ jobs:
             -p 3001:3001 \
             -e DATABASE_URL=postgresql://catalogbot_user:catalogbot_password@catalog_bot_db:5432/postgres \
             catalog_bot_api
+
+          # Проверка состояния приложения
+          curl -sSf http://localhost:3001 || exit 1
           EOF
