@@ -89,7 +89,34 @@ jobs:
           ssh -o StrictHostKeyChecking=no narmatoff@31.128.38.77 << 'EOF'
           cd ~/catalog-bot
           bunzip2 < catalog_bot_api.tar.bz2 | docker load
+          
+          # Создание сети, если она не существует
+          docker network ls | grep catalog_bot_network || docker network create catalog_bot_network
+
+          # Остановка и удаление существующего контейнера базы данных, если он есть
+          docker stop catalog_bot_db || true
+          docker rm catalog_bot_db || true
+
+          # Запуск контейнера базы данных
+          docker run -d --restart=always \
+            --name catalog_bot_db \
+            --network catalog_bot_network \
+            -e POSTGRES_USER=catalogbot_user \
+            -e POSTGRES_PASSWORD=catalogbot_password \
+            -e PGDATA=/var/lib/postgresql/data/pgdata \
+            -v ~/docker/postgresql/data:/var/lib/postgresql/data \
+            -p 5432:5432 \
+            postgres:16.4
+
+          # Остановка и удаление существующего контейнера приложения, если он есть
           docker stop catalog_bot_api || true
           docker rm catalog_bot_api || true
-          docker run -d --name catalog_bot_api -p 3001:3001 -e DATABASE_URL=${{ secrets.DATABASE_URL }} catalog_bot_api
+
+          # Запуск контейнера приложения
+          docker run -d --restart=always \
+            --name catalog_bot_api \
+            --network catalog_bot_network \
+            -p 3001:3001 \
+            -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
+            catalog_bot_api
           EOF
