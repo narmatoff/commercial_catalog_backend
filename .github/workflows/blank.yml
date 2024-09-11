@@ -45,9 +45,9 @@ jobs:
 
       - name: Wait for the database to be ready
         run: |
-          until docker exec $(docker ps -qf "name=db") pg_isready -U catalogbot_user; do
-            echo "Waiting for the database to be ready..."
-            sleep 3
+          until docker exec $(docker ps -qf "name=catalog_bot_db") pg_isready -U catalogbot_user; do
+          echo "Waiting for the database to be ready..."
+          sleep 3
           done
 
       - name: Generate Prisma Client
