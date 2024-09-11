@@ -110,7 +110,7 @@ jobs:
         run: |
           ssh -t -o StrictHostKeyChecking=no narmatoff@31.128.38.77 << 'EOF'
           cd ~/catalog-bot
-          bunzip2 < catalog_bot_api.tar.bz2 | docker load
+          bunzip2 < catalog_bot_api.tar | docker load
 
           # Проверка наличия образа
           docker images
