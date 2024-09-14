@@ -32,16 +32,23 @@ export class UserService {
   // }
 
   async createUser(data: Prisma.UserCreateInput): Promise<UserModel> {
-    const user = await this.prisma.user.create({
-      data,
+    const user = await this.prisma.user.upsert({
+      where: { telegramId: data.telegramId },
+      create: data,
+      update: data,
     });
 
-    // заводим корзину для пользователя
-    await this.prisma.basket.create({
-      data: {
-        user: { connect: { telegramId: user.telegramId } },
-      },
+    const basket = this.prisma.basket.findUnique({
+      where: { telegramId: user.telegramId },
     });
+
+    if (!basket) {
+      await this.prisma.basket.create({
+        data: {
+          user: { connect: { telegramId: user.telegramId } },
+        },
+      });
+    }
 
     return user;
   }
