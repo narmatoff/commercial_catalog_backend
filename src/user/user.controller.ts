@@ -21,13 +21,6 @@ export class UserController {
 
   @Post()
   async createUser(@Body() body: CreateUserDto): Promise<UserModel> {
-    const user = await this.userService.user({
-      email: body.email,
-    });
-    if (user) {
-      throw new ConflictException('User already exists');
-    }
-
     return this.userService.createUser(body);
   }
 

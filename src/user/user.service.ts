@@ -14,34 +14,24 @@ export class UserService {
     });
   }
 
-  // async users(params: {
-  //   skip?: number;
-  //   take?: number;
-  //   cursor?: Prisma.UserWhereUniqueInput;
-  //   where?: Prisma.UserWhereInput;
-  //   orderBy?: Prisma.UserOrderByWithRelationInput;
-  // }): Promise<UserModel[]> {
-  //   const { skip, take, cursor, where, orderBy } = params;
-  //   return this.prisma.user.findMany({
-  //     skip,
-  //     take,
-  //     cursor,
-  //     where,
-  //     orderBy,
-  //   });
-  // }
-
   async createUser(data: Prisma.UserCreateInput): Promise<UserModel> {
-    const user = await this.prisma.user.create({
-      data,
+    const user = await this.prisma.user.upsert({
+      where: { telegramId: data.telegramId },
+      create: data,
+      update: data,
     });
 
-    // заводим корзину для пользователя
-    await this.prisma.basket.create({
-      data: {
-        user: { connect: { telegramId: user.telegramId } },
-      },
+    const basket = this.prisma.basket.findUnique({
+      where: { telegramId: user.telegramId },
     });
+
+    if (!basket) {
+      await this.prisma.basket.create({
+        data: {
+          user: { connect: { telegramId: user.telegramId } },
+        },
+      });
+    }
 
     return user;
   }
