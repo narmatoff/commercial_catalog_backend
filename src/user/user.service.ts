@@ -32,9 +32,18 @@ export class UserService {
   // }
 
   async createUser(data: Prisma.UserCreateInput): Promise<UserModel> {
-    return this.prisma.user.create({
+    const user = await this.prisma.user.create({
       data,
     });
+
+    // заводим корзину для пользователя
+    await this.prisma.basket.create({
+      data: {
+        user: { connect: { telegramId: user.telegramId } },
+      },
+    });
+
+    return user;
   }
 
   // async updateUser(params: {

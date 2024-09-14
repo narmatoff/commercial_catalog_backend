@@ -21,6 +21,7 @@ model User {
   email      String   @unique
   fio        String
   phone      String   @unique
+  isAdult    Boolean
   basket     Basket? // Связь с корзиной (1:1)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
