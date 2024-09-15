@@ -160,6 +160,14 @@ jobs:
             -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
             catalog_bot_api
 
+          # Проверка состояния контейнера
+          while ! docker logs catalog_bot_api 2>&1 | grep "Server listening on port 3001"; do
+            echo "Waiting for the container to start..."
+            sleep 3
+          done
+  
           # Проверка состояния приложения
           curl -sSf http://31.128.38.77:3001/app/ping || exit 1
+          # Проверка состояния приложения
+          # curl -sSf http://31.128.38.77:3001/app/ping || exit 1
           EOF
