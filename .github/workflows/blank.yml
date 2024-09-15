@@ -161,13 +161,11 @@ jobs:
             catalog_bot_api
 
           # Проверка состояния контейнера
-          while ! docker ps -a | grep catalog_bot_api | grep "Up"; do
+          while ! docker inspect -f '{{.State.Running}}' catalog_bot_api; do
             echo "Waiting for the container to start..."
             sleep 3
           done
 
           # Проверка состояния приложения
           curl -sSf http://31.128.38.77:3001/app/ping || exit 1
-          # Проверка состояния приложения
-          # curl -sSf http://31.128.38.77:3001/app/ping || exit 1
           EOF
