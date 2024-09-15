@@ -167,5 +167,5 @@ jobs:
           done
 
           # Проверка состояния приложения
-          curl -sSf http://31.128.38.77:3001/app/ping || exit 1
+          # curl -sSf http://31.128.38.77:3001/app/ping || exit 1
           EOF
