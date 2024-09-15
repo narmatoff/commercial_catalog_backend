@@ -9,9 +9,15 @@ export class UserService {
   async user(
     userWhereUniqueInput: Prisma.UserWhereUniqueInput,
   ): Promise<UserModel | null> {
-    return this.prisma.user.findUnique({
-      where: userWhereUniqueInput,
-    });
+    try {
+      return await this.prisma.user.findUnique({
+        where: userWhereUniqueInput,
+      });
+    } catch (error) {
+      console.info('error: ', error);
+
+      return null;
+    }
   }
 
   async createUser(data: Prisma.UserCreateInput): Promise<UserModel> {

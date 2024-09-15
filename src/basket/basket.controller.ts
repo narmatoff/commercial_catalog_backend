@@ -7,6 +7,7 @@ import {
   Delete,
   Patch,
   Inject,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { BasketService } from './basket.service';
 import { AddItemToBasketDto } from './dto/add-item-to-basket.dto';
@@ -23,12 +24,26 @@ export class BasketController {
   ) {}
 
   @Get(':telegramId')
-  getUserBasket(@Param('telegramId') telegramId: number) {
-    return this.basketService.getUserBasket(telegramId);
+  getUserBasket(@Param('telegramId') telegramId: string) {
+    const user = this.userService.user({ telegramId: Number(telegramId) });
+
+    if (!user) {
+      throw new UnauthorizedException('Пользователь не зарегистрирован');
+    }
+
+    return this.basketService.getUserBasket(Number(telegramId));
   }
 
   @Post()
   async addItemToBasket(@Body() body: AddItemToBasketDto) {
+    const user = await this.userService.user({
+      telegramId: Number(body.telegramId),
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('Пользователь не зарегистрирован');
+    }
+
     return this.basketService.addItemToBasket(
       body.telegramId,
       body.productId,
@@ -38,6 +53,12 @@ export class BasketController {
 
   @Patch()
   updateItemQuantity(@Body() body: UpdateItemQuantityDto) {
+    const user = this.userService.user({ telegramId: Number(body.telegramId) });
+
+    if (!user) {
+      throw new UnauthorizedException('Пользователь не зарегистрирован');
+    }
+
     return this.basketService.updateItemQuantity(
       body.telegramId,
       body.productId,
@@ -47,6 +68,12 @@ export class BasketController {
 
   @Delete()
   removeItemFromBasket(@Body() body: DeleteItemDto) {
+    const user = this.userService.user({ telegramId: Number(body.telegramId) });
+
+    if (!user) {
+      throw new UnauthorizedException('Пользователь не зарегистрирован');
+    }
+
     return this.basketService.removeItemFromBasket(
       body.telegramId,
       body.productId,
@@ -54,7 +81,13 @@ export class BasketController {
   }
 
   @Delete('clear/:telegramId')
-  clearBasket(@Param('telegramId') telegramId: number) {
-    return this.basketService.clearBasket(telegramId);
+  clearBasket(@Param('telegramId') telegramId: string) {
+    const user = this.userService.user({ telegramId: Number(telegramId) });
+
+    if (!user) {
+      throw new UnauthorizedException('Пользователь не зарегистрирован');
+    }
+
+    return this.basketService.clearBasket(Number(telegramId));
   }
 }
