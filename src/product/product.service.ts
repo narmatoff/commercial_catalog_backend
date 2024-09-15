@@ -41,8 +41,12 @@ export class ProductService {
   }
 
   async createProduct(data: CreateProductDto): Promise<ProductModel> {
-    return this.prisma.product.create({
-      data,
+    return this.prisma.product.upsert({
+      where: {
+        prodId: data.prodId,
+      },
+      create: data,
+      update: data,
     });
   }
 

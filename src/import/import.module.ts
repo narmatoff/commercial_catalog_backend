@@ -6,6 +6,7 @@ import { ProductService } from '../product/product.service';
 import { ImportService } from './import.service';
 import { OfferService } from '../offer/offer.service';
 import { ColorService } from '../color/color.service';
+import { UserService } from '../user/user.service';
 
 @Module({
   controllers: [ImportController],
@@ -16,6 +17,7 @@ import { ColorService } from '../color/color.service';
     ImportService,
     OfferService,
     ColorService,
+    UserService,
   ],
 })
 export class ImportModule {}

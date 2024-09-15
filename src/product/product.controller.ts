@@ -6,23 +6,50 @@ import {
   NotFoundException,
   Param,
   Post,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { Product as ProductModel } from '@prisma/client';
 import { ProductService } from './product.service';
 import { ProductModule } from './product.module';
 import { CreateProductDto } from './dto/create-product.dto';
+import { UserService } from '../user/user.service';
 
 @Controller('product')
 export class ProductController {
-  constructor(private readonly productService: ProductService) {}
+  constructor(
+    private readonly productService: ProductService,
+    private readonly userService: UserService,
+  ) {}
 
-  @Post('add')
-  async createProduct(@Body() body: CreateProductDto): Promise<ProductModel> {
+  @Post('add/:telegramId')
+  async createProduct(
+    @Body() body: CreateProductDto,
+    @Param('telegramId') telegramId: string,
+  ): Promise<ProductModel> {
+    const user = await this.userService.user({
+      telegramId: Number(telegramId),
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('Пользователь не зарегистрирован');
+    }
+
     return this.productService.createProduct(body);
   }
 
-  @Get('id/:id')
-  async getProductById(@Param('id') id: string): Promise<ProductModule> {
+  @Get('id/:id/:telegramId')
+  async getProductById(
+    @Param('id') id: string,
+    @Param('telegramId') telegramId: string,
+  ): Promise<ProductModule> {
+    const user = await this.userService.user({
+      telegramId: Number(telegramId),
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('Пользователь не зарегистрирован');
+    }
+
     const product = await this.productService.getProduct({
       prodId: Number(id),
     });
@@ -33,17 +60,36 @@ export class ProductController {
     return product;
   }
 
-  @Get('new')
-  async getIsNewProducts(): Promise<ProductModel[]> {
+  @Get('new/:telegramId')
+  async getIsNewProducts(
+    @Param('telegramId') telegramId: string,
+  ): Promise<ProductModel[]> {
+    const user = await this.userService.user({
+      telegramId: Number(telegramId),
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('Пользователь не зарегистрирован');
+    }
+
     return this.productService.getProducts({
       where: { isNew: true },
     });
   }
 
-  @Get('filtered-products/:searchString')
+  @Get('filtered-products/:searchString/:telegramId')
   async getFilteredPProducts(
     @Param('searchString') searchString: string,
+    @Param('telegramId') telegramId: number,
   ): Promise<ProductModel[]> {
+    const user = await this.userService.user({
+      telegramId: Number(telegramId),
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('Пользователь не зарегистрирован');
+    }
+
     const products = await this.productService.getProducts({
       where: {
         OR: [
@@ -70,10 +116,19 @@ export class ProductController {
     return products;
   }
 
-  @Get('category-products/:categoryNumber')
+  @Get('category-products/:categoryNumber/:telegramId')
   async getCategoryProducts(
     @Param('categoryNumber') categoryNumber: number,
+    @Param('telegramId') telegramId: string,
   ): Promise<ProductModel[]> {
+    const user = await this.userService.user({
+      telegramId: Number(telegramId),
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('Пользователь не зарегистрирован');
+    }
+
     const products = await this.productService.getProducts({
       where: {
         categoryId: Number(categoryNumber),
@@ -87,8 +142,19 @@ export class ProductController {
     return products;
   }
 
-  @Delete('/:id')
-  async deleteProduct(@Param('id') id: string): Promise<ProductModel> {
+  @Delete('/:id/:telegramId')
+  async deleteProduct(
+    @Param('id') id: string,
+    @Param('telegramId') telegramId: string,
+  ): Promise<ProductModel> {
+    const user = await this.userService.user({
+      telegramId: Number(telegramId),
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('Пользователь не зарегистрирован');
+    }
+
     const product = await this.productService.getProduct({ id: Number(id) });
     if (!product) {
       throw new NotFoundException('Product not Found');

@@ -1,13 +1,33 @@
-import { Controller, Get, NotFoundException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { CatalogModule } from './catalog.module';
 import { CatalogService } from './catalog.service';
+import { UserService } from '../user/user.service';
 
 @Controller('catalog')
 export class CatalogController {
-  constructor(private readonly catalogService: CatalogService) {}
+  constructor(
+    private readonly catalogService: CatalogService,
+    private readonly userService: UserService,
+  ) {}
 
-  @Get()
-  async getCategoryList(): Promise<CatalogModule> {
+  @Get(':telegramId')
+  async getCategoryList(
+    @Param('telegramId') telegramId: string,
+  ): Promise<CatalogModule> {
+    const user = await this.userService.user({
+      telegramId: Number(telegramId),
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('Пользователь не зарегистрирован');
+    }
+
     const categories = await this.catalogService.getCategories();
 
     if (!categories) {
