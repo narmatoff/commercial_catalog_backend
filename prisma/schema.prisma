@@ -18,9 +18,9 @@ model User {
   //TODO: после тестирования api задействовать id в качестве uuid пользователя телеграм
   id         Int      @id @default(autoincrement())
   telegramId Int      @unique
-  email      String   @unique
-  fio        String
-  phone      String   @unique
+  email      String?  @unique
+  fio        String?
+  phone      String?  @unique
   isAdult    Boolean
   basket     Basket? // Связь с корзиной (1:1)
   createdAt  DateTime @default(now())

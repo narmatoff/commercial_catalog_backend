@@ -5,9 +5,10 @@ CREATE TYPE "EnumCurrency" AS ENUM ('USD', 'EUR', 'RUB');
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
     "telegramId" INTEGER NOT NULL,
-    "email" TEXT NOT NULL,
-    "fio" TEXT NOT NULL,
-    "phone" TEXT NOT NULL,
+    "email" TEXT,
+    "fio" TEXT,
+    "phone" TEXT,
+    "isAdult" BOOLEAN NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -135,6 +136,9 @@ CREATE UNIQUE INDEX "User_telegramId_key" ON "User"("telegramId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_phone_key" ON "User"("phone");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Product_prodId_key" ON "Product"("prodId");
