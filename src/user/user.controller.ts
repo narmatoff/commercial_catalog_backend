@@ -10,6 +10,7 @@ import { User as UserModel } from '@prisma/client';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { GetUserDto } from './dto/get-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('user')
 export class UserController {
@@ -20,6 +21,11 @@ export class UserController {
 
   @Post()
   async createUser(@Body() body: CreateUserDto): Promise<UserModel> {
+    return this.userService.createUser(body);
+  }
+
+  @Post('update')
+  async updateUser(@Body() body: UpdateUserDto): Promise<UserModel> {
     return this.userService.createUser(body);
   }
 

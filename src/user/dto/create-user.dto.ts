@@ -1,27 +1,9 @@
-import {
-  IsBoolean,
-  IsEmail,
-  IsNotEmpty,
-  IsNumber,
-  IsPhoneNumber,
-  IsString,
-} from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CreateUserDto {
   @IsNotEmpty()
   @IsNumber()
   telegramId: number;
-
-  @IsEmail()
-  @IsNotEmpty()
-  email: string;
-
-  @IsString()
-  fio: string;
-
-  @IsPhoneNumber()
-  @IsNotEmpty()
-  phone: string;
 
   @IsBoolean()
   @IsNotEmpty()
