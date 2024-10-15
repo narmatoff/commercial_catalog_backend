@@ -1,15 +1,17 @@
-import { IsEmail, IsNotEmpty, IsPhoneNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 import { CreateUserDto } from './create-user.dto';
 
 export class UpdateUserDto extends CreateUserDto {
-  @IsEmail()
+  // TODO: вернуть после ресерча (валидация в тлг)
+  // @IsEmail()
   @IsNotEmpty()
   email: string;
 
   @IsString()
   fio: string;
 
-  @IsPhoneNumber()
+  // TODO: вернуть после ресерча (валидация в тлг)
+  // @IsPhoneNumber()
   @IsNotEmpty()
   phone: string;
 }
