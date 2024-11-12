@@ -23,6 +23,7 @@ export class BasketService {
   async addItemToBasket(
     telegramId: number,
     productId: number,
+    productOfferId: number,
     quantity: number = 1,
   ) {
     // Проверяем, существует ли пользователь
@@ -83,6 +84,7 @@ export class BasketService {
         data: {
           basketId: basket.id,
           productId,
+          productOfferId,
           quantity,
         },
       });

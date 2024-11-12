@@ -8,5 +8,8 @@ export class AddItemToBasketDto {
   productId: number;
 
   @IsNumber()
+  productOfferId: number;
+
+  @IsNumber()
   quantity: number;
 }

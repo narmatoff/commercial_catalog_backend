@@ -93,6 +93,7 @@ model ProductOffer {
   currency       EnumCurrency @default(RUB)
   product        Product      @relation(fields: [prodId], references: [prodId])
   prodColor      ProductColor @relation(fields: [color], references: [color])
+  BasketItem     BasketItem[]
 }
 
 enum EnumCurrency {
@@ -132,12 +133,14 @@ model Basket {
 }
 
 model BasketItem {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  basketId  Int
-  basket    Basket   @relation(fields: [basketId], references: [id])
-  productId Int
-  product   Product  @relation(fields: [productId], references: [id])
-  quantity  Int      @default(1) // количество товара
+  id             Int          @id @default(autoincrement())
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  basketId       Int
+  basket         Basket       @relation(fields: [basketId], references: [id])
+  productId      Int
+  product        Product      @relation(fields: [productId], references: [id])
+  productOfferId Int
+  productOffer   ProductOffer @relation(fields: [productOfferId], references: [id])
+  quantity       Int          @default(1) // количество товара
 }

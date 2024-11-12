@@ -126,6 +126,7 @@ CREATE TABLE "BasketItem" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "basketId" INTEGER NOT NULL,
     "productId" INTEGER NOT NULL,
+    "productOfferId" INTEGER NOT NULL,
     "quantity" INTEGER NOT NULL DEFAULT 1,
 
     CONSTRAINT "BasketItem_pkey" PRIMARY KEY ("id")
@@ -172,3 +173,6 @@ ALTER TABLE "BasketItem" ADD CONSTRAINT "BasketItem_basketId_fkey" FOREIGN KEY (
 
 -- AddForeignKey
 ALTER TABLE "BasketItem" ADD CONSTRAINT "BasketItem_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "BasketItem" ADD CONSTRAINT "BasketItem_productOfferId_fkey" FOREIGN KEY ("productOfferId") REFERENCES "ProductOffer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
