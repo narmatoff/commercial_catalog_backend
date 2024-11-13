@@ -15,7 +15,6 @@ datasource db {
 }
 
 model User {
-  //TODO: после тестирования api задействовать id в качестве uuid пользователя телеграм
   id         Int      @id @default(autoincrement())
   telegramId Int      @unique
   email      String?  @unique
@@ -94,6 +93,9 @@ model ProductOffer {
   BasketItem     BasketItem[]
   product        Product      @relation(fields: [prodId], references: [prodId])
   prodColor      ProductColor @relation(fields: [color], references: [color])
+
+  @@index([prodId])
+  @@index([sku])
 }
 
 enum EnumCurrency {
@@ -120,7 +122,7 @@ model Catalog {
   parentId   Int?
   name       String
   sort       Int
-  products   Product[] // Связь с Product через categoryId
+  products   Product[]
 }
 
 model Basket {
@@ -130,6 +132,8 @@ model Basket {
   telegramId Int          @unique
   items      BasketItem[]
   user       User         @relation(fields: [telegramId], references: [telegramId]) // Связь с пользователем (1:1)
+
+  @@index([telegramId])
 }
 
 model BasketItem {
@@ -143,4 +147,7 @@ model BasketItem {
   basket         Basket       @relation(fields: [basketId], references: [id])
   product        Product      @relation(fields: [productId], references: [prodId])
   productOffer   ProductOffer @relation(fields: [productOfferId], references: [id])
+
+  @@index([productId])
+  @@index([productOfferId])
 }
