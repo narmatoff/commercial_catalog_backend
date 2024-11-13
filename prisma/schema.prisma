@@ -91,9 +91,9 @@ model ProductOffer {
   bruttoWidth    Float?
   bruttoHeight   Float?
   currency       EnumCurrency @default(RUB)
+  BasketItem     BasketItem[]
   product        Product      @relation(fields: [prodId], references: [prodId])
   prodColor      ProductColor @relation(fields: [color], references: [color])
-  BasketItem     BasketItem[]
 }
 
 enum EnumCurrency {
@@ -128,8 +128,8 @@ model Basket {
   createdAt  DateTime     @default(now())
   updatedAt  DateTime     @updatedAt
   telegramId Int          @unique
-  user       User         @relation(fields: [telegramId], references: [telegramId]) // Связь с пользователем (1:1)
   items      BasketItem[]
+  user       User         @relation(fields: [telegramId], references: [telegramId]) // Связь с пользователем (1:1)
 }
 
 model BasketItem {
@@ -137,10 +137,10 @@ model BasketItem {
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
   basketId       Int
-  basket         Basket       @relation(fields: [basketId], references: [id])
   productId      Int
-  product        Product      @relation(fields: [productId], references: [id])
   productOfferId Int
-  productOffer   ProductOffer @relation(fields: [productOfferId], references: [id])
   quantity       Int          @default(1) // количество товара
+  basket         Basket       @relation(fields: [basketId], references: [id])
+  product        Product      @relation(fields: [productId], references: [id])
+  productOffer   ProductOffer @relation(fields: [productOfferId], references: [id])
 }

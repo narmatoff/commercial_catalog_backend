@@ -26,73 +26,42 @@ export class BasketService {
     productOfferId: number,
     quantity: number = 1,
   ) {
-    // Проверяем, существует ли пользователь
-    const user = await this.prisma.user.findUnique({
-      where: { telegramId: telegramId },
-    });
+    const [basket, product, productOffer, existingItem] = await Promise.all([
+      this.prisma.basket.upsert({
+        where: { telegramId },
+        update: {},
+        create: { user: { connect: { telegramId } } },
+      }),
+      this.prisma.product.findUnique({ where: { prodId: productId } }),
+      this.prisma.productOffer.findUnique({ where: { id: productOfferId } }),
+      this.prisma.basketItem.findFirst({
+        where: { productOfferId, productId },
+      }),
+    ]);
 
-    if (!user) {
-      throw new NotFoundException('User not found');
+    if (!product || !productOffer) {
+      throw new NotFoundException(
+        !product ? 'Product not found' : 'Product offer not found',
+      );
     }
 
-    // Найдем корзину или создадим новую, если ее нет
-    let basket = await this.prisma.basket.findUnique({
-      where: { telegramId: telegramId },
-    });
-
-    if (!basket) {
-      basket = await this.prisma.basket.create({
-        data: {
-          user: { connect: { telegramId: telegramId } },
-        },
-      });
-    }
-
-    // Проверим, есть ли товар в корзине
-    const existingItem = await this.prisma.basketItem.findFirst({
-      where: {
-        basketId: basket.id,
-        productId,
-      },
-    });
-
-    const product = await this.prisma.product.findUnique({
-      where: { id: productId },
-    });
-
-    if (existingItem) {
-      // if (product.lefts < quantity || product.lefts === 0) {
-      //   throw new BadRequestException('Not enough lefts');
-      // }
-      // Если товар уже есть в корзине, увеличим количество
-      return this.prisma.basketItem.update({
-        where: { id: existingItem.id },
-        data: { quantity: existingItem.quantity + quantity },
-      });
-    } else {
-      // Если товара еще нет в корзине, добавим его
-
-      if (!product) {
-        throw new NotFoundException('Product not found');
-      }
-
-      // if (product.lefts < quantity || product.lefts === 0) {
-      //   throw new BadRequestException('Not enough lefts');
-      // }
-
-      return this.prisma.basketItem.create({
-        data: {
-          basketId: basket.id,
-          productId,
-          productOfferId,
-          quantity,
-        },
-      });
-    }
+    return existingItem
+      ? this.prisma.basketItem.update({
+          where: { id: existingItem.id },
+          data: { quantity: existingItem.quantity + quantity },
+        })
+      : this.prisma.basketItem.create({
+          data: {
+            basketId: basket.id,
+            productId,
+            productOfferId,
+            quantity,
+          },
+        });
   }
 
   // Удаление товара из корзины
-  async removeItemFromBasket(telegramId: number, productId: number) {
+  async removeItemFromBasket(telegramId: number, productOfferId: number) {
     const basket = await this.prisma.basket.findUnique({
       where: { telegramId: Number(telegramId) },
     });
@@ -104,7 +73,7 @@ export class BasketService {
     const item = await this.prisma.basketItem.findFirst({
       where: {
         basketId: basket.id,
-        productId,
+        productOfferId: productOfferId,
       },
     });
 
@@ -120,7 +89,7 @@ export class BasketService {
   // Изменение количества товара в корзине
   async updateItemQuantity(
     telegramId: number,
-    productId: number,
+    productOfferId: number,
     quantity: number,
   ) {
     const basket = await this.prisma.basket.findUnique({
@@ -134,7 +103,7 @@ export class BasketService {
     const item = await this.prisma.basketItem.findFirst({
       where: {
         basketId: basket.id,
-        productId,
+        productOfferId: productOfferId,
       },
     });
 
