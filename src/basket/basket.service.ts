@@ -40,28 +40,28 @@ export class BasketService {
         this.prisma.productOffer.findUnique({ where: { id: productOfferId } }),
       ]);
 
-    if (!product || !productOffer) {
-      throw new NotFoundException(
-        !product ? 'Product not found' : 'Product offer not found',
-      );
+    if (!product) {
+      throw new NotFoundException('Product not found');
+    }
+    if (!productOffer) {
+      throw new NotFoundException('Product offer not found');
     }
 
-    console.log('product: ', product);
-    console.log('productOffer: ', productOffer);
+    const itemData = {
+      data: {
+        basketId: basket.id,
+        productId: productId,
+        productOfferId: productOfferId,
+        quantity: quantity,
+      },
+    };
 
-    return existingBasketItem
+    return existingBasketItem.productOfferId === productOfferId
       ? this.prisma.basketItem.update({
           where: { id: existingBasketItem.id },
           data: { quantity: existingBasketItem.quantity + quantity },
         })
-      : this.prisma.basketItem.create({
-          data: {
-            basketId: basket.id,
-            productId: product.prodId,
-            productOfferId: productOffer.id,
-            quantity: quantity,
-          },
-        });
+      : this.prisma.basketItem.create(itemData);
   }
 
   // Удаление товара из корзины
