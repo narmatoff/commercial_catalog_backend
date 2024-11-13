@@ -47,6 +47,7 @@ export class BasketController {
     return this.basketService.addItemToBasket(
       body.telegramId,
       body.productId,
+      body.productOfferId,
       body.quantity,
     );
   }
@@ -61,7 +62,7 @@ export class BasketController {
 
     return this.basketService.updateItemQuantity(
       body.telegramId,
-      body.productId,
+      body.productOfferId,
       body.quantity,
     );
   }
@@ -76,7 +77,7 @@ export class BasketController {
 
     return this.basketService.removeItemFromBasket(
       body.telegramId,
-      body.productId,
+      body.productOfferId,
     );
   }
 
