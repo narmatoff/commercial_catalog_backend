@@ -26,18 +26,19 @@ export class BasketService {
     productOfferId: number,
     quantity: number = 1,
   ) {
-    const [basket, product, productOffer, existingItem] = await Promise.all([
-      this.prisma.basket.upsert({
-        where: { telegramId },
-        update: {},
-        create: { user: { connect: { telegramId } } },
-      }),
-      this.prisma.product.findUnique({ where: { prodId: productId } }),
-      this.prisma.productOffer.findUnique({ where: { id: productOfferId } }),
-      this.prisma.basketItem.findFirst({
-        where: { productOfferId, productId },
-      }),
-    ]);
+    const [basket, existingBasketItem, product, productOffer] =
+      await Promise.all([
+        this.prisma.basket.upsert({
+          where: { telegramId },
+          update: {},
+          create: { user: { connect: { telegramId } } },
+        }),
+        this.prisma.basketItem.findFirst({
+          where: { productOfferId, productId },
+        }),
+        this.prisma.product.findUnique({ where: { prodId: productId } }),
+        this.prisma.productOffer.findUnique({ where: { id: productOfferId } }),
+      ]);
 
     if (!product || !productOffer) {
       throw new NotFoundException(
@@ -45,17 +46,20 @@ export class BasketService {
       );
     }
 
-    return existingItem
+    console.log('product: ', product);
+    console.log('productOffer: ', productOffer);
+
+    return existingBasketItem
       ? this.prisma.basketItem.update({
-          where: { id: existingItem.id },
-          data: { quantity: existingItem.quantity + quantity },
+          where: { id: existingBasketItem.id },
+          data: { quantity: existingBasketItem.quantity + quantity },
         })
       : this.prisma.basketItem.create({
           data: {
             basketId: basket.id,
-            productId,
-            productOfferId,
-            quantity,
+            productId: product.prodId,
+            productOfferId: productOffer.id,
+            quantity: quantity,
           },
         });
   }

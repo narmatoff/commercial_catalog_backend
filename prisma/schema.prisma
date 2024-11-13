@@ -141,6 +141,6 @@ model BasketItem {
   productOfferId Int
   quantity       Int          @default(1) // количество товара
   basket         Basket       @relation(fields: [basketId], references: [id])
-  product        Product      @relation(fields: [productId], references: [id])
+  product        Product      @relation(fields: [productId], references: [prodId])
   productOffer   ProductOffer @relation(fields: [productOfferId], references: [id])
 }
