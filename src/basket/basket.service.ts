@@ -56,7 +56,7 @@ export class BasketService {
       },
     };
 
-    return existingBasketItem.productOfferId === productOfferId
+    return existingBasketItem?.productOfferId === productOfferId
       ? this.prisma.basketItem.update({
           where: { id: existingBasketItem.id },
           data: { quantity: existingBasketItem.quantity + quantity },
