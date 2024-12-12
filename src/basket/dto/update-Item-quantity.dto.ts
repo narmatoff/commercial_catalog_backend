@@ -5,7 +5,7 @@ export class UpdateItemQuantityDto {
   telegramId: number;
 
   @IsNumber()
-  productOfferId: number;
+  itemId: number;
 
   @IsNumber()
   quantity: number;

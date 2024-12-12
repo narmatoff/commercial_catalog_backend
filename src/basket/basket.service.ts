@@ -65,7 +65,7 @@ export class BasketService {
   }
 
   // Удаление товара из корзины
-  async removeItemFromBasket(telegramId: number, productOfferId: number) {
+  async removeItemFromBasket(telegramId: number, itemId: number) {
     const basket = await this.prisma.basket.findUnique({
       where: { telegramId: Number(telegramId) },
     });
@@ -77,7 +77,7 @@ export class BasketService {
     const item = await this.prisma.basketItem.findFirst({
       where: {
         basketId: basket.id,
-        productOfferId: productOfferId,
+        id: itemId,
       },
     });
 
@@ -93,7 +93,7 @@ export class BasketService {
   // Изменение количества товара в корзине
   async updateItemQuantity(
     telegramId: number,
-    productOfferId: number,
+    itemId: number,
     quantity: number,
   ) {
     const basket = await this.prisma.basket.findUnique({
@@ -107,7 +107,7 @@ export class BasketService {
     const item = await this.prisma.basketItem.findFirst({
       where: {
         basketId: basket.id,
-        productOfferId: productOfferId,
+        id: itemId,
       },
     });
 
