@@ -5,5 +5,5 @@ export class DeleteItemDto {
   telegramId: number;
 
   @IsNumber()
-  productOfferId: number;
+  itemId: number;
 }

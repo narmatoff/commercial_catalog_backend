@@ -52,7 +52,7 @@ export class BasketController {
     );
   }
 
-  @Patch()
+  @Patch('item')
   updateItemQuantity(@Body() body: UpdateItemQuantityDto) {
     const user = this.userService.user({ telegramId: Number(body.telegramId) });
 
@@ -62,12 +62,12 @@ export class BasketController {
 
     return this.basketService.updateItemQuantity(
       body.telegramId,
-      body.productOfferId,
+      body.itemId,
       body.quantity,
     );
   }
 
-  @Delete()
+  @Delete('item')
   removeItemFromBasket(@Body() body: DeleteItemDto) {
     const user = this.userService.user({ telegramId: Number(body.telegramId) });
 
@@ -77,7 +77,7 @@ export class BasketController {
 
     return this.basketService.removeItemFromBasket(
       body.telegramId,
-      body.productOfferId,
+      body.itemId,
     );
   }
 
