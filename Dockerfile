@@ -2,8 +2,8 @@
 FROM node:20-alpine
 LABEL authors="narmatoff"
 
-#установка зависимости libc6-compat
-RUN apk add --no-cache libc6-compat
+#установка зависимости openssl
+RUN apk add --no-cache openssl
 
 # Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /catalog-bot
