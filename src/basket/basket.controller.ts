@@ -63,7 +63,7 @@ export class BasketController {
     return this.basketService.updateItemQuantity(
       body.telegramId,
       body.itemId,
-      body.quantity,
+      body.updateType,
     );
   }
 

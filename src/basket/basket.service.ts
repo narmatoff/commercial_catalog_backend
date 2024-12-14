@@ -1,5 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service'; // Сервис для работы с Prisma
+import { PrismaService } from '../prisma/prisma.service';
+import { EnumUpdateType } from './enum';
+import { BasketItem } from '@prisma/client'; // Сервис для работы с Prisma
 
 @Injectable()
 export class BasketService {
@@ -9,7 +11,13 @@ export class BasketService {
   async getUserBasket(telegramId: number) {
     const basket = await this.prisma.basket.findUnique({
       where: { telegramId: Number(telegramId) },
-      include: { items: { include: { product: true } } },
+      include: {
+        items: {
+          include: {
+            product: true,
+          },
+        },
+      },
     });
 
     if (!basket) {
@@ -94,8 +102,8 @@ export class BasketService {
   async updateItemQuantity(
     telegramId: number,
     itemId: number,
-    quantity: number,
-  ) {
+    type: EnumUpdateType,
+  ): Promise<BasketItem> {
     const basket = await this.prisma.basket.findUnique({
       where: { telegramId },
     });
@@ -115,9 +123,23 @@ export class BasketService {
       throw new NotFoundException('Item not found in basket');
     }
 
+    let itemQuantity: number = 0;
+    if (item.quantity >= 1) {
+      itemQuantity =
+        type === EnumUpdateType.INCREMENT
+          ? item.quantity + 1
+          : item.quantity - 1;
+    }
+
+    if (type === EnumUpdateType.DECREMENT && item.quantity === 1) {
+      return this.removeItemFromBasket(telegramId, item.id);
+    }
+
     return this.prisma.basketItem.update({
       where: { id: item.id },
-      data: { quantity },
+      data: {
+        quantity: itemQuantity,
+      },
     });
   }
 

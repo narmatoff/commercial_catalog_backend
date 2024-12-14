@@ -1,4 +1,5 @@
 import { IsNumber } from 'class-validator';
+import { EnumUpdateType } from '../enum';
 
 export class UpdateItemQuantityDto {
   @IsNumber()
@@ -8,5 +9,5 @@ export class UpdateItemQuantityDto {
   itemId: number;
 
   @IsNumber()
-  quantity: number;
+  updateType: EnumUpdateType;
 }
