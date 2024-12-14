@@ -1,5 +1,10 @@
 # Указываем базовый образ Node.js
 FROM node:20-alpine
+# Установить зависимости
+RUN apt-get update && apt-get install -y \
+    openssl \
+    && rm -rf /var/lib/apt/lists/* \
+
 LABEL authors="narmatoff"
 
 # Устанавливаем рабочую директорию внутри контейнера
