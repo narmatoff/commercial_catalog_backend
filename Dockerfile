@@ -14,6 +14,7 @@ RUN npm install --production
 # Копируем все остальные файлы и папки в рабочую директорию контейнера
 COPY . .
 
+RUN apk add --no-cache openssl1.1-compat
 # Сборка приложения
 RUN npm run build
 
