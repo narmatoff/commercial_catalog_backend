@@ -35,7 +35,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get upgrade
-          sudo apt-get openssl
+          sudo apt-get install openssl
           sudo apt-get install -y docker-compose
 
       - name: Verify Docker Compose installation
