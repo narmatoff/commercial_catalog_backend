@@ -14,8 +14,20 @@ export class BasketService {
       include: {
         items: {
           include: {
-            product: true,
-            productOffer: true,
+            product: {
+              select: {
+                id: true,
+                name: true,
+                infoPrice: true,
+              },
+            },
+            productOffer: {
+              select: {
+                id: true,
+                qty: true,
+                price: true,
+              },
+            },
           },
         },
       },
