@@ -15,6 +15,7 @@ export class BasketService {
         items: {
           include: {
             product: true,
+            productOffer: true,
           },
         },
       },
