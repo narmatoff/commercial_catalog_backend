@@ -32,10 +32,10 @@ export class UserService {
     });
 
     if (!basket) {
-      await this.prisma.basket.create({
-        data: {
-          user: { connect: { telegramId: user.telegramId } },
-        },
+      await this.prisma.basket.upsert({
+        where: { telegramId: user.telegramId },
+        update: {},
+        create: { user: { connect: { telegramId: user.telegramId } } },
       });
     }
 
