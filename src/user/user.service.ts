@@ -27,8 +27,8 @@ export class UserService {
       update: data,
     });
 
-    const basket = this.prisma.basket.findUnique({
-      where: { telegramId: user.telegramId },
+    const basket = await this.prisma.basket.findUnique({
+      where: { telegramId: Number(user.telegramId) },
     });
 
     if (!basket) {

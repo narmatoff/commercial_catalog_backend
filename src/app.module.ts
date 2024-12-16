@@ -25,6 +25,6 @@ import { ColorModule } from './color/color.module';
     ColorModule,
   ],
   controllers: [AppController],
-  providers: [AppService, ProductService, PrismaService, UserService],
+  providers: [AppService],
 })
 export class AppModule {}
