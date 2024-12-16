@@ -129,17 +129,11 @@ export class ProductController {
       throw new UnauthorizedException('Пользователь не зарегистрирован');
     }
 
-    const products = await this.productService.getProducts({
+    return await this.productService.getProducts({
       where: {
         categoryId: Number(categoryNumber),
       },
     });
-
-    if (!products.length) {
-      throw new NotFoundException('Not found');
-    }
-
-    return products;
   }
 
   @Delete('/:id/:telegramId')

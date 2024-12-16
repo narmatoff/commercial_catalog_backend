@@ -27,13 +27,8 @@ export class ProductService {
     where?: Prisma.ProductWhereInput;
     orderBy?: Prisma.ProductOrderByWithRelationInput;
   }): Promise<ProductModel[]> {
-    const { skip, take, cursor, where, orderBy } = params;
     return this.prisma.product.findMany({
-      skip,
-      take,
-      cursor,
-      where,
-      orderBy,
+      ...params,
       include: {
         offers: true,
       },
