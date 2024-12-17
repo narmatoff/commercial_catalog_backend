@@ -12,6 +12,7 @@ export class CreateUserDto {
   // TODO: вернуть после ресерча (валидация в тлг)
   // @IsEmail()
   // @IsNotEmpty()
+  @IsString()
   email: string;
 
   @IsString()
@@ -20,5 +21,6 @@ export class CreateUserDto {
   // TODO: вернуть после ресерча (валидация в тлг)
   // @IsPhoneNumber()
   // @IsNotEmpty()
+  @IsString()
   phone: string;
 }
