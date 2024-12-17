@@ -1,4 +1,10 @@
-import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -13,14 +19,17 @@ export class CreateUserDto {
   // @IsEmail()
   // @IsNotEmpty()
   @IsString()
+  @IsOptional()
   email: string;
 
   @IsString()
+  @IsOptional()
   fio: string;
 
   // TODO: вернуть после ресерча (валидация в тлг)
   // @IsPhoneNumber()
   // @IsNotEmpty()
   @IsString()
+  @IsOptional()
   phone: string;
 }
