@@ -2,7 +2,7 @@ import { IsNumber } from 'class-validator';
 
 export class DeleteItemDto {
   @IsNumber()
-  telegramId: number;
+  telegramId: string;
 
   @IsNumber()
   itemId: number;

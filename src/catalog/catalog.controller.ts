@@ -21,7 +21,7 @@ export class CatalogController {
     @Param('telegramId') telegramId: string,
   ): Promise<CatalogModule> {
     const user = await this.userService.user({
-      telegramId: Number(telegramId),
+      telegramId: telegramId,
     });
 
     if (!user) {

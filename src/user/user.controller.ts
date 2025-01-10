@@ -26,11 +26,17 @@ export class UserController {
 
   @Post('update')
   async updateUser(@Body() body: UpdateUserDto): Promise<UserModel> {
+    // console.log(typeof body.telegramId);
+    // body.telegramId = body.telegramId;
+    // console.log(typeof body.telegramId);
+
     return this.userService.createUser(body);
   }
 
   @Get()
   async getUser(@Body() data: GetUserDto): Promise<UserModel> {
+    console.log('data.telegramId: ', data.telegramId);
+
     const user = await this.userService.user({
       telegramId: data.telegramId,
     });

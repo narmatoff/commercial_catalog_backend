@@ -3,7 +3,7 @@ import { EnumUpdateType } from '../enum';
 
 export class UpdateItemQuantityDto {
   @IsNumber()
-  telegramId: number;
+  telegramId: string;
 
   @IsNumber()
   itemId: number;

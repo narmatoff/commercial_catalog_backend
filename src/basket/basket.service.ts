@@ -8,9 +8,9 @@ export class BasketService {
   constructor(private prisma: PrismaService) {}
 
   // Получение корзины пользователя
-  async getUserBasket(telegramId: number) {
+  async getUserBasket(telegramId: string) {
     const basket = await this.prisma.basket.findUnique({
-      where: { telegramId: Number(telegramId) },
+      where: { telegramId: telegramId },
       include: {
         items: {
           include: {
@@ -42,7 +42,7 @@ export class BasketService {
 
   // Добавление товара в корзину
   async addItemToBasket(
-    telegramId: number,
+    telegramId: string,
     productId: number,
     productOfferId: number,
     quantity: number = 1,
@@ -86,9 +86,9 @@ export class BasketService {
   }
 
   // Удаление товара из корзины
-  async removeItemFromBasket(telegramId: number, itemId: number) {
+  async removeItemFromBasket(telegramId: string, itemId: number) {
     const basket = await this.prisma.basket.findUnique({
-      where: { telegramId: Number(telegramId) },
+      where: { telegramId: telegramId },
     });
 
     if (!basket) {
@@ -113,7 +113,7 @@ export class BasketService {
 
   // Изменение количества товара в корзине
   async updateItemQuantity(
-    telegramId: number,
+    telegramId: string,
     itemId: number,
     type: EnumUpdateType,
   ): Promise<BasketItem> {
@@ -157,9 +157,9 @@ export class BasketService {
   }
 
   // Очистка корзины
-  async clearBasket(telegramId: number) {
+  async clearBasket(telegramId: string) {
     const basket = await this.prisma.basket.findUnique({
-      where: { telegramId: Number(telegramId) },
+      where: { telegramId: telegramId },
     });
 
     if (!basket) {

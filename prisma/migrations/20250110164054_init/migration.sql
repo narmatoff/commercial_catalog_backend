@@ -4,7 +4,7 @@ CREATE TYPE "EnumCurrency" AS ENUM ('USD', 'EUR', 'RUB');
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
-    "telegramId" INTEGER NOT NULL,
+    "telegramId" TEXT NOT NULL,
     "email" TEXT,
     "fio" TEXT,
     "phone" TEXT,
@@ -114,7 +114,7 @@ CREATE TABLE "Basket" (
     "id" SERIAL NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "telegramId" INTEGER NOT NULL,
+    "telegramId" TEXT NOT NULL,
 
     CONSTRAINT "Basket_pkey" PRIMARY KEY ("id")
 );
@@ -148,6 +148,12 @@ CREATE UNIQUE INDEX "Product_prodId_key" ON "Product"("prodId");
 CREATE UNIQUE INDEX "ProductOffer_sku_key" ON "ProductOffer"("sku");
 
 -- CreateIndex
+CREATE INDEX "ProductOffer_prodId_idx" ON "ProductOffer"("prodId");
+
+-- CreateIndex
+CREATE INDEX "ProductOffer_sku_idx" ON "ProductOffer"("sku");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "ProductColor_color_key" ON "ProductColor"("color");
 
 -- CreateIndex
@@ -155,6 +161,15 @@ CREATE UNIQUE INDEX "Catalog_categoryId_key" ON "Catalog"("categoryId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Basket_telegramId_key" ON "Basket"("telegramId");
+
+-- CreateIndex
+CREATE INDEX "Basket_telegramId_idx" ON "Basket"("telegramId");
+
+-- CreateIndex
+CREATE INDEX "BasketItem_productId_idx" ON "BasketItem"("productId");
+
+-- CreateIndex
+CREATE INDEX "BasketItem_productOfferId_idx" ON "BasketItem"("productOfferId");
 
 -- AddForeignKey
 ALTER TABLE "Product" ADD CONSTRAINT "Product_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Catalog"("categoryId") ON DELETE RESTRICT ON UPDATE CASCADE;
