@@ -11,7 +11,7 @@ export class UserService {
   ): Promise<UserModel | null> {
     try {
       return await this.prisma.user.findUnique({
-        where: { telegramId: userWhereUniqueInput.telegramId },
+        where: { telegramId: String(userWhereUniqueInput.telegramId) },
       });
     } catch (error) {
       console.info('error: ', error);
