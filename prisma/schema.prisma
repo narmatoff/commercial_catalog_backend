@@ -16,7 +16,7 @@ datasource db {
 
 model User {
   id         Int      @id @default(autoincrement())
-  telegramId Int      @unique
+  telegramId String   @unique
   email      String?  @unique
   fio        String?
   phone      String?  @unique
@@ -129,7 +129,7 @@ model Basket {
   id         Int          @id @default(autoincrement())
   createdAt  DateTime     @default(now())
   updatedAt  DateTime     @updatedAt
-  telegramId Int          @unique
+  telegramId String       @unique
   items      BasketItem[]
   user       User         @relation(fields: [telegramId], references: [telegramId]) // Связь с пользователем (1:1)
 

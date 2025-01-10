@@ -21,7 +21,7 @@ export class ImportController {
     @Param('telegramId') telegramId: string,
   ): Promise<{ message: string }> {
     const user = await this.userService.user({
-      telegramId: Number(telegramId),
+      telegramId: telegramId,
     });
 
     if (!user) {
@@ -39,7 +39,7 @@ export class ImportController {
     @Param('telegramId') telegramId: string,
   ): Promise<{ message: string }> {
     const user = await this.userService.user({
-      telegramId: Number(telegramId),
+      telegramId: telegramId,
     });
 
     if (!user) {
@@ -56,7 +56,7 @@ export class ImportController {
     @Param('telegramId') telegramId: string,
   ): Promise<{ message: string }> {
     const user = await this.userService.user({
-      telegramId: Number(telegramId),
+      telegramId: telegramId,
     });
 
     if (!user) {
@@ -74,7 +74,7 @@ export class ImportController {
     @Param('telegramId') telegramId: string,
   ): Promise<{ message: string }> {
     const user = await this.userService.user({
-      telegramId: Number(telegramId),
+      telegramId: telegramId,
     });
 
     if (!user) {

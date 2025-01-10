@@ -27,7 +27,7 @@ export class ProductController {
     @Param('telegramId') telegramId: string,
   ): Promise<ProductModel> {
     const user = await this.userService.user({
-      telegramId: Number(telegramId),
+      telegramId: telegramId,
     });
 
     if (!user) {
@@ -43,7 +43,7 @@ export class ProductController {
     @Param('telegramId') telegramId: string,
   ): Promise<ProductModule> {
     const user = await this.userService.user({
-      telegramId: Number(telegramId),
+      telegramId: telegramId,
     });
 
     if (!user) {
@@ -65,7 +65,7 @@ export class ProductController {
     @Param('telegramId') telegramId: string,
   ): Promise<ProductModel[]> {
     const user = await this.userService.user({
-      telegramId: Number(telegramId),
+      telegramId: telegramId,
     });
 
     if (!user) {
@@ -80,10 +80,10 @@ export class ProductController {
   @Get('filtered-products/:searchString/:telegramId')
   async getFilteredPProducts(
     @Param('searchString') searchString: string,
-    @Param('telegramId') telegramId: number,
+    @Param('telegramId') telegramId: string,
   ): Promise<ProductModel[]> {
     const user = await this.userService.user({
-      telegramId: Number(telegramId),
+      telegramId: telegramId,
     });
 
     if (!user) {
@@ -122,7 +122,7 @@ export class ProductController {
     @Param('telegramId') telegramId: string,
   ): Promise<ProductModel[]> {
     const user = await this.userService.user({
-      telegramId: Number(telegramId),
+      telegramId: telegramId,
     });
 
     if (!user) {
@@ -142,7 +142,7 @@ export class ProductController {
     @Param('telegramId') telegramId: string,
   ): Promise<ProductModel> {
     const user = await this.userService.user({
-      telegramId: Number(telegramId),
+      telegramId: telegramId,
     });
 
     if (!user) {

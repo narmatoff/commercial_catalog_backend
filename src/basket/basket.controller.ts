@@ -25,19 +25,19 @@ export class BasketController {
 
   @Get(':telegramId')
   getUserBasket(@Param('telegramId') telegramId: string) {
-    const user = this.userService.user({ telegramId: Number(telegramId) });
+    const user = this.userService.user({ telegramId: telegramId });
 
     if (!user) {
       throw new UnauthorizedException('Пользователь не зарегистрирован');
     }
 
-    return this.basketService.getUserBasket(Number(telegramId));
+    return this.basketService.getUserBasket(telegramId);
   }
 
   @Post()
   async addItemToBasket(@Body() body: AddItemToBasketDto) {
     const user = await this.userService.user({
-      telegramId: Number(body.telegramId),
+      telegramId: body.telegramId,
     });
 
     if (!user) {
@@ -54,7 +54,7 @@ export class BasketController {
 
   @Patch('item')
   updateItemQuantity(@Body() body: UpdateItemQuantityDto) {
-    const user = this.userService.user({ telegramId: Number(body.telegramId) });
+    const user = this.userService.user({ telegramId: body.telegramId });
 
     if (!user) {
       throw new UnauthorizedException('Пользователь не зарегистрирован');
@@ -69,7 +69,7 @@ export class BasketController {
 
   @Delete('item')
   removeItemFromBasket(@Body() body: DeleteItemDto) {
-    const user = this.userService.user({ telegramId: Number(body.telegramId) });
+    const user = this.userService.user({ telegramId: body.telegramId });
 
     if (!user) {
       throw new UnauthorizedException('Пользователь не зарегистрирован');
@@ -83,12 +83,12 @@ export class BasketController {
 
   @Delete('clear/:telegramId')
   clearBasket(@Param('telegramId') telegramId: string) {
-    const user = this.userService.user({ telegramId: Number(telegramId) });
+    const user = this.userService.user({ telegramId: telegramId });
 
     if (!user) {
       throw new UnauthorizedException('Пользователь не зарегистрирован');
     }
 
-    return this.basketService.clearBasket(Number(telegramId));
+    return this.basketService.clearBasket(telegramId);
   }
 }

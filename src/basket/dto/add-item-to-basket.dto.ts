@@ -2,7 +2,7 @@ import { IsNumber } from 'class-validator';
 
 export class AddItemToBasketDto {
   @IsNumber()
-  telegramId: number;
+  telegramId: string;
 
   @IsNumber()
   productId: number;
