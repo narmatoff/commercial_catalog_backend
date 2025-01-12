@@ -1,8 +1,8 @@
-import { IsNumber } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 import { EnumUpdateType } from '../enum';
 
 export class UpdateItemQuantityDto {
-  @IsNumber()
+  @IsString()
   telegramId: string;
 
   @IsNumber()

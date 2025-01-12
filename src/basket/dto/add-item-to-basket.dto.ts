@@ -1,7 +1,7 @@
-import { IsNumber } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
 export class AddItemToBasketDto {
-  @IsNumber()
+  @IsString()
   telegramId: string;
 
   @IsNumber()
