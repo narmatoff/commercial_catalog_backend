@@ -9,6 +9,7 @@ import { ImportModule } from './import/import.module';
 import { BasketModule } from './basket/basket.module';
 import { OfferModule } from './offer/offer.module';
 import { ColorModule } from './color/color.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ColorModule } from './color/color.module';
     BasketModule,
     OfferModule,
     ColorModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [AppService],
