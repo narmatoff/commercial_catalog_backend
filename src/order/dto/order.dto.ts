@@ -1,7 +1,7 @@
 import {
-  IsArray,
+  // IsArray,
   IsBoolean,
-  IsDateString,
+  // IsDateString,
   IsEmail,
   IsEnum,
   IsNotEmpty,
@@ -9,63 +9,67 @@ import {
   IsOptional,
   IsPhoneNumber,
   IsString,
-  ValidateNested,
+  Matches,
+  // ValidateNested,
 } from 'class-validator';
-import { Type } from 'class-transformer';
+// import { Type } from 'class-transformer';
 import {
   EnumDeliveryOption,
   EnumOrderPaidStatus,
   EnumPackType,
 } from '../model/enum';
-
-export class OrderItemDto {
-  @IsNotEmpty()
-  @IsString()
-  aID: string; // идентификатор товарного предложения
-
-  @IsNotEmpty()
-  @IsNumber()
-  qty: number; // количество товара, которое нужно добавить в заказ
-
-  @IsNotEmpty()
-  @IsNumber()
-  ds_price: number; // розничная цена этой позиции для конечного покупателя
-}
+// export class OrderItemDto {
+//   @IsNotEmpty()
+//   @IsString()
+//   aID: string; // идентификатор товарного предложения
+//
+//   @IsNotEmpty()
+//   @IsString()
+//   qty: string; // количество товара, которое нужно добавить в заказ
+//
+//   @IsNotEmpty()
+//   @IsString()
+//   ds_price: string; // розничная цена этой позиции для конечного покупателя
+// }
 
 export class OrderDto {
   @IsNotEmpty()
   @IsBoolean()
   TestMode: boolean;
 
-  @IsNotEmpty()
-  @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => OrderItemDto)
-  order: OrderItemDto[];
+  // @IsNotEmpty()
+  // @IsArray()
+  // @ValidateNested({ each: true })
+  // @Type(() => OrderItemDto)
+  // order: OrderItemDto[];
 
   @IsNotEmpty()
-  @IsNumber()
-  ExtOrderID: number; // внутренний номер заказа в Вашем интернет-магазине. Должно быть уникальным значением в рамках Вашего интернет-магазина!
-
-  @IsNotEmpty()
-  @IsEnum(EnumOrderPaidStatus)
-  ExtOrderPaid: EnumOrderPaidStatus; // статус оплаты заказа. Может иметь два значения
-
-  @IsNotEmpty()
-  @IsNumber()
-  ExtDeliveryCost: number; // число. Стоимость доставки для конечного получателя. Если Вы хотите, чтобы доставка для конечно получателя была бесплатной, нужно поставить значение - 0;
-
-  @IsNotEmpty()
-  @IsEnum(EnumDeliveryOption)
-  dsDelivery: EnumDeliveryOption; // способ доставки. Целое число.
+  @Matches(/^(\d+-\d+-\d+(\.\d+)?)(,\d+-\d+-\d+(\.\d+)?)*$/)
+  order: string;
 
   @IsNotEmpty()
   @IsString()
-  dsFio: string; // ФИО покупателя.
+  ExtOrderID: string; // внутренний номер заказа в Вашем интернет-магазине
+
+  @IsNotEmpty()
+  @IsEnum(EnumOrderPaidStatus)
+  ExtOrderPaid: EnumOrderPaidStatus; // статус оплаты заказа
+
+  @IsNotEmpty()
+  @IsNumber()
+  ExtDeliveryCost: number; // стоимость доставки
+
+  @IsNotEmpty()
+  @IsEnum(EnumDeliveryOption)
+  dsDelivery: EnumDeliveryOption; // способ доставки
+
+  @IsNotEmpty()
+  @IsString()
+  dsFio: string; // ФИО покупателя
 
   @IsNotEmpty()
   @IsPhoneNumber()
-  dsMobPhone: string; // телефон покупателя.
+  dsMobPhone: string; // телефон покупателя
 
   @IsNotEmpty()
   @IsEmail()
@@ -73,23 +77,23 @@ export class OrderDto {
 
   @IsOptional()
   @IsString()
-  dsCity?: string; // название населенного пункта. Обязательное поле, если способ доставки Почта РФ
+  dsCity?: string; // название населенного пункта
 
   @IsOptional()
   @IsString()
-  dsPickUpId?: string; // идентификатор постомата или ПВЗ СДЭК, почтоматов "Халва". Обязательное, если выбрана доставка СДЭК-ПВЗ, почтоматы "Халва".
+  dsPickUpId?: string; // идентификатор постомата или ПВЗ
 
   ///////////////////////////////////////
   // Не обязательные параметры запроса://
   ///////////////////////////////////////
 
   @IsOptional()
-  @IsDateString()
-  ExtDateOfAdded?: Date; // Дата размещения заказа в Вашем интернет-магазине. Формат: «YYYY-MM-DD HH:MM:SS». Если значение не задано, то присваивается текущая дата.
+  @IsString()
+  ExtDateOfAdded?: string; // Дата размещения заказа (формат с временем)
 
   @IsOptional()
   @IsString()
-  dsPostcode?: string; // почтовый индекс.
+  dsPostcode?: string; // почтовый индекс
 
   @IsOptional()
   @IsString()
@@ -105,25 +109,21 @@ export class OrderDto {
 
   @IsOptional()
   @IsString()
-  dsHouse?: string; // номер дома, строение, корпус.
+  dsHouse?: string; // номер дома, строение, корпус
 
   @IsOptional()
   @IsString()
-  dsFlat?: string; // номер квартиры.
+  dsFlat?: string; // номер квартиры
 
   @IsOptional()
-  @IsDateString()
-  dsDeliveryDate?: Date; // пожелания покупателя по дате/времени доставки заказа.
+  @IsString()
+  dsDeliveryDate?: string; // пожелания покупателя по дате/времени доставки
 
   @IsOptional()
   @IsEnum(EnumPackType)
-  packType?: EnumPackType; // тип упаковки. Если параметр не указан, используется значение указанное в параметрах клиента на странице Настройки заказа.
+  packType?: EnumPackType; // тип упаковки
 
   @IsOptional()
   @IsString()
-  userComment?: string; // ваш комментарий к заказу. Тут можно указать разнообразные дополнительные сведения. Этот комментарий для нас, мы не печатаем его на бланке заказа и не передаём его в службы доставки. Если указать в значении этого поля слово "тест" (userComment=тест), то заказ будет размещен в нашей системе в статусе "Принят", но не пойдет в дальнейшую обработку. Главное отличие от TestMode=1 в том, что заказ реально размещается.
-
-  // constructor(order: OrderDto) {
-  //   this.dsArea = order.dsArea ?? '';
-  // }
+  userComment?: string; // ваш комментарий к заказу
 }
