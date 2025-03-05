@@ -13,6 +13,7 @@ export class OrderService {
 
   constructor(private readonly httpService: HttpService) {}
 
+  // TODO дописать и проверить получение заказа
   async getOrder(orderID?: string, ExtOrderID?: string) {
     if (!orderID && !ExtOrderID) {
       throw new HttpException(
@@ -41,6 +42,7 @@ export class OrderService {
     }
   }
 
+  // TODO: готово! протестировать с разными параметрами!
   async placeOrder(orderDto: OrderDto) {
     const transformedOrder = plainToInstance(OrderDto, orderDto, {
       enableImplicitConversion: true,
