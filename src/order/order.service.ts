@@ -4,6 +4,7 @@ import { firstValueFrom } from 'rxjs';
 import { OrderDto } from './dto/order.dto';
 import { plainToInstance } from 'class-transformer';
 import { convertXML } from 'simple-xml-to-json';
+import { ServerResponse } from './type/server-response';
 
 @Injectable()
 export class OrderService {
@@ -97,7 +98,9 @@ export class OrderService {
         }),
       );
 
-      return convertXML(response.data).Result;
+      const jsonAnswer: ServerResponse = convertXML(response.data);
+
+      return jsonAnswer;
     } catch (error) {
       throw new HttpException(
         `Ошибка размещения заказа ${error}`,

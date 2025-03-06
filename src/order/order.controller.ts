@@ -10,6 +10,7 @@ import {
 import { OrderService } from './order.service';
 import { OrderDto } from './dto/order.dto';
 import { UserService } from '../user/user.service';
+import { ServerResponse } from './type/server-response';
 
 @Controller('order')
 export class OrderController {
@@ -40,7 +41,7 @@ export class OrderController {
   async createOrder(
     @Body() body: OrderDto,
     @Param('telegramId') telegramId: string,
-  ) {
+  ): Promise<ServerResponse> {
     const user = await this.userService.user({
       telegramId: telegramId,
     });
