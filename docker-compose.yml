@@ -33,7 +33,7 @@ services:
 
 networks:
   catalog_bot_network:
-    driver: catalog_bot_network
+    driver: bridge
 
 volumes:
   postgres_data:
