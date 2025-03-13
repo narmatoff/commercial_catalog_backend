@@ -87,52 +87,27 @@ jobs:
       DATABASE_URL: ${{ secrets.DEPLOY_LH_DB_URL }}
 
     steps:
-      - name: Download Docker image artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: docker-image
-          path: .
-
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.7.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          log-public-key: true
-
-      - name: Debug SSH connection
-        run: |
-          ssh -o StrictHostKeyChecking=no narmatoff@31.128.38.77 'docker images'
-
-      - name: Start SSH agent
-        run: |
-          eval $(ssh-agent -s)
-
-      - name: SSH into server and run commands
-        run: |
-          ssh -o StrictHostKeyChecking=no narmatoff@31.128.38.77 << 'EOF'
-          docker images
-          EOF
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Copy Docker image to server
-        run: |
-          scp -o StrictHostKeyChecking=no catalog_bot_api.tar.bz2 narmatoff@31.128.38.77:~/catalog-bot/
+      # ... предыдущие шаги до Deploy Docker image to server ...
 
       - name: Deploy Docker image to server
         run: |
-          ssh -t -o StrictHostKeyChecking=no narmatoff@31.128.38.77 << 'EOF'
+          ssh -t -o StrictHostKeyChecking=no narmatoff@31.128.38.77 << EOF
+          set -e
           cd ~/catalog-bot
+          
+          # Загрузка образа и проверка
+          echo "### Loading Docker image ###"
           bunzip2 < catalog_bot_api.tar.bz2 | docker load
+          docker images | grep catalog_bot_api || exit 1
 
-          docker images
-          docker ps -a
+          # Управление сетью
+          echo "### Managing network ###"
+          docker network inspect catalog_bot_network || docker network create catalog_bot_network
 
-          docker network ls | grep catalog_bot_network || docker network create catalog_bot_network
-
+          # Обновление контейнера базы данных
+          echo "### Updating DB container ###"
           docker stop catalog_bot_db || true
           docker rm catalog_bot_db || true
-
           docker run -d --restart=always \
             --name catalog_bot_db \
             --network catalog_bot_network \
@@ -143,18 +118,32 @@ jobs:
             -p 5432:5432 \
             postgres:16.4
 
+          # Обновление контейнера приложения
+          echo "### Updating API container ###"
           docker stop catalog_bot_api || true
           docker rm catalog_bot_api || true
-
           docker run -d --restart=always \
             --name catalog_bot_api \
             --network catalog_bot_network \
             -p 3001:3001 \
-            -e DATABASE_URL=$DATABASE_URL \  # Используем переменную окружения из секций env
+            -e DATABASE_URL="$DATABASE_URL" \
             catalog_bot_api
 
-          while ! docker inspect -f '{{.State.Running}}' catalog_bot_api; do
-            echo "Waiting for the container to start..."
+          # Ожидание инициализации контейнера
+          echo "### Waiting for container ###"
+          for i in {1..10}; do
+            container_id=\$(docker ps -q -f name=catalog_bot_api)
+            if [ -n "\$container_id" ]; then
+              echo "Container started with ID: \$container_id"
+              if docker inspect -f '{{.State.Running}}' \$container_id | grep -q true; then
+                break
+              fi
+            fi
             sleep 3
           done
+
+          # Проверка состояния контейнера
+          docker ps -a
+          docker inspect catalog_bot_api
+          echo "### Deployment completed ###"
           EOF
