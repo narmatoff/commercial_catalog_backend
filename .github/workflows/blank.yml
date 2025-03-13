@@ -75,7 +75,7 @@ jobs:
         run: docker save catalog_bot_api | bzip2 > catalog_bot_api.tar.bz2
 
       - name: Upload Docker image artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: docker-image
           path: catalog_bot_api.tar.bz2
@@ -88,7 +88,7 @@ jobs:
 
     steps:
       - name: Download Docker image artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: docker-image
           path: .
@@ -125,19 +125,14 @@ jobs:
           cd ~/catalog-bot
           bunzip2 < catalog_bot_api.tar.bz2 | docker load
 
-          # Проверка наличия образа
           docker images
-          
           docker ps -a
 
-          # Создание сети, если она не существует
           docker network ls | grep catalog_bot_network || docker network create catalog_bot_network
 
-          # Остановка и удаление существующего контейнера базы данных, если он есть
           docker stop catalog_bot_db || true
           docker rm catalog_bot_db || true
 
-          # Запуск контейнера базы данных
           docker run -d --restart=always \
             --name catalog_bot_db \
             --network catalog_bot_network \
@@ -148,24 +143,18 @@ jobs:
             -p 5432:5432 \
             postgres:16.4
 
-          # Остановка и удаление существующего контейнера приложения, если он есть
           docker stop catalog_bot_api || true
           docker rm catalog_bot_api || true
 
-          # Запуск контейнера приложения
           docker run -d --restart=always \
             --name catalog_bot_api \
             --network catalog_bot_network \
             -p 3001:3001 \
-            -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
+            -e DATABASE_URL=$DATABASE_URL \  # Используем переменную окружения из секций env
             catalog_bot_api
 
-          # Проверка состояния контейнера
           while ! docker inspect -f '{{.State.Running}}' catalog_bot_api; do
             echo "Waiting for the container to start..."
             sleep 3
           done
-
-          # Проверка состояния приложения
-          # curl -sSf http://31.128.38.77:3001/app/ping || exit 1
           EOF
