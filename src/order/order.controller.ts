@@ -21,9 +21,12 @@ export class OrderController {
 
   @Get(':telegramId')
   async getOrder(
+    // ExtOrderID и/или orderID - в запросе должен быть, как минимум, один из этих параметров.
+    // ExtOrderID - идентификатор заказа в Вашем интернет-магазине. Если запрашивается информация о нескольких заказах, то идентификаторы отделяются друг от друга запятой.
+    // oderID - идентификатор заказа в нашей системе. Если запрашивается информация о нескольких заказах, то идентификаторы отделяются друг от друга запятой.
     @Query('orderID') orderID: string,
     @Param('telegramId') telegramId: string,
-  ) {
+  ): Promise<ServerResponse> {
     const user = await this.userService.user({
       telegramId: telegramId,
     });
@@ -31,8 +34,6 @@ export class OrderController {
     if (!user) {
       throw new UnauthorizedException('Пользователь не зарегистрирован');
     }
-
-    console.log('orderID: ', orderID);
 
     return this.orderService.getOrder(orderID);
   }
@@ -49,8 +50,6 @@ export class OrderController {
     if (!user) {
       throw new UnauthorizedException('Пользователь не зарегистрирован');
     }
-
-    console.log('body: ', body);
 
     return this.orderService.placeOrder(body);
   }

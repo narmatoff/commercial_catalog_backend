@@ -14,7 +14,6 @@ export class OrderService {
 
   constructor(private readonly httpService: HttpService) {}
 
-  // TODO дописать и проверить получение заказа
   async getOrder(orderID?: string, ExtOrderID?: string) {
     if (!orderID && !ExtOrderID) {
       throw new HttpException(
@@ -34,7 +33,8 @@ export class OrderService {
       const response = await firstValueFrom(
         this.httpService.get(`${this.getOrderUrl}?${params.toString()}`),
       );
-      return response.data;
+
+      return convertXML(response.data);
     } catch (error) {
       throw new HttpException(
         `Ошибка получения информации о заказе ${error}`,
@@ -49,22 +49,21 @@ export class OrderService {
       enableImplicitConversion: true,
     });
     const params = new URLSearchParams({
-      ApiKey: this.apiKey,
+      ApiKey: String(this.apiKey),
       TestMode: String(transformedOrder.TestMode),
-      // order: String(transformedOrder.order),
       ExtOrderID: String(transformedOrder.ExtOrderID),
       ExtOrderPaid: String(transformedOrder.ExtOrderPaid),
       ExtDeliveryCost: String(transformedOrder.ExtDeliveryCost),
       dsDelivery: String(transformedOrder.dsDelivery),
-      dsFio: transformedOrder.dsFio,
-      dsMobPhone: transformedOrder.dsMobPhone,
-      dsEmail: transformedOrder.dsEmail,
+      dsFio: String(transformedOrder.dsFio),
+      dsMobPhone: String(transformedOrder.dsMobPhone),
+      dsEmail: String(transformedOrder.dsEmail),
       ...(transformedOrder.dsCity && { dsCity: transformedOrder.dsCity }),
       ...(transformedOrder.dsPickUpId && {
-        dsPickUpId: transformedOrder.dsPickUpId,
+        dsPickUpId: String(transformedOrder.dsPickUpId),
       }),
       ...(transformedOrder.ExtDateOfAdded && {
-        ExtDateOfAdded: transformedOrder.ExtDateOfAdded.toString(),
+        ExtDateOfAdded: transformedOrder.ExtDateOfAdded,
       }),
       ...(transformedOrder.dsPostcode && {
         dsPostcode: transformedOrder.dsPostcode,

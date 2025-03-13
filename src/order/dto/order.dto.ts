@@ -1,55 +1,36 @@
 import {
   // IsArray,
   IsBoolean,
+  IsDateString,
   // IsDateString,
   IsEmail,
   IsEnum,
   IsNotEmpty,
   IsNumber,
+  IsNumberString,
   IsOptional,
   IsPhoneNumber,
   IsString,
   Matches,
-  // ValidateNested,
 } from 'class-validator';
-// import { Type } from 'class-transformer';
 import {
   EnumDeliveryOption,
   EnumOrderPaidStatus,
   EnumPackType,
 } from '../model/enum';
-// export class OrderItemDto {
-//   @IsNotEmpty()
-//   @IsString()
-//   aID: string; // идентификатор товарного предложения
-//
-//   @IsNotEmpty()
-//   @IsString()
-//   qty: string; // количество товара, которое нужно добавить в заказ
-//
-//   @IsNotEmpty()
-//   @IsString()
-//   ds_price: string; // розничная цена этой позиции для конечного покупателя
-// }
 
 export class OrderDto {
   @IsNotEmpty()
   @IsBoolean()
   TestMode: boolean;
 
-  // @IsNotEmpty()
-  // @IsArray()
-  // @ValidateNested({ each: true })
-  // @Type(() => OrderItemDto)
-  // order: OrderItemDto[];
-
   @IsNotEmpty()
   @Matches(/^(\d+-\d+-\d+(\.\d+)?)(,\d+-\d+-\d+(\.\d+)?)*$/)
   order: string;
 
   @IsNotEmpty()
-  @IsString()
-  ExtOrderID: string; // внутренний номер заказа в Вашем интернет-магазине
+  @IsNumber()
+  ExtOrderID: number; // внутренний номер заказа в Вашем интернет-магазине
 
   @IsNotEmpty()
   @IsEnum(EnumOrderPaidStatus)
@@ -80,19 +61,21 @@ export class OrderDto {
   dsCity?: string; // название населенного пункта
 
   @IsOptional()
-  @IsString()
-  dsPickUpId?: string; // идентификатор постомата или ПВЗ
+  @IsNumber()
+  dsPickUpId?: number; // идентификатор постомата или ПВЗ
 
   ///////////////////////////////////////
   // Не обязательные параметры запроса://
   ///////////////////////////////////////
 
   @IsOptional()
-  @IsString()
+  @IsDateString()
+  // @IsISO8601() // только дата без времени
   ExtDateOfAdded?: string; // Дата размещения заказа (формат с временем)
 
   @IsOptional()
-  @IsString()
+  @IsNumberString()
+  @Matches(/^\d{6}$/)
   dsPostcode?: string; // почтовый индекс
 
   @IsOptional()
