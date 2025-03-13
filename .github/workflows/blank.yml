@@ -7,7 +7,78 @@ on:
 
 jobs:
   build:
-  # ... предыдущие шаги остаются без изменений ...
+    runs-on: ubuntu-latest
+
+    env:
+      DATABASE_URL: ${{ secrets.DEPLOY_LH_DB_URL }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node_modules-
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
+      - name: Verify Docker Compose installation
+        run: docker-compose --version
+
+      - name: Set up Docker Compose
+        run: |
+          docker-compose up -d db
+
+      - name: Wait for the database to be ready
+        run: |
+          until docker exec $(docker ps -qf "name=catalog_bot_db") pg_isready -U catalogbot_user; do
+            echo "Waiting for the database to be ready..."
+            sleep 3
+          done
+
+      - name: Generate Prisma Client
+        env:
+          DATABASE_URL: ${{ secrets.DEPLOY_LH_DB_URL }}
+        run: npx prisma generate
+
+      - name: Start migration process
+        env:
+          DATABASE_URL: ${{ secrets.DEPLOY_LH_DB_URL }}
+        run: npx prisma migrate deploy
+
+      - name: Build the project
+        run: npm run build
+
+      - name: Lint the project (optional)
+        run: npm run lint
+
+      - name: Build Docker image
+        run: |
+          docker build -t catalog_bot_api .
+          docker images
+
+      - name: Save Docker image
+        run: docker save catalog_bot_api | bzip2 > catalog_bot_api.tar.bz2
+
+      - name: Upload Docker image artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-image
+          path: catalog_bot_api.tar.bz2
 
   deploy:
     runs-on: ubuntu-latest
