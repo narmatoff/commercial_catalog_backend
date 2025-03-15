@@ -32,6 +32,7 @@ export interface ServerResponse {
   Result: ChildrenNode & {
     children: Array<
       | { ResultStatus: ContentNode }
+      | { ResultStatusMsg: ContentNode }
       | { timestamp: ContentNode }
       | { orderID: ContentNode }
       | { totalSum: ContentNode }

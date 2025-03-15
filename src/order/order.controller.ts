@@ -2,6 +2,8 @@ import {
   Body,
   Controller,
   Get,
+  HttpException,
+  HttpStatus,
   Param,
   Post,
   Query,
@@ -11,6 +13,8 @@ import { OrderService } from './order.service';
 import { OrderDto } from './dto/order.dto';
 import { UserService } from '../user/user.service';
 import { ServerResponse } from './type/server-response';
+import { EnumResultStatus } from './enum/order.enum';
+import { getResultStatusMessage } from './helpers/helpers';
 
 @Controller('order')
 export class OrderController {
@@ -35,7 +39,7 @@ export class OrderController {
       throw new UnauthorizedException('Пользователь не зарегистрирован');
     }
 
-    return this.orderService.getOrder(orderID);
+    return this.orderService.getDsOrder(orderID);
   }
 
   @Post(':telegramId')
@@ -51,8 +55,20 @@ export class OrderController {
       throw new UnauthorizedException('Пользователь не зарегистрирован');
     }
 
-    // TODO: при получении ошибки при создании заказа выдать ошибку
+    const externalOrder = await this.orderService.placeDsOrder(body);
+
+    const resultStatus: EnumResultStatus = Number(
+      Object.values(externalOrder.Result.children[0])[0].content,
+    );
+
+    const statusMessage = getResultStatusMessage(resultStatus);
+
+    if (resultStatus !== EnumResultStatus.Ok) {
+      throw new HttpException(statusMessage, HttpStatus.BAD_REQUEST);
+    }
+
     // TODO: создать заказ в таблице Order
-    return this.orderService.placeOrder(body);
+
+    return externalOrder;
   }
 }

@@ -14,7 +14,7 @@ export class OrderService {
     private readonly configService: ConfigService,
   ) {}
 
-  async getOrder(orderID?: string, ExtOrderID?: string) {
+  async getDsOrder(orderID?: string, ExtOrderID?: string) {
     const dsApiKey = this.configService.get<string>('DS_API_KEY');
     const getDsOrderUrl = this.configService.get<string>('DS_GET_ORDER_DATA');
 
@@ -45,7 +45,7 @@ export class OrderService {
   }
 
   // TODO: готово! протестировать с разными параметрами!
-  async placeOrder(orderDto: OrderDto) {
+  async placeDsOrder(orderDto: OrderDto) {
     const dsApiKey = this.configService.get<string>('DS_API_KEY');
     const placeDsOrderUrl = this.configService.get<string>('DS_ORDER');
     const transformedOrder = plainToInstance(OrderDto, orderDto, {
