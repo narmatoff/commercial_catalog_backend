@@ -158,6 +158,9 @@ jobs:
             --network catalog_bot_network \
             -p 3001:3001 \
             -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
+            -e DS_API_KEY=${{ secrets.DS_API_KEY }} \
+            -e DS_GET_ORDER_DATA=${{ secrets.DS_GET_ORDER_DATA }} \
+            -e DS_ORDER=${{ secrets.DS_ORDER }} \
             catalog_bot_api
 
           # Проверка состояния контейнера
