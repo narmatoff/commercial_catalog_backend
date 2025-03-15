@@ -61,7 +61,7 @@ export const getResultStatusMessage = (
       message = EnumResultStatusMessage.MissingCityForRussianPost;
       break;
     default:
-      message = EnumResultStatusMessage.UnknowError;
+      message = EnumResultStatusMessage.UnknownError;
       break;
   }
 
