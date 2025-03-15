@@ -51,6 +51,8 @@ export class OrderController {
       throw new UnauthorizedException('Пользователь не зарегистрирован');
     }
 
+    // TODO: при получении ошибки при создании заказа выдать ошибку
+    // TODO: создать заказ в таблице Order
     return this.orderService.placeOrder(body);
   }
 }

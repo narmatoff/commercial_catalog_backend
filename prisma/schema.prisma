@@ -22,6 +22,7 @@ model User {
   phone      String?  @unique
   isAdult    Boolean
   basket     Basket? // Связь с корзиной (1:1)
+  order      Order[] // Связь с заказом (1 ко многим)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
@@ -91,7 +92,7 @@ model ProductOffer {
   bruttoHeight   Float?
   currency       EnumCurrency @default(RUB)
   BasketItem     BasketItem[]
-  product        Product      @relation(fields: [prodId], references: [prodId])
+  product        Product      @relation(fields: [prodId], references: [prodId], onUpdate: Cascade)
   prodColor      ProductColor @relation(fields: [color], references: [color])
 
   @@index([prodId])
@@ -150,4 +151,18 @@ model BasketItem {
 
   @@index([productId])
   @@index([productOfferId])
+  @@index([basketId, productOfferId])
+}
+
+model Order {
+  id              Int      @id @default(autoincrement())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  isDeleted       Boolean  @default(false)
+  telegramId      String
+  externalOrderId String   @unique
+  user            User     @relation(fields: [telegramId], references: [telegramId]) // Связь с пользователем (1 ко многим)
+
+  @@index([telegramId])
+  @@index([isDeleted])
 }
