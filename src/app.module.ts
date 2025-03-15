@@ -10,9 +10,13 @@ import { BasketModule } from './basket/basket.module';
 import { OfferModule } from './offer/offer.module';
 import { ColorModule } from './color/color.module';
 import { OrderModule } from './order/order.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     PrismaModule,
     UserModule,
     ProductModule,

@@ -5,16 +5,19 @@ import { OrderDto } from './dto/order.dto';
 import { plainToInstance } from 'class-transformer';
 import { convertXML } from 'simple-xml-to-json';
 import { ServerResponse } from './type/server-response';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class OrderService {
-  private readonly apiKey = '5f4cbfac0eae19.17955050';
-  private readonly getOrderUrl = 'https://api.p5s.ru/ds_get_order_data.php';
-  private readonly placeOrderUrl = 'https://api.p5s.ru/ds_order.php';
-
-  constructor(private readonly httpService: HttpService) {}
+  constructor(
+    private readonly httpService: HttpService,
+    private readonly configService: ConfigService,
+  ) {}
 
   async getOrder(orderID?: string, ExtOrderID?: string) {
+    const dsApiKey = this.configService.get<string>('DS_API_KEY');
+    const getDsOrderUrl = this.configService.get<string>('DS_GET_ORDER_DATA');
+
     if (!orderID && !ExtOrderID) {
       throw new HttpException(
         'Необходимо указать хотя бы один идентификатор заказа',
@@ -22,16 +25,14 @@ export class OrderService {
       );
     }
     const params = new URLSearchParams({
-      ApiKey: this.apiKey,
+      ApiKey: dsApiKey,
       ...(orderID && { orderID }),
       ...(ExtOrderID && { ExtOrderID }),
     });
 
     try {
-      console.log(`${this.getOrderUrl}?${params.toString()}`);
-
       const response = await firstValueFrom(
-        this.httpService.get(`${this.getOrderUrl}?${params.toString()}`),
+        this.httpService.get(`${getDsOrderUrl}?${params.toString()}`),
       );
 
       return convertXML(response.data);
@@ -45,11 +46,13 @@ export class OrderService {
 
   // TODO: готово! протестировать с разными параметрами!
   async placeOrder(orderDto: OrderDto) {
+    const dsApiKey = this.configService.get<string>('DS_API_KEY');
+    const placeDsOrderUrl = this.configService.get<string>('DS_ORDER');
     const transformedOrder = plainToInstance(OrderDto, orderDto, {
       enableImplicitConversion: true,
     });
     const params = new URLSearchParams({
-      ApiKey: String(this.apiKey),
+      ApiKey: String(dsApiKey),
       TestMode: String(transformedOrder.TestMode),
       ExtOrderID: String(transformedOrder.ExtOrderID),
       ExtOrderPaid: String(transformedOrder.ExtOrderPaid),
@@ -89,10 +92,8 @@ export class OrderService {
     params.append('order', orderDto.order);
 
     try {
-      console.log(params);
-
       const response = await firstValueFrom(
-        this.httpService.post(this.placeOrderUrl, params.toString(), {
+        this.httpService.post(placeDsOrderUrl, params.toString(), {
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         }),
       );
