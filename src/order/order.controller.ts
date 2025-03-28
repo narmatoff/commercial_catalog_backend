@@ -2,25 +2,24 @@ import {
   Body,
   Controller,
   Get,
-  HttpException,
-  HttpStatus,
   Param,
   Post,
   Query,
   UnauthorizedException,
 } from '@nestjs/common';
 import { OrderService } from './order.service';
-import { OrderDto } from './dto/order.dto';
+import { OrderBodyDto } from './dto/order-body.dto';
 import { UserService } from '../user/user.service';
-import { ServerResponse } from './type/server-response';
-import { EnumResultStatus } from './enum/order.enum';
-import { getResultStatusMessage } from './helpers/helpers';
+import { DsServerApiResponse } from './type/ds-server-api-response';
+import { BasketService } from '../basket/basket.service';
+import { checkDsOrderStatusHelper } from './helpers/check-ds-order-status.helper';
 
 @Controller('order')
 export class OrderController {
   constructor(
     private readonly orderService: OrderService,
     private readonly userService: UserService,
+    private readonly basketService: BasketService,
   ) {}
 
   @Get(':telegramId')
@@ -30,7 +29,7 @@ export class OrderController {
     // oderID - идентификатор заказа в нашей системе. Если запрашивается информация о нескольких заказах, то идентификаторы отделяются друг от друга запятой.
     @Query('orderID') orderID: string,
     @Param('telegramId') telegramId: string,
-  ): Promise<ServerResponse> {
+  ): Promise<DsServerApiResponse> {
     const user = await this.userService.user({
       telegramId: telegramId,
     });
@@ -44,9 +43,9 @@ export class OrderController {
 
   @Post(':telegramId')
   async createOrder(
-    @Body() body: OrderDto,
+    @Body() body: OrderBodyDto,
     @Param('telegramId') telegramId: string,
-  ): Promise<ServerResponse> {
+  ) {
     const user = await this.userService.user({
       telegramId: telegramId,
     });
@@ -55,20 +54,16 @@ export class OrderController {
       throw new UnauthorizedException('Пользователь не зарегистрирован');
     }
 
-    const externalOrder = await this.orderService.placeDsOrder(body);
+    const dsOrder = await this.orderService.placeDsOrder(body);
+    checkDsOrderStatusHelper(dsOrder);
 
-    const resultStatus: EnumResultStatus = Number(
-      Object.values(externalOrder.Result.children[0])[0].content,
+    const internalOrder = await this.orderService.createInternalOrder(
+      dsOrder,
+      user.telegramId,
     );
 
-    const statusMessage = getResultStatusMessage(resultStatus);
+    await this.basketService.clearBasket(user.telegramId);
 
-    if (resultStatus !== EnumResultStatus.Ok) {
-      throw new HttpException(statusMessage, HttpStatus.BAD_REQUEST);
-    }
-
-    // TODO: создать заказ в таблице Order
-
-    return externalOrder;
+    return internalOrder;
   }
 }

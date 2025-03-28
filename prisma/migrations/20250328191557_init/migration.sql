@@ -139,7 +139,7 @@ CREATE TABLE "Order" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "isDeleted" BOOLEAN NOT NULL DEFAULT false,
     "telegramId" TEXT NOT NULL,
-    "externalOrderId" TEXT NOT NULL,
+    "dsOrderId" TEXT NOT NULL,
 
     CONSTRAINT "Order_pkey" PRIMARY KEY ("id")
 );
@@ -187,7 +187,7 @@ CREATE INDEX "BasketItem_productOfferId_idx" ON "BasketItem"("productOfferId");
 CREATE INDEX "BasketItem_basketId_productOfferId_idx" ON "BasketItem"("basketId", "productOfferId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Order_externalOrderId_key" ON "Order"("externalOrderId");
+CREATE UNIQUE INDEX "Order_dsOrderId_key" ON "Order"("dsOrderId");
 
 -- CreateIndex
 CREATE INDEX "Order_telegramId_idx" ON "Order"("telegramId");

@@ -40,3 +40,18 @@ export enum EnumResultStatusMessage {
   MissingCityForRussianPost = 'В случае доставки Почтой России, название населенного пункта (dsCity) обязательно для заполнения!',
   UnknownError = 'Неизвестный статус.',
 }
+
+export enum EnumResultContentNodes {
+  ResultStatus = 'ResultStatus',
+  TimeStamp = 'timestamp',
+  OrderId = 'orderID',
+  TotalSum = 'totalSum',
+  ExtTotalSum = 'ExtTotalSum',
+  ExtDeliveryCost = 'ExtDeliveryCost',
+  ProdId = 'prodID',
+  AId = 'aID',
+  Qty = 'qty',
+  ItemCost = 'itemcost',
+  DsPrice = 'ds_price',
+  PickupDate = 'pickupDate',
+}

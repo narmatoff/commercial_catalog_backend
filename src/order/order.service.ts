@@ -1,17 +1,22 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
-import { OrderDto } from './dto/order.dto';
+import { OrderBodyDto } from './dto/order-body.dto';
 import { plainToInstance } from 'class-transformer';
 import { convertXML } from 'simple-xml-to-json';
-import { ServerResponse } from './type/server-response';
+import { DsServerApiResponse } from './type/ds-server-api-response';
 import { ConfigService } from '@nestjs/config';
+import { PrismaService } from '../prisma/prisma.service';
+import { EnumResultContentNodes } from './enum/order.enum';
+import { Order } from '@prisma/client';
+import { getResultNodeContent } from './helpers/get-result-node-content.helper';
 
 @Injectable()
 export class OrderService {
   constructor(
     private readonly httpService: HttpService,
     private readonly configService: ConfigService,
+    private readonly prismaService: PrismaService,
   ) {}
 
   async getDsOrder(orderID?: string, ExtOrderID?: string) {
@@ -45,10 +50,10 @@ export class OrderService {
   }
 
   // TODO: готово! протестировать с разными параметрами!
-  async placeDsOrder(orderDto: OrderDto) {
+  async placeDsOrder(orderDto: OrderBodyDto) {
     const dsApiKey = this.configService.get<string>('DS_API_KEY');
     const placeDsOrderUrl = this.configService.get<string>('DS_ORDER');
-    const transformedOrder = plainToInstance(OrderDto, orderDto, {
+    const transformedOrder = plainToInstance(OrderBodyDto, orderDto, {
       enableImplicitConversion: true,
     });
     const params = new URLSearchParams({
@@ -98,7 +103,7 @@ export class OrderService {
         }),
       );
 
-      const jsonAnswer: ServerResponse = convertXML(response.data);
+      const jsonAnswer: DsServerApiResponse = convertXML(response.data);
 
       return jsonAnswer;
     } catch (error) {
@@ -107,5 +112,36 @@ export class OrderService {
         HttpStatus.BAD_REQUEST,
       );
     }
+  }
+
+  async createInternalOrder(
+    dsOrder: DsServerApiResponse,
+    telegramId: string,
+  ): Promise<Order> {
+    const orderId = getResultNodeContent(
+      dsOrder.Result.children[2],
+      EnumResultContentNodes.OrderId,
+    );
+
+    let internalOrder: Order;
+
+    try {
+      const order = {
+        data: {
+          dsOrderId: orderId,
+          telegramId: telegramId,
+        },
+      };
+
+      // 1. Создаем внутреннюю запись
+      internalOrder = await this.prismaService.order.create(order);
+    } catch (error) {
+      throw new HttpException(
+        `Ошибка: ${error.meta.target}`,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    return internalOrder;
   }
 }

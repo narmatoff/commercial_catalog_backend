@@ -19,7 +19,7 @@ import {
   EnumPackType,
 } from '../model/enum';
 
-export class OrderDto {
+export class OrderBodyDto {
   @IsNotEmpty()
   @IsBoolean()
   TestMode: boolean;
