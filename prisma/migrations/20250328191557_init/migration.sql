@@ -132,6 +132,18 @@ CREATE TABLE "BasketItem" (
     CONSTRAINT "BasketItem_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "Order" (
+    "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "isDeleted" BOOLEAN NOT NULL DEFAULT false,
+    "telegramId" TEXT NOT NULL,
+    "dsOrderId" TEXT NOT NULL,
+
+    CONSTRAINT "Order_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_telegramId_key" ON "User"("telegramId");
 
@@ -171,6 +183,18 @@ CREATE INDEX "BasketItem_productId_idx" ON "BasketItem"("productId");
 -- CreateIndex
 CREATE INDEX "BasketItem_productOfferId_idx" ON "BasketItem"("productOfferId");
 
+-- CreateIndex
+CREATE INDEX "BasketItem_basketId_productOfferId_idx" ON "BasketItem"("basketId", "productOfferId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Order_dsOrderId_key" ON "Order"("dsOrderId");
+
+-- CreateIndex
+CREATE INDEX "Order_telegramId_idx" ON "Order"("telegramId");
+
+-- CreateIndex
+CREATE INDEX "Order_isDeleted_idx" ON "Order"("isDeleted");
+
 -- AddForeignKey
 ALTER TABLE "Product" ADD CONSTRAINT "Product_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Catalog"("categoryId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
@@ -191,3 +215,6 @@ ALTER TABLE "BasketItem" ADD CONSTRAINT "BasketItem_productId_fkey" FOREIGN KEY 
 
 -- AddForeignKey
 ALTER TABLE "BasketItem" ADD CONSTRAINT "BasketItem_productOfferId_fkey" FOREIGN KEY ("productOfferId") REFERENCES "ProductOffer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Order" ADD CONSTRAINT "Order_telegramId_fkey" FOREIGN KEY ("telegramId") REFERENCES "User"("telegramId") ON DELETE RESTRICT ON UPDATE CASCADE;
