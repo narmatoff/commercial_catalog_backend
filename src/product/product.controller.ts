@@ -26,7 +26,7 @@ export class ProductController {
     @Body() body: CreateProductDto,
     @Param('telegramId') telegramId: string,
   ): Promise<ProductModel> {
-    const user = await this.userService.user({
+    const user = await this.userService.getUser({
       telegramId: telegramId,
     });
 
@@ -42,7 +42,7 @@ export class ProductController {
     @Param('id') id: string,
     @Param('telegramId') telegramId: string,
   ): Promise<ProductModule> {
-    const user = await this.userService.user({
+    const user = await this.userService.getUser({
       telegramId: telegramId,
     });
 
@@ -64,7 +64,7 @@ export class ProductController {
   async getIsNewProducts(
     @Param('telegramId') telegramId: string,
   ): Promise<ProductModel[]> {
-    const user = await this.userService.user({
+    const user = await this.userService.getUser({
       telegramId: telegramId,
     });
 
@@ -82,7 +82,7 @@ export class ProductController {
     @Param('searchString') searchString: string,
     @Param('telegramId') telegramId: string,
   ): Promise<ProductModel[]> {
-    const user = await this.userService.user({
+    const user = await this.userService.getUser({
       telegramId: telegramId,
     });
 
@@ -121,7 +121,7 @@ export class ProductController {
     @Param('categoryNumber') categoryNumber: number,
     @Param('telegramId') telegramId: string,
   ): Promise<ProductModel[]> {
-    const user = await this.userService.user({
+    const user = await this.userService.getUser({
       telegramId: telegramId,
     });
 
@@ -141,7 +141,7 @@ export class ProductController {
     @Param('id') id: string,
     @Param('telegramId') telegramId: string,
   ): Promise<ProductModel> {
-    const user = await this.userService.user({
+    const user = await this.userService.getUser({
       telegramId: telegramId,
     });
 

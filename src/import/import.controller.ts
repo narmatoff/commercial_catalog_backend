@@ -20,7 +20,7 @@ export class ImportController {
     @Query('url') url: string,
     @Param('telegramId') telegramId: string,
   ): Promise<{ message: string }> {
-    const user = await this.userService.user({
+    const user = await this.userService.getUser({
       telegramId: telegramId,
     });
 
@@ -38,7 +38,7 @@ export class ImportController {
     @Query('url') url: string,
     @Param('telegramId') telegramId: string,
   ): Promise<{ message: string }> {
-    const user = await this.userService.user({
+    const user = await this.userService.getUser({
       telegramId: telegramId,
     });
 
@@ -55,7 +55,7 @@ export class ImportController {
     @Query('url') url: string,
     @Param('telegramId') telegramId: string,
   ): Promise<{ message: string }> {
-    const user = await this.userService.user({
+    const user = await this.userService.getUser({
       telegramId: telegramId,
     });
 
@@ -73,7 +73,7 @@ export class ImportController {
     @Query('url') url: string,
     @Param('telegramId') telegramId: string,
   ): Promise<{ message: string }> {
-    const user = await this.userService.user({
+    const user = await this.userService.getUser({
       telegramId: telegramId,
     });
 

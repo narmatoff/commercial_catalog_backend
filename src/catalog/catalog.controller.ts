@@ -20,7 +20,7 @@ export class CatalogController {
   async getCategoryList(
     @Param('telegramId') telegramId: string,
   ): Promise<CatalogModule> {
-    const user = await this.userService.user({
+    const user = await this.userService.getUser({
       telegramId: telegramId,
     });
 
