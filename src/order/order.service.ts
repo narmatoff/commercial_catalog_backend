@@ -19,7 +19,7 @@ export class OrderService {
     private readonly prismaService: PrismaService,
   ) {}
 
-  async getDsOrder(orderID?: string, ExtOrderID?: string) {
+  async getExternalOrder(orderID?: string, ExtOrderID?: string) {
     const dsApiKey = this.configService.get<string>('DS_API_KEY');
     const getDsOrderUrl = this.configService.get<string>('DS_GET_ORDER_DATA');
 
@@ -47,6 +47,14 @@ export class OrderService {
         HttpStatus.BAD_REQUEST,
       );
     }
+  }
+
+  async getInternalOrder(orderId: string): Promise<Order> {
+    return this.prismaService.order.findUnique({
+      where: {
+        dsOrderId: orderId,
+      },
+    });
   }
 
   // TODO: готово! протестировать с разными параметрами!

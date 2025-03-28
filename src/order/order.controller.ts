@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  NotFoundException,
   Param,
   Post,
   Query,
@@ -13,6 +14,7 @@ import { UserService } from '../user/user.service';
 import { DsServerApiResponse } from './type/ds-server-api-response';
 import { BasketService } from '../basket/basket.service';
 import { checkDsOrderStatusHelper } from './helpers/check-ds-order-status.helper';
+import { User } from '@prisma/client';
 
 @Controller('order')
 export class OrderController {
@@ -23,22 +25,28 @@ export class OrderController {
   ) {}
 
   @Get(':telegramId')
-  async getOrder(
+  async getExternalOrder(
     // ExtOrderID и/или orderID - в запросе должен быть, как минимум, один из этих параметров.
     // ExtOrderID - идентификатор заказа в Вашем интернет-магазине. Если запрашивается информация о нескольких заказах, то идентификаторы отделяются друг от друга запятой.
     // oderID - идентификатор заказа в нашей системе. Если запрашивается информация о нескольких заказах, то идентификаторы отделяются друг от друга запятой.
     @Query('orderID') orderID: string,
     @Param('telegramId') telegramId: string,
   ): Promise<DsServerApiResponse> {
-    const user = await this.userService.user({
+    // проверяем пользователя
+    const user: User = await this.userService.getUser({
       telegramId: telegramId,
     });
-
     if (!user) {
       throw new UnauthorizedException('Пользователь не зарегистрирован');
     }
 
-    return this.orderService.getDsOrder(orderID);
+    // проверяем наличие локального заказа
+    const order = await this.orderService.getInternalOrder(orderID);
+    if (!order) {
+      throw new NotFoundException('Заказ не зарегистрирован');
+    }
+
+    return this.orderService.getExternalOrder(orderID);
   }
 
   @Post(':telegramId')
@@ -46,7 +54,7 @@ export class OrderController {
     @Body() body: OrderBodyDto,
     @Param('telegramId') telegramId: string,
   ) {
-    const user = await this.userService.user({
+    const user = await this.userService.getUser({
       telegramId: telegramId,
     });
 

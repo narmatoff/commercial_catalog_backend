@@ -6,7 +6,7 @@ import {
   NotFoundException,
   Post,
 } from '@nestjs/common';
-import { User as UserModel } from '@prisma/client';
+import { User } from '@prisma/client';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { GetUserDto } from './dto/get-user.dto';
@@ -20,32 +20,25 @@ export class UserController {
   ) {}
 
   @Post()
-  async createUser(@Body() body: CreateUserDto): Promise<UserModel> {
+  async createUser(@Body() body: CreateUserDto): Promise<User> {
     return this.userService.createUser(body);
   }
 
   @Post('update')
-  async updateUser(@Body() body: UpdateUserDto): Promise<UserModel> {
-    // console.log(typeof body.telegramId);
-    // body.telegramId = body.telegramId;
-    // console.log(typeof body.telegramId);
-
+  async updateUser(@Body() body: UpdateUserDto): Promise<User> {
     return this.userService.createUser(body);
   }
 
   @Get()
-  async getUser(@Body() data: GetUserDto): Promise<UserModel> {
-    console.log('data.telegramId: ', data.telegramId);
-
-    const user = await this.userService.user({
-      telegramId: data.telegramId,
+  async getUser(@Body() body: GetUserDto): Promise<User> {
+    const user: User = await this.userService.getUser({
+      telegramId: body.telegramId,
     });
+
     if (!user) {
       throw new NotFoundException('Not found');
     }
 
-    return this.userService.user({
-      telegramId: data.telegramId,
-    });
+    return user;
   }
 }
