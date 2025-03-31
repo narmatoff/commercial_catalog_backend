@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Inject,
-  NotFoundException,
-  Param,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -31,14 +23,8 @@ export class UserController {
 
   @Get(':telegramId')
   async getUser(@Param('telegramId') telegramId: string): Promise<User> {
-    const user: User = await this.userService.getUser({
+    return this.userService.getUser({
       telegramId: telegramId,
     });
-
-    if (!user) {
-      throw new NotFoundException('Not found');
-    }
-
-    return user;
   }
 }
