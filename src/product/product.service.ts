@@ -116,6 +116,7 @@ export class ProductService {
           }
 
           console.info('finish import products');
+
           resolve();
         })
         .on('error', (error) => reject(error));
