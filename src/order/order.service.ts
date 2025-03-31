@@ -58,7 +58,7 @@ export class OrderService {
   }
 
   // TODO: готово! протестировать с разными параметрами!
-  async placeDsOrder(orderDto: OrderBodyDto) {
+  async placeExternalOrder(orderDto: OrderBodyDto) {
     const dsApiKey = this.configService.get<string>('DS_API_KEY');
     const placeDsOrderUrl = this.configService.get<string>('DS_ORDER');
     const transformedOrder = plainToInstance(OrderBodyDto, orderDto, {
