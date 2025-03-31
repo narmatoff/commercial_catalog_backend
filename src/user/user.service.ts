@@ -1,5 +1,5 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { User as UserModel, Prisma, User } from '@prisma/client';
+import { Injectable } from '@nestjs/common';
+import { User, Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
@@ -8,7 +8,7 @@ export class UserService {
 
   async getUser(
     userWhereUniqueInput: Prisma.UserWhereUniqueInput,
-  ): Promise<UserModel | null> {
+  ): Promise<User | null> {
     try {
       return await this.prisma.user.findUnique({
         where: { telegramId: String(userWhereUniqueInput.telegramId) },
@@ -20,31 +20,23 @@ export class UserService {
     }
   }
 
-  async createUser(data: Prisma.UserCreateInput): Promise<UserModel> {
-    let user: User;
-    try {
-      user = await this.prisma.user.upsert({
-        where: { telegramId: data.telegramId },
-        create: data,
-        update: data,
-      });
+  async createUser(data: Prisma.UserCreateInput): Promise<User> {
+    const user = await this.prisma.user.upsert({
+      where: { telegramId: data.telegramId },
+      create: data,
+      update: data,
+    });
 
-      const basket = await this.prisma.basket.findUnique({
+    const basket = await this.prisma.basket.findUnique({
+      where: { telegramId: user.telegramId },
+    });
+
+    if (!basket) {
+      await this.prisma.basket.upsert({
         where: { telegramId: user.telegramId },
+        update: {},
+        create: { user: { connect: { telegramId: user.telegramId } } },
       });
-
-      if (!basket) {
-        await this.prisma.basket.upsert({
-          where: { telegramId: user.telegramId },
-          update: {},
-          create: { user: { connect: { telegramId: user.telegramId } } },
-        });
-      }
-    } catch (error) {
-      throw new HttpException(
-        `Ошибка: ${error.meta.target}`,
-        HttpStatus.BAD_REQUEST,
-      );
     }
 
     return user;
