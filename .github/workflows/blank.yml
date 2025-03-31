@@ -160,6 +160,10 @@ jobs:
             -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
             -e DS_API_KEY=${{ secrets.DS_API_KEY }} \
             -e DS_GET_ORDER_DATA=${{ secrets.DS_GET_ORDER_DATA }} \
+            -e IMPORT_CATALOG_URL=${{ secrets.IMPORT_CATALOG_URL }} \
+            -e IMPORT_COLORS_URL=${{ secrets.IMPORT_COLORS_URL }} \
+            -e IMPORT_PRODUCTS_URL=${{ secrets.IMPORT_PRODUCTS_URL }} \
+            -e IMPORT_OFFERS_URL=${{ secrets.IMPORT_OFFERS_URL }} \
             -e DS_ORDER=${{ secrets.DS_ORDER }} \
             catalog_bot_api
 

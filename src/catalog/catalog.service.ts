@@ -50,6 +50,7 @@ export class CatalogService {
           }
 
           console.info('finish import catalog');
+
           resolve();
         })
         .on('error', (error) => reject(error));

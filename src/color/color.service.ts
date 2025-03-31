@@ -54,6 +54,7 @@ export class ColorService {
           }
 
           console.info('finish import colors ');
+
           resolve();
         })
         .on('error', (error) => reject(error));
