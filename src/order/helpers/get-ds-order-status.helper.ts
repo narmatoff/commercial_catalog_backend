@@ -4,7 +4,7 @@ import { getResultStatusMessage } from './get-result-status-message.helper';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { DsServerApiResponse } from '../type/ds-server-api-response';
 
-export const checkDsOrderStatusHelper = (order: DsServerApiResponse) => {
+export const getDsOrderStatusHelper = (order: DsServerApiResponse) => {
   const resultStatus: EnumResultStatus = Number(
     getResultNodeContent(
       order.Result.children[0],

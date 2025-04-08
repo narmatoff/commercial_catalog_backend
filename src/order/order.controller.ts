@@ -14,7 +14,7 @@ import { OrderBodyDto } from './dto/order-body.dto';
 import { UserService } from '../user/user.service';
 import { DsServerApiResponse } from './type/ds-server-api-response';
 import { BasketService } from '../basket/basket.service';
-import { checkDsOrderStatusHelper } from './helpers/check-ds-order-status.helper';
+import { getDsOrderStatusHelper } from './helpers/get-ds-order-status.helper';
 
 @Controller('order')
 export class OrderController {
@@ -38,7 +38,7 @@ export class OrderController {
     }
 
     const externalOrder = await this.orderService.placeExternalOrder(body);
-    checkDsOrderStatusHelper(externalOrder);
+    getDsOrderStatusHelper(externalOrder);
 
     const internalOrder = await this.orderService.createInternalOrder(
       externalOrder,
