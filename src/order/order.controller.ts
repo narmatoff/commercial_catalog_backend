@@ -74,4 +74,17 @@ export class OrderController {
 
     return this.orderService.getExternalOrder(orderID);
   }
+
+  @Get('list/:telegramId')
+  async getOrderList(@Param('telegramId') telegramId: string) {
+    const user: User = await this.userService.getUser({
+      telegramId: telegramId,
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('Пользователь не зарегистрирован');
+    }
+
+    return this.orderService.getOrderListByUser(telegramId);
+  }
 }

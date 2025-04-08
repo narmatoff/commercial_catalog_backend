@@ -152,4 +152,11 @@ export class OrderService {
 
     return internalOrder;
   }
+
+  async getOrderListByUser(telegramId: string) {
+    return this.prismaService.order.findMany({
+      where: { telegramId: telegramId },
+      orderBy: { createdAt: 'desc' },
+    });
+  }
 }
