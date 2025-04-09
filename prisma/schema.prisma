@@ -155,14 +155,14 @@ model BasketItem {
 }
 
 model Order {
-  id         Int      @id @default(autoincrement())
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  isDeleted  Boolean  @default(false)
+  id         Int       @id @default(autoincrement())
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime? // null = не удалено, не null = удалено
   telegramId String
-  dsOrderId  String   @unique
-  user       User     @relation(fields: [telegramId], references: [telegramId]) // Связь с пользователем (1 ко многим)
+  dsOrderId  String    @unique
+  user       User      @relation(fields: [telegramId], references: [telegramId]) // Связь с пользователем (1 ко многим)
 
   @@index([telegramId])
-  @@index([isDeleted])
+  @@index([deletedAt])
 }

@@ -137,7 +137,7 @@ CREATE TABLE "Order" (
     "id" SERIAL NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "isDeleted" BOOLEAN NOT NULL DEFAULT false,
+    "deletedAt" TIMESTAMP(3),
     "telegramId" TEXT NOT NULL,
     "dsOrderId" TEXT NOT NULL,
 
@@ -193,7 +193,7 @@ CREATE UNIQUE INDEX "Order_dsOrderId_key" ON "Order"("dsOrderId");
 CREATE INDEX "Order_telegramId_idx" ON "Order"("telegramId");
 
 -- CreateIndex
-CREATE INDEX "Order_isDeleted_idx" ON "Order"("isDeleted");
+CREATE INDEX "Order_deletedAt_idx" ON "Order"("deletedAt");
 
 -- AddForeignKey
 ALTER TABLE "Product" ADD CONSTRAINT "Product_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Catalog"("categoryId") ON DELETE RESTRICT ON UPDATE CASCADE;

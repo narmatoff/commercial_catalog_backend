@@ -25,7 +25,7 @@ export class OrderController {
   ) {}
 
   @Post(':telegramId')
-  async createOrder(
+  async createExternalAndInternalOrderAndResetBasket(
     @Body() body: OrderBodyDto,
     @Param('telegramId') telegramId: string,
   ) {
