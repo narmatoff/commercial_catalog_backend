@@ -9,9 +9,6 @@ export class CreateUserDto {
   @IsNotEmpty()
   isAdult: boolean;
 
-  // TODO: вернуть после ресерча (валидация в тлг)
-  // @IsEmail()
-  // @IsNotEmpty()
   @IsString()
   @IsOptional()
   email: string;
@@ -20,9 +17,6 @@ export class CreateUserDto {
   @IsOptional()
   fio: string;
 
-  // TODO: вернуть после ресерча (валидация в тлг)
-  // @IsPhoneNumber()
-  // @IsNotEmpty()
   @IsString()
   @IsOptional()
   phone: string;

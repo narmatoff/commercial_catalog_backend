@@ -18,8 +18,8 @@
     "lint": "eslint \"{src,apps,libs}/**/*.ts\" --fix",
     "prisma reset": "npx prisma migrate reset",
     "prisma generate": "npx prisma generate",
+    "prisma migrate": "npx prisma migrate",
     "prisma migrate deploy": "npx prisma migrate deploy",
-    "prisma migrate": "npx prisma migrate dev --name init",
     "prisma dev db push": "npx prisma db push --force-reset"
   },
   "dependencies": {
